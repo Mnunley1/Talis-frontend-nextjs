@@ -1,0 +1,87 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+.ais-GeoSearch-map {
+  border-radius: 15px;
+}
+.mapboxgl-ctrl-attrib-inner {
+  display: none;
+}
+
+// .leaflet-container {
+//   position: absolute;
+//   height: 100%;
+//   border-radius: 15px;
+// }
+
+.sidebar-style {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  background-color: #404040;
+  color: #ffffff;
+  z-index: 1 !important;
+  padding: 6px;
+  font-weight: bold;
+}
+
+.mapboxgl-canvas {
+  border-radius: 15px;
+  height: 100%;
+}
+
+.ais-Pagination-item--selected .ais-Pagination-link {
+  color: #fff;
+  background-color: #00a3b0;
+  border-color: #00a3b0;
+}
+
+.ais-Pagination-link {
+  color: #00a3b0;
+}
+
+a.MuiLink-root {
+  text-decoration: none;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+a.MuiButton-root {
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+button:focus {
+  outline: none;
+}
+
+.image-gallery-slide .image-gallery-image {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* .map-root {
+  height: 100%;
+}
+.leaflet-container {
+  height: 400px !important;
+  width: 80%;
+  margin: 0 auto;
+} */
