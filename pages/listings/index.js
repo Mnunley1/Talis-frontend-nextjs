@@ -9,12 +9,11 @@ import { withInstantSearch } from 'next-instantsearch';
 import Header from '../../components/Header/Header';
 import { CustomHits } from '../../components/CustomHits/CustomHits';
 //import ListingsFooter from '../../components/ListingsFooter/ListingsFooter';
-//import { CustomGeoSearch } from '../../components/CustomGeoSearch/CustomGeoSearch';
 import { CustomSearchBox } from '../../components/CustomSearchBox/CustomSearchBox';
 import { PriceNumericMenu } from '../../components/PriceNumericMenu/PriceNumericMenu';
 import { BedsNumericMenu } from '../../components/BedsNumericMenu/BedsNumericMenu';
 import { CustomRefinementList } from '../../components/CustomRefinementList/CustomRefinementList';
-import 'instantsearch.css/themes/algolia.css';
+//import 'instantsearch.css/themes/algolia.css';
 
 const Map = dynamic(
   () =>
