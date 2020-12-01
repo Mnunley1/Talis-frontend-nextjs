@@ -1,105 +1,64 @@
-import React, { Transformation } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import Button from "@material-ui/core/Button";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import PlacardGallery from "../PlacardGallery/PlacardGallery";
-import Link from "@material-ui/core/Link";
-import EmailIcon from "@material-ui/icons/Email";
-import PhoneIcon from "@material-ui/icons/Phone";
-import Typography from "@material-ui/core/Typography";
-import { connectHits } from "react-instantsearch-dom";
-import { CardMedia } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  listingCard: {
-    maxWidth: "100%",
-    borderRadius: "15px",
-    marginBottom: theme.spacing(2),
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    border: "2px solid rgba(151,151,151,.2)",
-    boxShadow: "0 2px 3px 0 rgba(0,0,0,.05)",
-    "&:hover": {
-      border: "2px solid #00A3B0",
-      boxShadow: "0 3px 10px 0 rgba(0,0,0,.25)",
-      transition: "border ease-in .1s",
-    },
-  },
-  cardHeader: {
-    backgroundColor: theme.palette.primary.main,
-    textDecoration: "none",
-    padding: theme.spacing(1),
-  },
-  details: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  content: {
-    flex: "1 0 auto",
-    padding: theme.spacing(1),
-  },
-  cardContent: {
-    display: "flex",
-  },
-  media: {
-    height: 220,
-  },
-  button: {
-    width: "100%",
-  },
-  buttonPadding: {
-    padding: theme.spacing(1),
-  },
-}));
+import React, { Transformation } from 'react';
+import { connectHits } from 'react-instantsearch-dom';
+import { Badge, Box, Image } from '@chakra-ui/react';
 
 function Hits({ hits }) {
-  const classes = useStyles();
-
   return (
     <ol>
       {hits.map((hit) => (
-        <Card className={classes.listingCard}>
-          <CardMedia className={classes.media} image={hit.photo_main} />
-          {/*  <PlacardGallery  listing={hit.objectID} />
-          </CardMedia> */}
-          <CardContent className={classes.content}>
-            <Link
-              className={classes.hover}
-              color="textPrimary"
-              href={`/listings/${hit.objectID}`}
+        <Box
+          maxW="sm"
+          borderWidth="2px"
+          borderRadius="lg"
+          overflow="hidden"
+          boxShadow="base"
+          marginBottom={5}
+          _hover={{
+            border: '2px solid #00A3B0',
+            boxShadow: '0 3px 10px 0 rgba(0,0,0,.25)',
+            transition: 'border ease-in .1s',
+          }}
+        >
+          <Image src={hit.photo_main} alt={hit.photo_main} />
+
+          <Box p="6">
+            <Box d="flex" alignItems="baseline">
+              <Badge borderRadius="full" px="2" colorScheme="teal">
+                New
+              </Badge>
+              <Box
+                color="gray.500"
+                fontWeight="semibold"
+                letterSpacing="wide"
+                fontSize="xs"
+                textTransform="uppercase"
+                ml="2"
+              >
+                {hit.bedrooms_max} beds &bull; {hit.bathrooms_max} baths
+              </Box>
+            </Box>
+
+            <Box
+              mt="1"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+              color="black"
+              isTruncated
             >
-              <Typography variant="h5">{hit.title}</Typography>
-              <Typography variant="subtitle1">{hit.property_address}</Typography>
-              <Typography variant="subtitle1">Available Now</Typography>
-              <Typography variant="subtitle1">
-                ${hit.price_min} - ${hit.price_max}
-              </Typography>
-              <Typography variant="subtitle1">
-                {hit.bedrooms_min} - {hit.bedrooms_max} Bedrooms
-              </Typography>
-            </Link>
-          </CardContent>
-          <CardActions>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              startIcon={<PhoneIcon />}
-            >
-              Call
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              startIcon={<EmailIcon />}
-            >
-              Email
-            </Button>
-          </CardActions>
-        </Card>
+              {hit.title}
+            </Box>
+
+            <Box>
+              {hit.price_max}
+              <Box as="span" color="gray.600" fontSize="sm">
+                / wk
+              </Box>
+            </Box>
+
+            <Box d="flex" mt="2" alignItems="center"></Box>
+          </Box>
+        </Box>
       ))}
     </ol>
   );

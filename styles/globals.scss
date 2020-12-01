@@ -12,6 +12,7 @@ body {
 
 .ais-GeoSearch-map {
   border-radius: 15px;
+  z-index: 1;
 }
 .mapboxgl-ctrl-attrib-inner {
   display: none;
@@ -75,10 +76,19 @@ button:focus {
   width: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius: 25px;
+}
+
+.image-gallery-index {
+  border-top-right-radius: 25px;
 }
 
 .leaflet-container {
   height: 100%;
   width: 100%;
   margin: 0 auto;
+}
+
+div.css-r6z5ec {
+  z-index: 8000;
 }

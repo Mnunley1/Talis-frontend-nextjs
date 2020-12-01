@@ -1,25 +1,17 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
+import React from 'react';
+import { Box, Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
+import { FaSearch } from 'react-icons/fa';
 
-import { connectSearchBox } from "react-instantsearch-dom";
+import { connectSearchBox } from 'react-instantsearch-dom';
 
 function SearchBox({ currentRefinement, isSearchStalled, refine }) {
   return (
-    <Grid item md={4}>
-      <FormControl variant="outlined" size="small" fullWidth>
-        <InputLabel htmlFor="component-outlined">Search</InputLabel>
-        <OutlinedInput
-          id="component-outlined"
-          label="Search"
-          type="search"
-          value={currentRefinement}
-          onChange={(event) => refine(event.currentTarget.value)}
-        />
-      </FormControl>
-    </Grid>
+    <Box width="30%">
+      <InputGroup size="md">
+        <Input variant="filled" borderRadius="5px" placeholder="Search" />
+        <InputRightAddon border="0" children={<FaSearch color="black" />} />
+      </InputGroup>
+    </Box>
   );
 }
 
