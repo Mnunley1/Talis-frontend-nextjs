@@ -9,9 +9,12 @@ import {
   Box,
   Button,
   Container,
+  Flex,
+  Heading,
   Image,
   Text,
   SimpleGrid,
+  Spacer,
   VStack,
   Center,
 } from '@chakra-ui/react';
@@ -79,9 +82,11 @@ export default function HomeView() {
             <Box>
               <Image src={aboutImg1} height="auto" width="100%" />
             </Box>
-            <Box height="auto" width="100%">
-              <Text fontSize="2xl">Talis</Text>
-              <Text>
+            <Box height="auto" width="100%" p={0}>
+              <Heading as="h5" size="lg">
+                Talis
+              </Heading>
+              <Text fontWeight="300">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 vestibulum dolor massa. Etiam scelerisque luctus nisl ut
                 dignissim. Donec elementum, urna sit amet ullamcorper viverra,
@@ -98,13 +103,13 @@ export default function HomeView() {
       </Box>
 
       <Box as="section" paddingY="60px">
-        <Container maxW="md" centerContent>
-          <Text fontSize="3xl" mb={5}>
+        <Container maxW="lg" centerContent>
+          <Heading as="h5" size="lg">
             Talis Leadership
-          </Text>
-          <SimpleGrid columns={3} spacing={10}>
+          </Heading>
+          <Flex justify="space-between" flexWrap>
             <Box
-              maxW="sm"
+              maxW="25%"
               borderWidth="1px"
               borderColor="lightgray.100"
               borderRadius="lg"
@@ -125,8 +130,9 @@ export default function HomeView() {
                 </Box>
               </Box>
             </Box>
+            <Spacer />
             <Box
-              maxW="sm"
+              maxW="25%"
               borderWidth="1px"
               borderColor="lightgray.100"
               borderRadius="lg"
@@ -147,8 +153,9 @@ export default function HomeView() {
                 </Box>
               </Box>
             </Box>
+            <Spacer />
             <Box
-              maxW="sm"
+              maxW="25%"
               borderWidth="1px"
               borderColor="lightgray.100"
               borderRadius="lg"
@@ -169,7 +176,7 @@ export default function HomeView() {
                 </Box>
               </Box>
             </Box>
-          </SimpleGrid>
+          </Flex>
         </Container>
       </Box>
 
@@ -180,8 +187,10 @@ export default function HomeView() {
               <Map />
             </Box>
             <Box height="auto" width="100%">
-              <Text fontSize="2xl">Talis Office</Text>
-              <Text>
+              <Heading as="h5" size="lg">
+                Talis Office
+              </Heading>
+              <Text fontWeight="300">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 vestibulum dolor massa. Etiam scelerisque luctus nisl ut
                 dignissim. Donec elementum, urna sit amet ullamcorper viverra,
@@ -196,6 +205,7 @@ export default function HomeView() {
           </SimpleGrid>
         </Container>
       </Box>
+      <Footer />
     </div>
   );
 }

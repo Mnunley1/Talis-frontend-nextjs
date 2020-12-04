@@ -1,6 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Modal from 'react-modal';
-import { Link as NextLink } from 'next/link';
+import { useRouter } from 'next/router';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   Box,
   Button,
@@ -28,7 +29,22 @@ import TalisMenuLogo from '../../public/images/talis-marker.svg';
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { currentUser, logout } = useAuth();
+  const [error, setError] = useState('');
   const btnRef = useRef();
+  const router = useRouter();
+
+  function handleLogout() {
+    setError('');
+
+    try {
+      logout();
+      router.push('/');
+      router.reload();
+    } catch {
+      setError('Failed to logout');
+    }
+  }
 
   return (
     <Flex
@@ -70,11 +86,7 @@ const Navbar = () => {
             </DrawerHeader>
 
             <DrawerBody>
-              <VStack
-                //divider={<StackDivider borderColor="gray.200" />}
-                spacing={3}
-                align="stretch"
-              >
+              <VStack spacing={3} align="flex-start">
                 <Box as="a" href="/">
                   <Button variant="ghost" colorScheme="teal" isFullWidth>
                     <Text fontSize="lg">Home</Text>
@@ -92,21 +104,38 @@ const Navbar = () => {
                 </Box>
               </VStack>
               <Divider marginY={4} />
-              <VStack
-                //divider={<StackDivider borderColor="gray.200" />}
-                spacing={3}
-                align="stretch"
-              >
-                <Box as="a" href="/account/login">
-                  <Button variant="ghost" colorScheme="teal" isFullWidth>
-                    <Text fontSize="lg">Log In</Text>
-                  </Button>
-                </Box>
-                <Box as="a" href="/account/signup">
-                  <Button variant="ghost" colorScheme="teal" isFullWidth>
-                    <Text fontSize="lg">Sign Up</Text>
-                  </Button>
-                </Box>
+              <VStack spacing={3} align="flex-start">
+                {currentUser ? (
+                  <>
+                    <Box as="a" href="/mytalis/profile">
+                      <Button variant="ghost" colorScheme="teal" isFullWidth>
+                        <Text fontSize="lg">MyTalis</Text>
+                      </Button>
+                    </Box>
+                    <Box
+                      as="button"
+                      variant="ghost"
+                      colorScheme="teal"
+                      isFullWidth
+                      onClick={handleLogout}
+                    >
+                      <Text fontSize="lg">Log Out</Text>
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    <Box as="a" href="/account/login">
+                      <Button variant="ghost" colorScheme="teal" isFullWidth>
+                        <Text fontSize="lg">Log In</Text>
+                      </Button>
+                    </Box>
+                    <Box as="a" href="/account/signup">
+                      <Button variant="ghost" colorScheme="teal" isFullWidth>
+                        <Text fontSize="lg">Sign Up</Text>
+                      </Button>
+                    </Box>
+                  </>
+                )}
               </VStack>
             </DrawerBody>
             <DrawerFooter>

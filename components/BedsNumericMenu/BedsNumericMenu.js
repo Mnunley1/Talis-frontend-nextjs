@@ -25,7 +25,14 @@ function NumericMenu({ items, refine, createURL }) {
 
   return (
     <Menu closeOnSelect={false}>
-      <MenuButton ml={2} as={Button} color="black" rightIcon={<FaAngleDown />}>
+      <MenuButton
+        ml={2}
+        as={Button}
+        variant="outline"
+        color="teal.500"
+        borderColor="teal.500"
+        rightIcon={<FaAngleDown />}
+      >
         Max Beds
       </MenuButton>
       <MenuList

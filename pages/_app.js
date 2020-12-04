@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { AuthProvider } from '../contexts/AuthContext';
 import 'instantsearch.css/themes/algolia.css';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import 'react-image-gallery/styles/scss/image-gallery.scss';
 import '../styles/globals.scss';
 
@@ -16,7 +16,8 @@ export default function MyApp({ Component, pageProps }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ChakraProvider resetCSS>
+      <ChakraProvider>
+        <CSSReset />
         <AuthProvider>
           <Component {...pageProps} />
         </AuthProvider>

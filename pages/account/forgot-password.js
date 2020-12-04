@@ -1,82 +1,80 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../../contexts/AuthContext';
 import {
-  FacebookLoginButton,
-  GoogleLoginButton,
-} from 'react-social-login-buttons';
-import {
+  Alert,
+  AlertIcon,
+  AlertDescription,
   Box,
   Button,
   CircularProgress,
-  Container,
   Divider,
-  Drawer,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  DrawerOverlay,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
-  IconButton,
   Input,
   Link,
-  //Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Spacer,
-  StackDivider,
   Text,
-  useDisclosure,
-  VStack,
 } from '@chakra-ui/react';
 
+const AlertMessage = ({ message }) => {
+  return (
+    <Alert
+      status="success"
+      variant="solid"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+      borderRadius={8}
+      mb={3}
+    >
+      <AlertIcon />
+      <AlertDescription>
+        {message}
+        {error}
+      </AlertDescription>
+    </Alert>
+  );
+};
+
+const ErrorMessage = ({ message }) => {
+  return (
+    <Alert
+      status="error"
+      variant="solid"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+      borderRadius={8}
+      mb={3}
+    >
+      <AlertIcon />
+      <AlertDescription>{message}</AlertDescription>
+    </Alert>
+  );
+};
+
 function Signin() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { resetPassword } = useAuth();
+  const { register, errors, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
+  async function onSubmit(data) {
     try {
       setError('');
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push('/');
-    } catch {
-      setError('Failed to login');
-    }
-
-    setLoading(false);
-  }
-
-  async function handleFacebookLogin() {
-    try {
-      setError('');
-      setLoading(true);
-      await signInWithFacebook();
-      history.push('/');
-    } catch {
-      setError('Failed to login');
-    }
-
-    setLoading(false);
-  }
-
-  async function handleGoogleLogin() {
-    try {
-      setError('');
-      setLoading(true);
-      await signInWithGoogle();
-      history.push('/');
-    } catch {
-      setError('Failed to login');
+      await resetPassword(data.email);
+      setSuccess('Check your inbox for password reset link');
+    } catch (error) {
+      setError(error.message);
     }
 
     setLoading(false);
@@ -85,28 +83,33 @@ function Signin() {
   return (
     <Flex align="center" justify="center" h="100vh">
       <Box
-        p={8}
-        maxWidth="500px"
+        p={5}
+        width="35%"
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
         mT="auto"
       >
         <Box textAlign="center">
-          <Heading>Forgot your password?</Heading>
-          <Heading>Enter your email to reset it.</Heading>
+          <Heading fontSize="4xl">TALIS</Heading>
+          <Text fontSize="lg">Enter your email to reset password</Text>
         </Box>
         <Box my={4} textAlign="left">
-          <form /* onSubmit={handleSubmit} */>
-            {/* {error && <ErrorMessage message={error} />} */}
-            <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {success && <AlertMessage message={success} />}
+            {error && <ErrorMessage message={error} />}
+            <FormControl isInvalid={errors.email}>
+              <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 type="email"
+                name="email"
                 placeholder="Enter email address"
-                size="lg"
-                /* onChange={(event) => setEmail(event.currentTarget.value)} */
+                size="md"
+                ref={register({ required: 'Enter an email' })}
               />
+              <FormErrorMessage>
+                {errors.email && errors.email.message}
+              </FormErrorMessage>
             </FormControl>
             <Button
               colorScheme="teal"
@@ -115,19 +118,19 @@ function Signin() {
               width="full"
               mt={4}
             >
-              {isLoading ? (
+              {loading ? (
                 <CircularProgress isIndeterminate size="24px" color="teal" />
               ) : (
-                'Submit'
+                'Reset Password'
               )}
             </Button>
           </form>
         </Box>
-        <Divider />
+        <Divider my={3} />
         <Box textAlign="center">
           <Text>
             Remember your password?{' '}
-            <Link color="teal.500" href="/accounts/login">
+            <Link color="teal.500" href="/account/login">
               Login
             </Link>
           </Text>

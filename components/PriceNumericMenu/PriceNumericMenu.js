@@ -28,7 +28,9 @@ function NumericMenu({ items, refine, createURL }) {
       <MenuButton
         ml={2}
         as={Button}
-        color="black"
+        color="teal.500"
+        variant="outline"
+        borderColor="teal.500"
         onChange={handleChange}
         label="Max Price"
         rightIcon={<FaAngleDown />}

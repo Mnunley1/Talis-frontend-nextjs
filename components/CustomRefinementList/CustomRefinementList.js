@@ -20,7 +20,14 @@ function RefinementList({ values, currentRefinement, items, refine }) {
 
   return (
     <Menu closeOnSelect={false}>
-      <MenuButton ml={2} as={Button} color="black" rightIcon={<FaAngleDown />}>
+      <MenuButton
+        ml={2}
+        as={Button}
+        variant="outline"
+        borderColor="teal.500"
+        color="teal.500"
+        rightIcon={<FaAngleDown />}
+      >
         Type
       </MenuButton>
       <MenuList color="black" position="absolute" zIndex={2} minWidth="150px">
@@ -37,7 +44,7 @@ function RefinementList({ values, currentRefinement, items, refine }) {
               value={staticItem.value}
             >
               <Checkbox
-                colorScheme="teal"
+                color="teal.500"
                 value={staticItem.value}
                 checked={isRefined}
                 onChange={(event) => {
@@ -48,7 +55,7 @@ function RefinementList({ values, currentRefinement, items, refine }) {
                   refine(next);
                 }}
               >
-                <Text style={{ color: '#00A3B0' }}>{staticItem.label}</Text>
+                <Text color="teal.500">{staticItem.label}</Text>
               </Checkbox>
             </MenuItem>
           );

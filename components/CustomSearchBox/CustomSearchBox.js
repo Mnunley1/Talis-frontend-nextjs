@@ -8,8 +8,19 @@ function SearchBox({ currentRefinement, isSearchStalled, refine }) {
   return (
     <Box width="30%">
       <InputGroup size="md">
-        <Input variant="filled" borderRadius="5px" placeholder="Search" />
-        <InputRightAddon border="0" children={<FaSearch color="black" />} />
+        <Input
+          variant="outline"
+          color="black"
+          borderRadius="5px"
+          borderColor="teal.500"
+          backgroundColor="white"
+          placeholder="Search"
+        />
+        <InputRightAddon
+          border="0"
+          bg="teal.500"
+          children={<FaSearch color="white" />}
+        />
       </InputGroup>
     </Box>
   );

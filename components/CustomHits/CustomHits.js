@@ -1,6 +1,8 @@
-import React, { Transformation } from 'react';
+import React, { btnRef, Transformation } from 'react';
 import { connectHits } from 'react-instantsearch-dom';
-import { Badge, Box, Image } from '@chakra-ui/react';
+import { Badge, Box, IconButton, Icon, Image, Spacer } from '@chakra-ui/react';
+import { FaHeart } from 'react-icons/fa';
+import { FaRegHeart } from 'react-icons/fa';
 
 function Hits({ hits }) {
   return (
@@ -19,7 +21,7 @@ function Hits({ hits }) {
             transition: 'border ease-in .1s',
           }}
         >
-          <Image src={hit.photo_main} alt={hit.photo_main} />
+          <Image h="250px" w="100%" src={hit.photo_main} alt={hit.photo_main} />
 
           <Box p="6">
             <Box d="flex" alignItems="baseline">
@@ -34,7 +36,11 @@ function Hits({ hits }) {
                 textTransform="uppercase"
                 ml="2"
               >
-                {hit.bedrooms_max} beds &bull; {hit.bathrooms_max} baths
+                {hit.bedrooms} beds &bull; {hit.bathrooms} baths
+              </Box>
+              <Spacer />
+              <Box as="button" variant="ghost">
+                <Icon as={FaRegHeart} color="teal.500" w={6} h={6} />
               </Box>
             </Box>
 
@@ -49,10 +55,21 @@ function Hits({ hits }) {
               {hit.title}
             </Box>
 
-            <Box>
-              {hit.price_max}
+            <Box
+              mt="1"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+              color="black"
+              isTruncated
+            >
+              {hit.address}
+            </Box>
+
+            <Box color="black">
+              {hit.price}
               <Box as="span" color="gray.600" fontSize="sm">
-                / wk
+                / month
               </Box>
             </Box>
 

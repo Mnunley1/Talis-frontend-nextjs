@@ -1,56 +1,67 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons';
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
   Box,
   Button,
   CircularProgress,
-  Container,
+  CloseButton,
   Divider,
-  Drawer,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  DrawerOverlay,
   Flex,
+  FormErrorMessage,
   FormControl,
   FormLabel,
   Heading,
-  IconButton,
+  HStack,
   Input,
   //Link,
   //Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Spacer,
-  StackDivider,
   Text,
-  useDisclosure,
-  VStack,
 } from '@chakra-ui/react';
 
+const ErrorMessage = ({ message }) => {
+  return (
+    <Alert
+      status="error"
+      variant="solid"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+      borderRadius={8}
+      mb={3}
+    >
+      <AlertIcon />
+      <AlertDescription>{message}</AlertDescription>
+    </Alert>
+  );
+};
+
 function Signin() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, signInWithFacebook, signInWithGoogle } = useAuth();
+  const { register, errors, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
+  async function onSubmit(data) {
     try {
       setError('');
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push('/');
-    } catch {
-      setError('Failed to login');
+      await login(data.email, data.password);
+      router.push('/');
+    } catch (error) {
+      setError(error.message);
     }
 
     setLoading(false);
@@ -61,7 +72,7 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithFacebook();
-      history.push('/');
+      router.push('/');
     } catch {
       setError('Failed to login');
     }
@@ -74,7 +85,7 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithGoogle();
-      history.push('/');
+      router.push('/');
     } catch {
       setError('Failed to login');
     }
@@ -85,45 +96,54 @@ function Signin() {
   return (
     <Flex align="center" justify="center" h="100vh">
       <Box
-        p={8}
-        maxWidth="500px"
+        p={5}
+        width="35%"
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
         mT="auto"
       >
         <Box textAlign="center">
-          <Heading>Login</Heading>
+          <Heading fontSize="4xl">TALIS</Heading>
+          <Text fontSize="lg">Sign into your account</Text>
         </Box>
-        <Box my={4} textAlign="left">
-          <form /* onSubmit={handleSubmit} */>
-            {/* {error && <ErrorMessage message={error} />} */}
-            <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
+        <Box my={3} textAlign="left">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {error && <ErrorMessage message={error} />}
+            <FormControl isInvalid={errors.email}>
+              <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 type="email"
-                placeholder="test@test.com"
-                size="lg"
-                /* onChange={(event) => setEmail(event.currentTarget.value)} */
+                name="email"
+                placeholder="example@email.com"
+                size="md"
+                ref={register({ required: 'Please enter your email' })}
               />
+              <FormErrorMessage>
+                {errors.email && errors.email.message}
+              </FormErrorMessage>
             </FormControl>
-            <FormControl isRequired mt={6}>
-              <FormLabel>Password</FormLabel>
+            <FormControl isInvalid={errors.password} mt={3}>
+              <FormLabel htmlFor="password">Password</FormLabel>
               <Input
                 type="password"
+                name="password"
                 placeholder="*******"
-                size="lg"
-                /* onChange={(event) => setPassword(event.currentTarget.value)} */
+                size="md"
+                ref={register({ required: 'Please enter your password' })}
               />
+              <FormErrorMessage>
+                {errors.password && errors.password.message}
+              </FormErrorMessage>
             </FormControl>
             <Button
-              backgroundColor="blue.500"
-              variant="outline"
+              colorScheme="teal"
+              variant="solid"
               type="submit"
               width="full"
               mt={4}
             >
-              {isLoading ? (
+              {loading ? (
                 <CircularProgress isIndeterminate size="24px" color="teal" />
               ) : (
                 'Sign In'
@@ -131,21 +151,33 @@ function Signin() {
             </Button>
           </form>
         </Box>
+        <HStack mb={3}>
+          <Text fontSize="sm">
+            Don't have an account?{' '}
+            <Box as="a" color="teal.500" href="/account/signup">
+              Sign up
+            </Box>
+          </Text>
+          <Spacer />
+          <Box as="a" color="teal.500" href="/account/forgot-password">
+            <Text fontSize="sm">Forgot password?</Text>
+          </Box>
+        </HStack>
         <Divider />
         <Box textAlign="center">
-          <Text>Or continue with:</Text>
+          <Text marginY={3}>Or continue with:</Text>
         </Box>
         <GoogleLoginButton
           style={{ width: '100%' }}
           align="center"
-          //onClick={handleGoogleLogin}
+          onClick={handleGoogleLogin}
         >
           <span>Continue with Google</span>
         </GoogleLoginButton>
         <FacebookLoginButton
           style={{ width: '100%' }}
           align="center"
-          //onClick={handleFacebookLogin}
+          onClick={handleFacebookLogin}
         ></FacebookLoginButton>
       </Box>
     </Flex>

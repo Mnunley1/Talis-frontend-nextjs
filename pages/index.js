@@ -39,7 +39,6 @@ export default function HomeView() {
 
   return (
     <>
-      {/* <Header /> */}
       <Navbar />
       <Box
         as="section"
@@ -55,20 +54,27 @@ export default function HomeView() {
           <VStack>
             <Text fontSize="6xl">FIND YOUR NEW HOME</Text>
             <Box width="80%">
-              <InputGroup size="lg">
-                <Input
-                  variant="outline"
-                  borderRadius="5px"
-                  placeholder="Search"
-                  color="black"
-                  backgroundColor="white"
-                />
-                <InputRightAddon
-                  border="0"
-                  bg="teal.500"
-                  children={<FaSearch color="white" />}
-                />
-              </InputGroup>
+              <form>
+                <InputGroup size="lg">
+                  <Input
+                    variant="outline"
+                    borderRadius="5px"
+                    placeholder="Search"
+                    color="black"
+                    backgroundColor="white"
+                  />
+                  <InputRightAddon
+                    as="button"
+                    border="0"
+                    bg="teal.500"
+                    _hover={{
+                      bg: 'teal.700',
+                    }}
+                    transition="background-color 0.15s ease 0s"
+                    children={<FaSearch color="white" />}
+                  />
+                </InputGroup>
+              </form>
             </Box>
           </VStack>
         </Center>
@@ -77,8 +83,8 @@ export default function HomeView() {
         <Container maxW="lg" centerContent>
           <VStack spacing={10}>
             <Text fontSize="3xl">Latest Listings</Text>
-            <Button colorScheme="teal" size="md">
-              Button
+            <Button as="a" href="/listings" colorScheme="teal" size="md">
+              View More
             </Button>
           </VStack>
         </Container>
@@ -155,159 +161,7 @@ export default function HomeView() {
           </Text>
         </Container>
       </Box>
-      {/* <Container className={classes.heroSection} maxWidth="false">
-        <Grid direction="row" align="center" spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h2">Find Your New Home</Typography>
-          </Grid>
-          <Grid item container direction="row" spacing={1} xs={6}>
-            <Grid item xs={10}>
-              <TextField
-                className={classes.searchBar}
-                id="outlined-search"
-                placeholder="Search Neighborhood"
-                type="search"
-                variant="outlined"
-                color="white"
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <Button
-                style={{ width: '100%', height: '100%' }}
-                variant="contained"
-                color="primary"
-                href="/listings"
-              >
-                Search
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Container>
-
-      <Container className={classes.sectionPadding} maxWidth="lg">
-        <Grid container direction="column" align="center" spacing={4}>
-          <Grid item xs={12}>
-            <Typography variant="h4">Latest Listings</Typography>
-          </Grid>
-          <Grid item>
-            <ListingCards data={listings} />
-          </Grid>
-          <Grid item>
-            <Button variant="contained" color="primary" href="/listings">
-              View More
-            </Button>
-          </Grid>
-        </Grid>
-      </Container>
-
-      <Container className={classes.sectionPadding} maxWidth="md">
-        <Grid
-          style={{ backgroundColor: '#D9D9D9' }}
-          container
-          direction="row"
-          xs={12}
-          spacing={0}
-        >
-          <Grid
-            className={classes.displayText}
-            item
-            xs={12}
-            md={6}
-            align="start"
-          >
-            <Typography variant="h6">
-              Helping You Find the Perfect Fit
-            </Typography>
-            <Typography variant="p">
-              orem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
-              debitis nam!
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Container disableGutters maxWidth="false">
-              <img
-                src={cardImg1}
-                alt="Family enjoying new home"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </Container>
-          </Grid>
-        </Grid>
-        <Grid
-          style={{ backgroundColor: '#D9D9D9' }}
-          container
-          direction="row"
-          xs={12}
-          spacing={0}
-        >
-          <Grid item xs={12} md={6}>
-            <Container disableGutters maxWidth="false">
-              <img
-                src={cardImg2}
-                alt="Modern styled kitchen"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </Container>
-          </Grid>
-          <Grid
-            className={classes.displayText}
-            item
-            xs={12}
-            md={6}
-            align="start"
-          >
-            <Typography variant="h6">Luxury at the Right Price</Typography>
-            <Typography variant="p">
-              orem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
-              debitis nam!
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid
-          style={{ backgroundColor: '#D9D9D9' }}
-          container
-          direction="row"
-          xs={12}
-          spacing={0}
-        >
-          <Grid
-            className={classes.displayText}
-            item
-            xs={12}
-            md={6}
-            align="start"
-          >
-            <Typography variant="h6">
-              Helping Investors Maximize Occupancy
-            </Typography>
-            <Typography variant="p">
-              orem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
-              debitis nam!
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Container disableGutters maxWidth="false">
-              <img
-                src={cardImg3}
-                alt="Family moving into new home"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </Container>
-          </Grid>
-        </Grid>
-      </Container>
-
-      <Container className={classes.sectionPadding} maxWidth="md">
-        <Grid container xs={12} direction="row" align="center">
-          <Typography variant="h6">
-            Search hundreds of listings including apartments, houses, condos and
-            townhomes available for rent in Accra. You'll find your next home in
-            any style you prefer.
-          </Typography>
-        </Grid>
-      </Container>
-      <Footer /> */}
+      <Footer />
     </>
   );
 }
