@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -26,8 +27,15 @@ import {
 import { FaSearch } from 'react-icons/fa';
 
 export default function HomeView() {
+  const { register, handleSubmit, watch, errors } = useForm();
   const router = useRouter();
   const [listings, setListings] = useState([]);
+
+  const onSubmit = (data) =>
+    router.push({
+      pathname: '/listings',
+      query: { query: data.search, page: 1 },
+    });
 
   /* useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/pages/').then((res) => {
@@ -54,7 +62,7 @@ export default function HomeView() {
           <VStack>
             <Text fontSize="6xl">FIND YOUR NEW HOME</Text>
             <Box width="80%">
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <InputGroup size="lg">
                   <Input
                     variant="outline"
@@ -62,9 +70,12 @@ export default function HomeView() {
                     placeholder="Search"
                     color="black"
                     backgroundColor="white"
+                    name="search"
+                    ref={register}
                   />
                   <InputRightAddon
                     as="button"
+                    type="submit"
                     border="0"
                     bg="teal.500"
                     _hover={{

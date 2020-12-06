@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { withRouter } from 'next/router';
 import qs from 'qs';
 import dynamic from 'next/dynamic';
 import algoliasearch from 'algoliasearch/lite';
@@ -26,45 +26,46 @@ const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
 const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
 const searchClient = algoliasearch(algoliaId, searchKey);
 
-/* const DEBOUNCE_TIME = 700;
+const DEBOUNCE_TIME = 400;
 
 const createURL = (state) => `?${qs.stringify(state)}`;
 
-const searchStateToUrl = (location, searchState) =>
-  searchState ? `${location.pathname}${createURL(searchState)}` : '';
+const searchStateToUrl = (router, searchState) =>
+  searchState ? `${router.pathname}${createURL(searchState)}` : '';
 
-const urlToSearchState = (location) => qs.parse(location.search.slice(1));
- */
-export default function ListingView() {
-  /* const location = useLocation();
-  const history = useHistory();
+const urlToSearchState = (router) => qs.parse(router.query);
+
+function ListingView({ router }) {
   const [searchState, setSearchState] = React.useState(
-    urlToSearchState(location)
+    urlToSearchState(router)
   );
   const setStateId = React.useRef();
 
   React.useEffect(() => {
-    const nextSearchState = urlToSearchState(location);
+    const nextSearchState = urlToSearchState(router);
+    console.log(router.query);
 
     if (JSON.stringify(searchState) !== JSON.stringify(nextSearchState)) {
       setSearchState(nextSearchState);
+      console.log(searchState);
     }
 
     // eslint-disable-next-line
-  }, [location]);
+  }, [router.pathname]);
 
   function onSearchStateChange(nextSearchState) {
     clearTimeout(setStateId.current);
 
     setStateId.current = setTimeout(() => {
-      history.push(
-        searchStateToUrl(location, nextSearchState),
-        nextSearchState
-      );
+      router.push({
+        pathname: router.pathname,
+        query: nextSearchState,
+      });
     }, DEBOUNCE_TIME);
 
     setSearchState(nextSearchState);
-  } */
+    console.log(searchState);
+  }
 
   return (
     <Container minW="100%" height="100%" paddingX="0">
@@ -72,9 +73,9 @@ export default function ListingView() {
       <InstantSearch
         indexName="TalisTest_test_LISTING_dev"
         searchClient={searchClient}
-        /* searchState={searchState}
+        searchState={searchState}
         onSearchStateChange={onSearchStateChange}
-        createURL={createURL} */
+        createURL={createURL}
       >
         <Container
           color="white"
@@ -152,3 +153,5 @@ export default function ListingView() {
     </Container>
   );
 }
+
+export default withRouter(ListingView);

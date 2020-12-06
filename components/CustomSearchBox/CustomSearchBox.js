@@ -15,6 +15,9 @@ function SearchBox({ currentRefinement, isSearchStalled, refine }) {
           borderColor="teal.500"
           backgroundColor="white"
           placeholder="Search"
+          type="search"
+          value={currentRefinement}
+          onChange={(event) => refine(event.currentTarget.value)}
         />
         <InputRightAddon
           border="0"
