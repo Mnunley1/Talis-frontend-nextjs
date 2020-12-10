@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { db } from '../firebase';
 import Modal from 'react-modal';
 import axios from 'axios';
 import headerImg from '../public/images/showcaseimage.jpg';
 import cardImg1 from '../public/images/blackfam.jpg';
 import cardImg2 from '../public/images/Kitchen.jpg';
 import cardImg3 from '../public/images/familymovingin.jpg';
-//import ListingCards from '../components/ListingCards/ListingCards';
+import ListingCards from '../components/ListingCards/ListingCards';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 //import Button from '@material-ui/core/Button';
@@ -23,6 +24,7 @@ import {
   Text,
   SimpleGrid,
   VStack,
+  Wrap,
 } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 
@@ -31,19 +33,30 @@ export default function HomeView() {
   const router = useRouter();
   const [listings, setListings] = useState([]);
 
+  useEffect(() => {
+    db.collection('fl_content')
+      .where('_fl_meta_.schema', '==', 'listings')
+      .limit(4)
+      .get()
+      .then((snapshot) => {
+        const items = [];
+        snapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          const data = doc.data();
+          items.push(data);
+        });
+        setListings(items);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const onSubmit = (data) =>
     router.push({
-      pathname: '/listings',
+      pathname: '/listings/search',
       query: { query: data.search, page: 1 },
     });
 
-  /* useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/pages/').then((res) => {
-      setListings(res.data);
-      console.log(res.data);
-    });
-  }, []);
- */
+  console.log(listings);
 
   return (
     <>
@@ -60,7 +73,9 @@ export default function HomeView() {
       >
         <Center marginY="auto" height="100%">
           <VStack>
-            <Text fontSize="6xl">FIND YOUR NEW HOME</Text>
+            <Text fontSize="6xl" textAlign="center">
+              FIND YOUR NEW HOME
+            </Text>
             <Box width="80%">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <InputGroup size="lg">
@@ -92,17 +107,20 @@ export default function HomeView() {
       </Box>
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
-          <VStack spacing={10}>
+          <VStack spacing={8}>
             <Text fontSize="3xl">Latest Listings</Text>
-            <Button as="a" href="/listings" colorScheme="teal" size="md">
+            <SimpleGrid columns={[1, 1, 2, 4]} spacing={3}>
+              <ListingCards data={listings} />
+            </SimpleGrid>
+            <Button as="a" href="/listings/search" colorScheme="teal" size="md">
               View More
             </Button>
           </VStack>
         </Container>
       </Box>
       <Box as="section" paddingY="60px">
-        <Container maxW="md" centerContent>
-          <SimpleGrid columns={2}>
+        <Container maxW="lg" centerContent>
+          <SimpleGrid columns={[1, 1, 2]}>
             <Box bgColor="gray.100" height="auto" width="100%" padding={10}>
               <VStack>
                 <Text fontSize="md" alignSelf="start">

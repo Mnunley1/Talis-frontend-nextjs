@@ -26,6 +26,7 @@ import {
   //Link,
   //Modal,
   Spacer,
+  Stack,
   Text,
 } from '@chakra-ui/react';
 
@@ -97,7 +98,7 @@ function Signin() {
     <Flex align="center" justify="center" h="100vh">
       <Box
         p={5}
-        width="35%"
+        width={['90%', '70%', '45%']}
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
@@ -151,22 +152,16 @@ function Signin() {
             </Button>
           </form>
         </Box>
-        <HStack mb={3}>
-          <Text fontSize="sm">
-            Don't have an account?{' '}
-            <Box as="a" color="teal.500" href="/account/signup">
-              Sign up
-            </Box>
+        <Box as="a" color="teal.500" href="/account/forgot-password">
+          <Text fontSize="md" textAlign="end">
+            Forgot password?
           </Text>
-          <Spacer />
-          <Box as="a" color="teal.500" href="/account/forgot-password">
-            <Text fontSize="sm">Forgot password?</Text>
-          </Box>
-        </HStack>
-        <Divider />
-        <Box textAlign="center">
-          <Text marginY={3}>Or continue with:</Text>
         </Box>
+        <Stack direction="row" alignItems="center" mb={3}>
+          <Divider orientation="horizontal" />
+          <Text textColor="gray.400">OR</Text>
+          <Divider orientation="horizontal" />
+        </Stack>
         <GoogleLoginButton
           style={{ width: '100%' }}
           align="center"
@@ -179,6 +174,12 @@ function Signin() {
           align="center"
           onClick={handleFacebookLogin}
         ></FacebookLoginButton>
+        <Text fontSize="md" textAlign="center">
+          Don't have an account?{' '}
+          <Box as="a" color="teal.500" href="/account/signup">
+            Sign up
+          </Box>
+        </Text>
       </Box>
     </Flex>
   );

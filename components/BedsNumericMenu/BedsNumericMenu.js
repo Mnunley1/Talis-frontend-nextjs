@@ -1,6 +1,7 @@
 import React from 'react';
 import { connectNumericMenu } from 'react-instantsearch-dom';
 import {
+  Box,
   Button,
   Menu,
   MenuButton,
@@ -24,45 +25,47 @@ function NumericMenu({ items, refine, createURL }) {
   };
 
   return (
-    <Menu closeOnSelect={false}>
-      <MenuButton
-        ml={2}
-        as={Button}
-        variant="outline"
-        color="teal.500"
-        borderColor="teal.500"
-        rightIcon={<FaAngleDown />}
-      >
-        Max Beds
-      </MenuButton>
-      <MenuList
-        position="absolute"
-        zIndex={2}
-        minWidth="150px"
-        type="radio"
-        color="black"
-      >
-        <MenuOptionGroup>
-          {items.map((item) => (
-            <MenuItemOption
-              key={item.label}
-              value={item.label}
-              onClick={(event) => {
-                event.preventDefault();
-                refine(item.value);
-              }}
-            >
-              <a
-                href={createURL(item.value)}
-                style={{ textDecoration: 'none', color: '#00A3B0' }}
+    <Box display={['none', 'none', 'inline-block']}>
+      <Menu closeOnSelect={false}>
+        <MenuButton
+          ml={2}
+          as={Button}
+          variant="outline"
+          color="black"
+          borderColor="gray.300"
+          rightIcon={<FaAngleDown />}
+        >
+          Max Beds
+        </MenuButton>
+        <MenuList
+          position="absolute"
+          zIndex={2}
+          minWidth="150px"
+          type="radio"
+          color="teal.500"
+        >
+          <MenuOptionGroup>
+            {items.map((item) => (
+              <MenuItemOption
+                key={item.label}
+                value={item.label}
+                onClick={(event) => {
+                  event.preventDefault();
+                  refine(item.value);
+                }}
               >
-                {item.label}
-              </a>
-            </MenuItemOption>
-          ))}
-        </MenuOptionGroup>
-      </MenuList>
-    </Menu>
+                <a
+                  href={createURL(item.value)}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  {item.label}
+                </a>
+              </MenuItemOption>
+            ))}
+          </MenuOptionGroup>
+        </MenuList>
+      </Menu>
+    </Box>
   );
 }
 

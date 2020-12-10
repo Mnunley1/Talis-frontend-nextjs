@@ -84,7 +84,7 @@ function Signin() {
     <Flex align="center" justify="center" h="100vh">
       <Box
         p={5}
-        width="35%"
+        width={['90%', '70%', '45%']}
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"

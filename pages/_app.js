@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { AuthProvider } from '../contexts/AuthContext';
 import 'instantsearch.css/themes/algolia.css';
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
+import 'react-horizontal-strip-datepicker/dist/ReactHorizontalDatePicker.css';
 import 'react-image-gallery/styles/scss/image-gallery.scss';
 import '../styles/globals.scss';
 

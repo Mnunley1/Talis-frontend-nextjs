@@ -29,6 +29,7 @@ exports.addToIndex = functions.firestore
       price: data.price,
       photo_main: data.mainImage,
       title: data.title,
+      slug: data.slug,
     };
 
     return index.saveObject(listingObject);
@@ -53,6 +54,7 @@ exports.updateIndex = functions.firestore
       price: newData.price,
       photo_main: newData.mainImage,
       title: newData.title,
+      slug: newData.slug,
     };
 
     return index.saveObject({ ...listingObject, objectID });

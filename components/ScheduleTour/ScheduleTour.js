@@ -20,27 +20,30 @@ import {
 import ReactHorizontalDatePicker from 'react-horizontal-strip-datepicker';
 
 function ScheduleTour() {
+  const onSelectedDay = (d) => {
+    console.log(d);
+  };
+
   return (
     <VStack spacing={2} align="stretch">
       <ReactHorizontalDatePicker
+        selectedDay={onSelectedDay}
         enableScroll={true}
-        enableDays={7}
-        labelFormat={'MMMM'}
-        color={'#374e8c'}
+        enableDays={8}
       />
       <Box></Box>
       <Box>
-        <Input id="phone" placeholder="Phone number" borderColor="black" />
+        <Input id="phone" placeholder="Phone number" borderColor="gray.200" />
       </Box>
       <Box>
-        <Input id="email" placeholder="Email" borderColor="black" />
+        <Input id="email" placeholder="Email" borderColor="gray.200" />
       </Box>
       <Box>
-        <Textarea placeholder="Enter message" borderColor="black" />
+        <Textarea placeholder="Enter message" borderColor="gray.200" />
       </Box>
       <Box>
         <Button colorScheme="teal" size="lg" isFullWidth>
-          Request Info
+          Schedule Tour
         </Button>
       </Box>
     </VStack>

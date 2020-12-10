@@ -21,7 +21,7 @@ const Map = () => {
       center={[5.6046451, -0.187984]}
       zoom={14}
       scrollWheelZoom={false}
-      style={{ height: '400px' }}
+      style={{ height: '400px', borderRadius: '20px' }}
     >
       <TileLayer
         url={`https://api.mapbox.com/styles/v1/mxnunley1/ckgs8lxoe187p1al3q9s3pohv/tiles/256/{z}/{x}/{y}@2x?access_token=${accessToken}`}

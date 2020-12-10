@@ -77,8 +77,8 @@ export default function HomeView() {
       </Box>
 
       <Box as="section" paddingY="60px">
-        <Container maxW="md" centerContent>
-          <SimpleGrid columns={2} spacing={5}>
+        <Container maxW="lg" centerContent>
+          <SimpleGrid columns={[1, 1, 2]} spacing={10}>
             <Box>
               <Image src={aboutImg1} height="auto" width="100%" />
             </Box>
@@ -104,15 +104,15 @@ export default function HomeView() {
 
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
-          <Heading as="h5" size="lg">
+          <Heading as="h5" size="lg" mb={5}>
             Talis Leadership
           </Heading>
-          <Flex justify="space-between" flexWrap>
+          <SimpleGrid columns={[1, 1, 3]} spacing={5}>
             <Box
-              maxW="25%"
+              maxW="100%"
               borderWidth="1px"
               borderColor="lightgray.100"
-              borderRadius="lg"
+              borderRadius="xl"
               overflow="hidden"
             >
               <Image
@@ -130,12 +130,11 @@ export default function HomeView() {
                 </Box>
               </Box>
             </Box>
-            <Spacer />
             <Box
-              maxW="25%"
+              maxW="100%"
               borderWidth="1px"
               borderColor="lightgray.100"
-              borderRadius="lg"
+              borderRadius="xl"
               overflow="hidden"
             >
               <Image
@@ -153,12 +152,11 @@ export default function HomeView() {
                 </Box>
               </Box>
             </Box>
-            <Spacer />
             <Box
-              maxW="25%"
+              maxW="100%"
               borderWidth="1px"
               borderColor="lightgray.100"
-              borderRadius="lg"
+              borderRadius="xl"
               overflow="hidden"
             >
               <Image
@@ -176,13 +174,13 @@ export default function HomeView() {
                 </Box>
               </Box>
             </Box>
-          </Flex>
+          </SimpleGrid>
         </Container>
       </Box>
 
       <Box as="section" paddingY="60px">
-        <Container maxW="md" centerContent>
-          <SimpleGrid columns={2} spacing={5}>
+        <Container maxW="lg" centerContent>
+          <SimpleGrid columns={[1, 1, 2]} spacing={10}>
             <Box>
               <Map />
             </Box>

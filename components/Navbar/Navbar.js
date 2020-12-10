@@ -88,19 +88,15 @@ const Navbar = () => {
             <DrawerBody>
               <VStack spacing={3} align="flex-start">
                 <Box as="a" href="/">
-                  <Button variant="ghost" colorScheme="teal" isFullWidth>
-                    <Text fontSize="lg">Home</Text>
-                  </Button>
+                  <Text fontSize="xl" textColor="black">
+                    Home
+                  </Text>
                 </Box>
-                <Box as="a" href="/listings">
-                  <Button variant="ghost" colorScheme="teal" isFullWidth>
-                    <Text fontSize="lg">Listings</Text>
-                  </Button>
+                <Box as="a" href="/listings/search">
+                  <Text fontSize="lg">Listings</Text>
                 </Box>
                 <Box as="a" href="/about">
-                  <Button variant="ghost" colorScheme="teal" isFullWidth>
-                    <Text fontSize="lg">About Talis</Text>
-                  </Button>
+                  <Text fontSize="lg">About Talis</Text>
                 </Box>
               </VStack>
               <Divider marginY={4} />
@@ -108,9 +104,7 @@ const Navbar = () => {
                 {currentUser ? (
                   <>
                     <Box as="a" href="/mytalis/profile">
-                      <Button variant="ghost" colorScheme="teal" isFullWidth>
-                        <Text fontSize="lg">MyTalis</Text>
-                      </Button>
+                      <Text fontSize="lg">MyTalis</Text>
                     </Box>
                     <Box
                       as="button"
@@ -125,14 +119,10 @@ const Navbar = () => {
                 ) : (
                   <>
                     <Box as="a" href="/account/login">
-                      <Button variant="ghost" colorScheme="teal" isFullWidth>
-                        <Text fontSize="lg">Log In</Text>
-                      </Button>
+                      <Text fontSize="lg">Log In</Text>
                     </Box>
                     <Box as="a" href="/account/signup">
-                      <Button variant="ghost" colorScheme="teal" isFullWidth>
-                        <Text fontSize="lg">Sign Up</Text>
-                      </Button>
+                      <Text fontSize="lg">Sign Up</Text>
                     </Box>
                   </>
                 )}
