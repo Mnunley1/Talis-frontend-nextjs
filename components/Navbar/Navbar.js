@@ -103,7 +103,7 @@ const Navbar = () => {
               <VStack spacing={3} align="flex-start">
                 {currentUser ? (
                   <>
-                    <Box as="a" href="/mytalis/profile">
+                    <Box as="a" href="/MyTalis/profile">
                       <Text fontSize="lg">MyTalis</Text>
                     </Box>
                     <Box
