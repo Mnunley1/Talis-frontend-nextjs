@@ -26,7 +26,13 @@ export default function HomeView() {
     <div>
       <Navbar />
       <Flex style={{ marginTop: '80px', height: 'calc(100vh - 80px )' }}>
-        <Box as="container" w="25%" bg="white" p={5}>
+        <Box
+          as="container"
+          w="25%"
+          bg="white"
+          p={5}
+          display={['none', 'none', 'block']}
+        >
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             spacing={3}
@@ -43,7 +49,13 @@ export default function HomeView() {
             </Box>
           </VStack>
         </Box>
-        <Box as="container" w="75%" bg="gray.100" p={5} overflowY="auto">
+        <Box
+          as="container"
+          w={['100%', '100%', '75%']}
+          bg="gray.100"
+          p={5}
+          overflowY="auto"
+        >
           <Text fontSize="3xl">Favorite Listings</Text>
           <Divider borderColor="black" />
           <Flex color="black">

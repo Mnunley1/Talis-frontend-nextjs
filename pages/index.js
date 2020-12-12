@@ -121,7 +121,13 @@ export default function HomeView() {
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]}>
-            <Box bgColor="gray.100" height="auto" width="100%" padding={10}>
+            <Box
+              bgColor="gray.100"
+              height="auto"
+              width="100%"
+              padding={10}
+              borderTopLeftRadius={['0', '0', '20px']}
+            >
               <VStack>
                 <Text fontSize="md" alignSelf="start">
                   Helping You Find the Perfect Fit
@@ -132,12 +138,14 @@ export default function HomeView() {
                 </Text>
               </VStack>
             </Box>
-            <Box bgColor="gray.100">
+            <Box order={[-1, -1, 'inherit']}>
               <Image
                 src={cardImg1}
                 alt="Segun Adebayo"
                 height="auto"
                 width="100%"
+                borderTopRightRadius="20px"
+                borderTopLeftRadius={['20px', '20px', '0']}
               />
             </Box>
             <Box bgColor="gray.100">
@@ -159,7 +167,15 @@ export default function HomeView() {
                 </Text>
               </VStack>
             </Box>
-            <Box bgColor="gray.100" height="auto" width="100%" padding={10}>
+            <Box
+              bgColor="gray.100"
+              height="auto"
+              width="100%"
+              padding={10}
+              order={[10, 10, 'inherit']}
+              borderBottomRightRadius={['20px', '20px', '0']}
+              borderBottomLeftRadius="20px"
+            >
               <VStack>
                 <Text fontSize="md" alignSelf="start">
                   Helping You Find the Perfect Fit
@@ -170,12 +186,13 @@ export default function HomeView() {
                 </Text>
               </VStack>
             </Box>
-            <Box bgColor="gray.100">
+            <Box>
               <Image
                 src={cardImg3}
                 alt="Segun Adebayo"
                 height="auto"
                 width="100%"
+                borderBottomRightRadius={['0', '0', '20px']}
               />
             </Box>
           </SimpleGrid>

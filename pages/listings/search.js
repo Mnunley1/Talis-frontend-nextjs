@@ -13,6 +13,7 @@ import { BedsNumericMenu } from '../../components/BedsNumericMenu/BedsNumericMen
 import { CustomRefinementList } from '../../components/CustomRefinementList/CustomRefinementList';
 import Navbar from '../../components/Navbar/Navbar';
 import { Box, Container, Flex, HStack } from '@chakra-ui/react';
+import SearchFooter from '../../components/SearchFooter/SearchFooter';
 //import 'instantsearch.css/themes/algolia.css';
 
 const Map = dynamic(
@@ -150,8 +151,8 @@ function ListingView({ router }) {
                     showNext={true}
                     showPrevious={true}
                     showLast={true}
-                    styles={{ marginBottom: '10px' }}
                   />
+                  <SearchFooter />
                 </Box>
               </HStack>
             </Container>
