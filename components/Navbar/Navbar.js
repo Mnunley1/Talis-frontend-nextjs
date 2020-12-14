@@ -38,9 +38,10 @@ const Navbar = () => {
     setError('');
 
     try {
-      logout();
-      router.push('/');
+      onClose();
       router.reload();
+      logout();
+      //router.push('/');
     } catch {
       setError('Failed to logout');
     }
@@ -79,7 +80,7 @@ const Navbar = () => {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay>
-          <DrawerContent>
+          <DrawerContent bg="black" opacity="90%" color="white">
             <DrawerCloseButton />
             <DrawerHeader>
               <Image src={TalisMenuLogo} height="35px" width="auto" />
@@ -88,15 +89,19 @@ const Navbar = () => {
             <DrawerBody>
               <VStack spacing={3} align="flex-start">
                 <Box as="a" href="/">
-                  <Text fontSize="xl" textColor="black">
+                  <Text fontSize="xl" _hover={{ color: '#00A3B0' }}>
                     Home
                   </Text>
                 </Box>
                 <Box as="a" href="/listings/search">
-                  <Text fontSize="lg">Listings</Text>
+                  <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
+                    Listings
+                  </Text>
                 </Box>
                 <Box as="a" href="/about">
-                  <Text fontSize="lg">About Talis</Text>
+                  <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
+                    About Talis
+                  </Text>
                 </Box>
               </VStack>
               <Divider marginY={4} />
@@ -104,7 +109,9 @@ const Navbar = () => {
                 {currentUser ? (
                   <>
                     <Box as="a" href="/MyTalis/profile">
-                      <Text fontSize="lg">MyTalis</Text>
+                      <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
+                        MyTalis
+                      </Text>
                     </Box>
                     <Box
                       as="button"
@@ -113,16 +120,22 @@ const Navbar = () => {
                       isFullWidth
                       onClick={handleLogout}
                     >
-                      <Text fontSize="lg">Log Out</Text>
+                      <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
+                        Log Out
+                      </Text>
                     </Box>
                   </>
                 ) : (
                   <>
                     <Box as="a" href="/account/login">
-                      <Text fontSize="lg">Log In</Text>
+                      <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
+                        Log In
+                      </Text>
                     </Box>
                     <Box as="a" href="/account/signup">
-                      <Text fontSize="lg">Sign Up</Text>
+                      <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
+                        Sign Up
+                      </Text>
                     </Box>
                   </>
                 )}

@@ -69,9 +69,14 @@ export default function HomeView() {
           color="white"
         >
           <Center w="70%" h="100%" margin="auto">
-            <Text fontSize="6xl" textAlign="center">
-              TALIS IS A LEADER IN REAL ESTATE
-            </Text>
+            <VStack>
+              <Text fontSize="6xl" fontWeight="700" textAlign="center" mb={-5}>
+                About Talis
+              </Text>
+              <Text fontSize="3xl" textAlign="center">
+                Committed to serving renters and property owners
+              </Text>
+            </VStack>
           </Center>
         </Box>
       </Box>
@@ -87,15 +92,20 @@ export default function HomeView() {
                 Talis
               </Heading>
               <Text fontWeight="300">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                vestibulum dolor massa. Etiam scelerisque luctus nisl ut
-                dignissim. Donec elementum, urna sit amet ullamcorper viverra,
-                tortor justo pellentesque orci, ac consectetur augue orci et
-                risus. In nulla augue, laoreet vulputate arcu id, consequat
-                volutpat tortor. Phasellus accumsan magna non commodo cursus.
-                Aenean condimentum pretium augue. Nullam eget tincidunt lectus.
-                In porttitor bibendum neque, eu auctor dolor tincidunt ut. Donec
-                lacinia suscipit luctus.
+                Talis Africa is a real estate and rental marketplace dedicated
+                to empowering consumers with industry leading data, inspiration
+                and knowledge while connecting users with local experts.
+              </Text>
+              <br />
+              <Text fontWeight="300">
+                At Talis we go beyond the typical listings, by sourcing insights
+                straight from locals and offering neighborhood information, to
+                give people a deeper understanding of what living in a home and
+                neighborhood is really like. We're committed to helping them
+                discover a place where they will love to live and where they
+                will feel more connected to the community and to each other.
+                It's why we strive every day to help build a more neighborly
+                world.
               </Text>
             </Box>
           </SimpleGrid>
@@ -189,15 +199,17 @@ export default function HomeView() {
                 Talis Office
               </Heading>
               <Text fontWeight="300">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                vestibulum dolor massa. Etiam scelerisque luctus nisl ut
-                dignissim. Donec elementum, urna sit amet ullamcorper viverra,
-                tortor justo pellentesque orci, ac consectetur augue orci et
-                risus. In nulla augue, laoreet vulputate arcu id, consequat
-                volutpat tortor. Phasellus accumsan magna non commodo cursus.
-                Aenean condimentum pretium augue. Nullam eget tincidunt lectus.
-                In porttitor bibendum neque, eu auctor dolor tincidunt ut. Donec
-                lacinia suscipit luctus.
+                Talis Africa Headquarters 8 Sir Arku Korsah Rd. Accra, Ghana
+              </Text>
+              <br />
+              <Text fontWeight="300">
+                Trulia, founded in Accra, remains nestled in the heart of the
+                city. Minutes away from the Kotoka International Airport, Talis
+                get to enjoy a state-of-the-art office building.
+              </Text>
+              <br />
+              <Text fontWeight="300">
+                Press & Media Inquiries: PR@Talisafrica.com
               </Text>
             </Box>
           </SimpleGrid>

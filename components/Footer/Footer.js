@@ -24,7 +24,7 @@ function Footer() {
       bottom="0"
       left="0"
       bg="#111111"
-      color="white"
+      color="#8C8C88"
       p={8}
     >
       <Container maxW="lg">

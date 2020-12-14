@@ -72,11 +72,17 @@ export default function HomeView() {
         mt="80px"
       >
         <Center marginY="auto" height="100%">
-          <VStack>
-            <Text fontSize="6xl" textAlign="center">
-              FIND YOUR NEW HOME
+          <VStack w="70%">
+            <Text
+              fontSize="5xl"
+              fontWeight="700"
+              textAlign="center"
+              letterSpacing={-1}
+              mb={3}
+            >
+              Discover your new home
             </Text>
-            <Box width="80%">
+            <Box width="70%">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <InputGroup size="lg">
                   <Input
@@ -105,6 +111,7 @@ export default function HomeView() {
           </VStack>
         </Center>
       </Box>
+
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <VStack spacing={8}>
@@ -118,6 +125,7 @@ export default function HomeView() {
           </VStack>
         </Container>
       </Box>
+
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]}>
@@ -200,10 +208,8 @@ export default function HomeView() {
       </Box>
       <Box as="section" paddingY="60px">
         <Container maxW="md" centerContent>
-          <Text fontSize="xl" align="center">
-            Search hundreds of listings including apartments, houses, condos and
-            townhomes available for rent in Accra. You'll find your next home in
-            any style you prefer.
+          <Text fontSize="2xl" align="center">
+            We are constantly updating listings, so you will never miss out.
           </Text>
         </Container>
       </Box>

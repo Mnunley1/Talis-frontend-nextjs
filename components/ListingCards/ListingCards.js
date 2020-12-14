@@ -42,7 +42,7 @@ export default function ListingCards(props) {
                   </Box>
                   <Box
                     mt="1"
-                    fontWeight="semibold"
+                    fontWeight="300"
                     as="h4"
                     lineHeight="tight"
                     isTruncated
@@ -51,7 +51,7 @@ export default function ListingCards(props) {
                   </Box>
                   <Box
                     mt="1"
-                    fontWeight="semibold"
+                    fontWeight="300"
                     as="h4"
                     lineHeight="tight"
                     isTruncated

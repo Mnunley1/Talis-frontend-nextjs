@@ -38,9 +38,9 @@ const searchStateToUrl = (router, searchState) =>
 const urlToSearchState = (router) => qs.parse(router.query);
 
 function ListingView({ router }) {
-  const [searchState, setSearchState] = React.useState(
-    urlToSearchState(router)
-  );
+  const [visible, setVisible] = useState(false);
+  const [searchState, setSearchState] = useState(urlToSearchState(router));
+
   const setStateId = React.useRef();
 
   React.useEffect(() => {
@@ -68,6 +68,10 @@ function ListingView({ router }) {
     setSearchState(nextSearchState);
     console.log(searchState);
   }
+
+  const handleClick = () => {
+    setVisible(!visible);
+  };
 
   return (
     <>
@@ -145,6 +149,7 @@ function ListingView({ router }) {
                   overflowY="scroll"
                   overflowX="hidden"
                   px={4}
+                  display={['none', 'none', 'block']}
                 >
                   <CustomHits />
                   <Pagination
@@ -154,10 +159,39 @@ function ListingView({ router }) {
                   />
                   <SearchFooter />
                 </Box>
+                {visible ? (
+                  <Box
+                    w={['100%', '100%', '60%']}
+                    h="100%"
+                    position="relative"
+                    px={[0, 0, 4]}
+                    display={['block', 'block', 'none']}
+                  >
+                    <Map />
+                  </Box>
+                ) : (
+                  <Box
+                    w={['100%', '100%', '40%']}
+                    h="100%"
+                    maxHeight="calc(100vh - 8rem)"
+                    overflowY="scroll"
+                    overflowX="hidden"
+                    px={4}
+                    display={['block', 'block', 'none']}
+                  >
+                    <CustomHits />
+                    <Pagination
+                      showNext={true}
+                      showPrevious={true}
+                      showLast={true}
+                    />
+                    <SearchFooter />
+                  </Box>
+                )}
               </HStack>
             </Container>
           </Container>
-          <FloatingSearchBtn />
+          <FloatingSearchBtn customClick={handleClick} visible={visible} />
         </InstantSearch>
       </Container>
     </>

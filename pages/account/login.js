@@ -60,7 +60,7 @@ function Signin() {
       setError('');
       setLoading(true);
       await login(data.email, data.password);
-      router.push('/');
+      router.back();
     } catch (error) {
       setError(error.message);
     }
@@ -73,7 +73,7 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithFacebook();
-      router.push('/');
+      router.back();
     } catch {
       setError('Failed to login');
     }
@@ -86,7 +86,7 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithGoogle();
-      router.push('/');
+      router.back();
     } catch {
       setError('Failed to login');
     }

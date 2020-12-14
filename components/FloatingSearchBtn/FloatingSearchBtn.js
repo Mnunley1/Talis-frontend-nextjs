@@ -56,11 +56,11 @@ const FilterMenu = () => {
   );
 };
 
-function FloatingSearchBtn() {
+const FloatingSearchBtn = ({ customClick, visible }) => {
   return (
     <Box width={['100%', '100%', '30%']} display={['block', 'block', 'none']}>
       <ButtonGroup
-        size="lg"
+        size="md"
         isAttached
         variant="solid"
         colorScheme="teal"
@@ -68,14 +68,17 @@ function FloatingSearchBtn() {
         bottom="0"
         right="50%"
         transform="translate(50%, -50%)"
-        zIndex="100"
+        zIndex="1000"
+        opacity="95%"
       >
-        <Button mr="-px">Map</Button>
+        <Button mr="-px" onClick={customClick}>
+          {!visible ? 'Map' : 'Listings'}
+        </Button>
         <FilterMenu />
         <SortMenu />
       </ButtonGroup>
     </Box>
   );
-}
+};
 
 export default FloatingSearchBtn;

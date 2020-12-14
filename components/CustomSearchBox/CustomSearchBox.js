@@ -6,7 +6,7 @@ import { connectSearchBox } from 'react-instantsearch-dom';
 
 function SearchBox({ currentRefinement, isSearchStalled, refine }) {
   return (
-    <Box width={['100%', '100%', '30%']}>
+    <Box width={['100%', '100%', '40%', '30%']}>
       <InputGroup size="md">
         <Input
           variant="outline"
