@@ -3,16 +3,18 @@ import { withRouter } from 'next/router';
 import qs from 'qs';
 import dynamic from 'next/dynamic';
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, Pagination } from 'react-instantsearch-dom';
+import { InstantSearch, Pagination, Stats } from 'react-instantsearch-dom';
 import { CustomHits } from '../../components/CustomHits/CustomHits';
 //import ListingsFooter from '../../components/ListingsFooter/ListingsFooter';
+import AutoComplete from '../../components/AutoComplete/AutoComplete';
 import FloatingSearchBtn from '../../components/FloatingSearchBtn/FloatingSearchBtn';
 import { CustomSearchBox } from '../../components/CustomSearchBox/CustomSearchBox';
+import { CustomSortBy } from '../../components/CustomSortBy/CustomSortBy';
 import { PriceNumericMenu } from '../../components/PriceNumericMenu/PriceNumericMenu';
 import { BedsNumericMenu } from '../../components/BedsNumericMenu/BedsNumericMenu';
 import { CustomRefinementList } from '../../components/CustomRefinementList/CustomRefinementList';
 import Navbar from '../../components/Navbar/Navbar';
-import { Box, Container, Flex, HStack } from '@chakra-ui/react';
+import { Box, Container, Flex, HStack, Spacer } from '@chakra-ui/react';
 import SearchFooter from '../../components/SearchFooter/SearchFooter';
 //import 'instantsearch.css/themes/algolia.css';
 
@@ -69,6 +71,14 @@ function ListingView({ router }) {
     console.log(searchState);
   }
 
+  const onSuggestionSelected = (_, { suggestion }) => {
+    setSearchState(suggestion.neighborhood);
+  };
+
+  const onSuggestionCleared = () => {
+    setSearchState('');
+  };
+
   const handleClick = () => {
     setVisible(!visible);
   };
@@ -78,7 +88,7 @@ function ListingView({ router }) {
       <Container minW="100%" height="100%" paddingX="0">
         <Navbar />
         <InstantSearch
-          indexName="TalisTest_test_LISTING_dev"
+          indexName="Talis_Development"
           searchClient={searchClient}
           searchState={searchState}
           onSearchStateChange={onSearchStateChange}
@@ -93,7 +103,11 @@ function ListingView({ router }) {
           >
             <Container maxW="xl" padding={4}>
               <Flex>
-                <CustomSearchBox />
+                <AutoComplete
+                  onSuggestionSelected={onSuggestionSelected}
+                  onSuggestionCleared={onSuggestionCleared}
+                />
+                {/* <CustomSearchBox /> */}
                 <PriceNumericMenu
                   attribute="price_min"
                   items={[
@@ -151,6 +165,41 @@ function ListingView({ router }) {
                   px={4}
                   display={['none', 'none', 'block']}
                 >
+                  <HStack mb={2} display={['none', 'none', 'flex']}>
+                    <Stats
+                      translations={{
+                        stats(nbHits) {
+                          return `${nbHits} results found`;
+                        },
+                      }}
+                    />
+                    <Spacer />
+                    <CustomSortBy
+                      defaultRefinement="Talis_Development"
+                      items={[
+                        {
+                          value: 'Talis_Development',
+                          label: 'Featured',
+                        },
+                        {
+                          value: 'Talis_Development_price_desc',
+                          label: 'Price (High to Low)',
+                        },
+                        {
+                          value: 'Talis_Development_price_asc',
+                          label: 'Price (Low to High)',
+                        },
+                        {
+                          value: 'Talis_Development_bedrooms_asc',
+                          label: 'Bedrooms',
+                        },
+                        {
+                          value: 'Talis_Development_bathrooms_asc',
+                          label: 'Bathrooms',
+                        },
+                      ]}
+                    />
+                  </HStack>
                   <CustomHits />
                   <Pagination
                     showNext={true}

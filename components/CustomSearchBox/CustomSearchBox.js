@@ -1,13 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 
-import { connectSearchBox } from 'react-instantsearch-dom';
+import { Highlight, connectAutoComplete } from 'react-instantsearch-dom';
+import Autosuggest from 'react-autosuggest';
 
-function SearchBox({ currentRefinement, isSearchStalled, refine }) {
+function SearchBox({ currentRefinement, hits, refine }) {
+  const [refinement, setRefinement] = useState(currentRefinement);
+  const [suggestions, setSuggestions] = useState(hits);
+  const inputProps = {
+    placeholder: 'Search ',
+    value: refinement,
+    onChange: (_, { newValue }) => {
+      if (!newValue) {
+        setSuggestions(hits);
+      }
+      setRefinement(newValue);
+    },
+  };
   return (
     <Box width={['100%', '100%', '40%', '30%']}>
-      <InputGroup size="md">
+      <Autosuggest
+        inputProps={{
+          placeholder: 'Search',
+          value: refinement,
+          onChange: (_, { newValue }) => {
+            if (!newValue) {
+              setSuggestions(hits);
+            }
+            setRefinement(newValue);
+          },
+        }}
+        suggestions={hits}
+        onSuggestionsFetchRequested={({ value }) => {
+          refine(value);
+        }}
+        onSuggestionSelected={(event, { suggestion, method }) => {
+          if (method === ' enter') {
+            event.preventDefault();
+          }
+          setRefinement(suggestion);
+        }}
+        onSuggestionsClearRequested={() => {
+          refine();
+        }}
+        getSuggestionValue={(hit) => hit.neighborhood}
+        renderSuggestion={(hit) => (
+          <Highlight attribute="neighborhood" hit={hit} />
+        )}
+      />
+      {/* <InputGroup size="md">
         <Input
           variant="outline"
           color="black"
@@ -24,9 +66,9 @@ function SearchBox({ currentRefinement, isSearchStalled, refine }) {
           bg="teal.500"
           children={<FaSearch color="white" />}
         />
-      </InputGroup>
+      </InputGroup> */}
     </Box>
   );
 }
 
-export const CustomSearchBox = connectSearchBox(SearchBox);
+export const CustomSearchBox = connectAutoComplete(SearchBox);

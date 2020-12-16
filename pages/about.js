@@ -203,7 +203,7 @@ export default function HomeView() {
               </Text>
               <br />
               <Text fontWeight="300">
-                Trulia, founded in Accra, remains nestled in the heart of the
+                Talis, founded in Accra, remains nestled in the heart of the
                 city. Minutes away from the Kotoka International Airport, Talis
                 get to enjoy a state-of-the-art office building.
               </Text>

@@ -67,6 +67,26 @@ const Navbar = () => {
         <Image src={TalisLogo} height="30px" width="auto" />
       </Box>
       <Spacer />
+      <Button
+        as="a"
+        href="/account/signup"
+        colorScheme="teal"
+        size="sm"
+        mr={1}
+        display={['none', 'none', 'inherit']}
+      >
+        Sign Up
+      </Button>
+      <Button
+        as="a"
+        href="/account/login"
+        colorScheme="teal"
+        size="sm"
+        mr={1}
+        display={['none', 'none', 'inherit']}
+      >
+        Log in
+      </Button>
       <IconButton
         ref={btnRef}
         bgColor="transparent"

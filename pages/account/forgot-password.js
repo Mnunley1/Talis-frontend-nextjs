@@ -16,9 +16,11 @@ import {
   FormLabel,
   Heading,
   Input,
+  Image,
   Link,
   Text,
 } from '@chakra-ui/react';
+import TalisLogo from '../../public/images/navbar-logo.svg';
 
 const AlertMessage = ({ message }) => {
   return (
@@ -81,17 +83,27 @@ function Signin() {
   }
 
   return (
-    <Flex align="center" justify="center" h="100vh">
+    <Flex
+      align="center"
+      justify="center"
+      h="100vh"
+      bg="hsla(184, 100%, 35%, 1)"
+      bg="linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
+      bg="-moz-linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
+      bg="-webkit-linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
+      filter="progid: DXImageTransform.Microsoft.gradient( startColorstr='#00A3B0', endColorstr='#005479', GradientType=1 )"
+    >
       <Box
         p={5}
         width={['90%', '70%', '45%']}
+        bg="white"
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
         mT="auto"
       >
         <Box textAlign="center">
-          <Heading fontSize="4xl">TALIS</Heading>
+          <Image src={TalisLogo} h="45px" w="auto" mx="auto" mb={4} />
           <Text fontSize="lg">Enter your email to reset password</Text>
         </Box>
         <Box my={4} textAlign="left">
@@ -112,14 +124,15 @@ function Signin() {
               </FormErrorMessage>
             </FormControl>
             <Button
-              colorScheme="teal"
+              bgColor="#00A3B0"
+              color="white"
               variant="solid"
               type="submit"
               width="full"
               mt={4}
             >
               {loading ? (
-                <CircularProgress isIndeterminate size="24px" color="teal" />
+                <CircularProgress isIndeterminate size="24px" color="white" />
               ) : (
                 'Reset Password'
               )}

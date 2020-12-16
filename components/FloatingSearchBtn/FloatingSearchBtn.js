@@ -1,3 +1,4 @@
+import { connectSortBy } from 'react-instantsearch-dom';
 import {
   Box,
   Button,
@@ -22,21 +23,38 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-const SortMenu = () => {
+function SortBy({ items, refine, createURL }) {
   return (
-    <Menu closeOnSelect={false} placement="top-end">
-      <MenuButton as={Button} colorScheme="teal">
-        Sort
+    <Menu>
+      <MenuButton as={Button} variant="solid" colorScheme="teal">
+        Sort By
       </MenuButton>
-      <MenuList minWidth="200px">
-        <MenuOptionGroup defaultValue="asc" title="Order" type="radio">
-          <MenuItemOption value="asc">Ascending</MenuItemOption>
-          <MenuItemOption value="desc">Descending</MenuItemOption>
+      <MenuList minWidth="150px" type="radio" color="teal.500">
+        <MenuOptionGroup>
+          {items.map((item) => (
+            <MenuItemOption
+              key={item.label}
+              value={item.label}
+              onClick={(event) => {
+                event.preventDefault();
+                refine(item.value);
+              }}
+            >
+              <a
+                href={createURL(item.value)}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                {item.label}
+              </a>
+            </MenuItemOption>
+          ))}
         </MenuOptionGroup>
       </MenuList>
     </Menu>
   );
-};
+}
+
+const CustomSortBy = connectSortBy(SortBy);
 
 const FilterMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,7 +93,31 @@ const FloatingSearchBtn = ({ customClick, visible }) => {
           {!visible ? 'Map' : 'Listings'}
         </Button>
         <FilterMenu />
-        <SortMenu />
+        <CustomSortBy
+          defaultRefinement="Talis_Development"
+          items={[
+            {
+              value: 'Talis_Development',
+              label: 'Featured',
+            },
+            {
+              value: 'Talis_Development_price_desc',
+              label: 'Price (High to Low)',
+            },
+            {
+              value: 'Talis_Development_price_asc',
+              label: 'Price (Low to High)',
+            },
+            {
+              value: 'Talis_Development_bedrooms_asc',
+              label: 'Bedrooms',
+            },
+            {
+              value: 'Talis_Development_bathrooms_asc',
+              label: 'Bathrooms',
+            },
+          ]}
+        />
       </ButtonGroup>
     </Box>
   );
