@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { useRouter } from 'next/router';
 import Navbar from '../../components/Navbar/Navbar';
 import {
   Box,
@@ -16,17 +19,46 @@ import {
   Textarea,
   Select,
   SimpleGrid,
+  Spinner,
   StackDivider,
   Stack,
   VStack,
 } from '@chakra-ui/react';
 
 export default function HomeView() {
+  const router = useRouter();
+  const { currentUser } = useAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.push('/account/login'); 
+    } else {
+      setLoading(false);
+    }
+  }, [currentUser]);
+
   return (
     <div>
       <Navbar />
-      <Flex style={{ marginTop: '80px', height: 'calc(100vh - 80px )' }}>
-        <Box
+      <Flex marginTop="64px" width="100%" height="calc(100vh - 64px )">
+        {loading ? (
+          <Box h="100%" width="100%">
+            <Center h="100%">
+              <VStack>
+                <Text fontSize="5xl">Almost there...</Text>
+                <Text fontSize="2xl">This may take a few moments</Text>
+                <Spinner
+                  thickness="5px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="#00A3B0"
+                  size="xl"
+                />
+              </VStack>
+            </Center>
+          </Box>
+        ) : (<><Box
           as="container"
           w="25%"
           bg="white"
@@ -41,10 +73,10 @@ export default function HomeView() {
             <Box>
               <Text fontSize="lg">Welcome User!</Text>
             </Box>
-            <Box as="a" href="/myTalis/profile">
+            <Box as="a" href="/MyTalis/profile">
               <Text fontSize="lg">Profile</Text>
             </Box>
-            <Box as="a" href="/myTalis/favorite-listings">
+            <Box as="a" href="/MyTalis/favorite-listings">
               <Text fontSize="lg">Favorite Listings</Text>
             </Box>
           </VStack>
@@ -63,7 +95,8 @@ export default function HomeView() {
               <Text>You have not saved any properties</Text>
             </Box>
           </Flex>
-        </Box>
+        </Box></>)}
+        
       </Flex>
     </div>
   );

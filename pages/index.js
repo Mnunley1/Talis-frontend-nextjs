@@ -69,7 +69,7 @@ export default function HomeView() {
         bgSize="cover"
         color="white"
         height="60vh"
-        mt="80px"
+        mt="64px"
       >
         <Center marginY="auto" height="100%">
           <VStack w="70%">

@@ -70,7 +70,7 @@ const Navbar = () => {
         <Image src={TalisLogo} height="25px" width="auto" />
       </Box>
       <Spacer />
-      <Button
+      {currentUser ? null : <><Button
         as="a"
         href="/account/signup"
         colorScheme="teal"
@@ -89,7 +89,8 @@ const Navbar = () => {
         display={['none', 'none', 'inherit']}
       >
         Log in
-      </Button>
+      </Button></>}
+      
       <IconButton
         ref={btnRef}
         bgColor="transparent"

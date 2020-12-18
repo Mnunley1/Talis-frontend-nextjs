@@ -30,7 +30,7 @@ export default function HomeView() {
         position="relative"
         color="white"
         height="60vh"
-        mt="80px"
+        mt="64px"
       >
         <video
           autoPlay

@@ -68,7 +68,7 @@ export default function Listing() {
     <div>
       <Navbar />
       <Container maxW="lg">
-        <Box as="section" color="white" h="100%" w="100%" mt="80px">
+        <Box as="section" color="white" h="100%" w="100%" mt="64px">
           <ListingGallery />
         </Box>
         <Box as="section" w="100%" p={5}>
