@@ -9,6 +9,7 @@ import {
   WrapItem,
   useRemoteData,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 
 export default function ListingCards(props) {
   return (
@@ -16,7 +17,12 @@ export default function ListingCards(props) {
       {props.data.map((data) => {
         return (
           <>
-            <a href={`#`}>
+            <Link
+              href={{
+                pathname: '/listings/[slug]/[id]',
+                query: { slug: data.slug, id: data.id },
+              }}
+            >
               <Box
                 borderWidth="1px"
                 borderRadius="lg"
@@ -56,11 +62,14 @@ export default function ListingCards(props) {
                     lineHeight="tight"
                     isTruncated
                   >
-                    {data.bedrooms} Beds | {data.price}
+                    {data.bedrooms} Beds |{' '}
+                    <Box as="span" fontWeight="semibold">
+                      {data.price}
+                    </Box>
                   </Box>
                 </Box>
               </Box>
-            </a>
+            </Link>
           </>
         );
       })}

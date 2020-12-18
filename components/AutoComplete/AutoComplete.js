@@ -9,7 +9,6 @@ const InputBar = (inputProps) => {
   return (
     <InputGroup size="md">
       <Input
-        w="100%"
         variant="outline"
         color="black"
         borderRadius="5px"

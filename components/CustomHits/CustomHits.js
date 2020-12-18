@@ -59,7 +59,7 @@ function Hits({ hits }) {
 
               <Box
                 mt="1"
-                fontWeight="semibold"
+                fontWeight="bold"
                 as="h4"
                 lineHeight="tight"
                 color="black"
@@ -70,7 +70,7 @@ function Hits({ hits }) {
 
               <Box
                 mt="1"
-                fontWeight="semibold"
+                //fontWeight="semibold"
                 as="h4"
                 lineHeight="tight"
                 color="black"
@@ -79,9 +79,16 @@ function Hits({ hits }) {
                 {hit.address}
               </Box>
 
-              <Box color="black">
+              <Box color="black" fontWeight="bold" fontSize="md">
                 {hit.price}
-                <Box as="span" color="gray.600" fontSize="sm">
+                <Box
+                  as="span"
+                  color="gray.500"
+                  fontWeight="semibold"
+                  letterSpacing="wide"
+                  fontSize="xs"
+                  textTransform="uppercase"
+                >
                   / month
                 </Box>
               </Box>

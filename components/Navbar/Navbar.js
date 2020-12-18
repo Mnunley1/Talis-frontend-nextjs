@@ -55,16 +55,19 @@ const Navbar = () => {
       position="fixed"
       top="0"
       left="0"
-      height="80px"
+      height="64px"
       width="100%"
       wrap="wrap"
-      padding="1rem"
+      padding=".5rem"
+      paddingX="1rem"
       bgColor="white"
       color="black"
+      borderBottom="1px"
+      borderColor="gray.100"
       zIndex="500"
     >
       <Box as="a" href="/">
-        <Image src={TalisLogo} height="30px" width="auto" />
+        <Image src={TalisLogo} height="25px" width="auto" />
       </Box>
       <Spacer />
       <Button

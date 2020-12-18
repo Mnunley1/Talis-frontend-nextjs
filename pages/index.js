@@ -78,7 +78,7 @@ export default function HomeView() {
               fontWeight="700"
               textAlign="center"
               letterSpacing={-1}
-              mb={3}
+              mb={6}
             >
               Discover your new home
             </Text>
@@ -115,7 +115,14 @@ export default function HomeView() {
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <VStack spacing={8}>
-            <Text fontSize="3xl">Latest Listings</Text>
+            <Text
+              fontSize="3xl"
+              fontWeight="700"
+              textAlign="center"
+              letterSpacing={-1}
+            >
+              Latest Listings
+            </Text>
             <SimpleGrid columns={[1, 1, 2, 4]} spacing={3}>
               <ListingCards data={listings} />
             </SimpleGrid>
@@ -126,7 +133,7 @@ export default function HomeView() {
         </Container>
       </Box>
 
-      <Box as="section" paddingY="60px">
+      <Box as="section" paddingBottom="20px">
         <Container maxW="lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]}>
             <Box
@@ -137,10 +144,16 @@ export default function HomeView() {
               borderTopLeftRadius={['0', '0', '20px']}
             >
               <VStack>
-                <Text fontSize="md" alignSelf="start">
+                <Text
+                  fontSize="lg"
+                  alignSelf="start"
+                  fontWeight="semibold"
+                  as="h4"
+                  lineHeight="tight"
+                >
                   Helping You Find the Perfect Fit
                 </Text>
-                <Text fontSize="sm" align="start">
+                <Text fontSize="md" fontWeight="300" align="start">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Incidunt, debitis nam!
                 </Text>
@@ -166,10 +179,16 @@ export default function HomeView() {
             </Box>
             <Box bgColor="gray.100" height="auto" width="100%" padding={10}>
               <VStack>
-                <Text fontSize="md" alignSelf="start">
+                <Text
+                  fontSize="lg"
+                  alignSelf="start"
+                  fontWeight="semibold"
+                  as="h4"
+                  lineHeight="tight"
+                >
                   Helping You Find the Perfect Fit
                 </Text>
-                <Text fontSize="sm" align="start">
+                <Text fontSize="md" fontWeight="300" align="start">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Incidunt, debitis nam!
                 </Text>
@@ -185,10 +204,16 @@ export default function HomeView() {
               borderBottomLeftRadius="20px"
             >
               <VStack>
-                <Text fontSize="md" alignSelf="start">
+                <Text
+                  fontSize="lg"
+                  alignSelf="start"
+                  fontWeight="semibold"
+                  as="h4"
+                  lineHeight="tight"
+                >
                   Helping You Find the Perfect Fit
                 </Text>
-                <Text fontSize="sm" align="start">
+                <Text fontSize="md" fontWeight="300" align="start">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Incidunt, debitis nam!
                 </Text>
@@ -206,7 +231,7 @@ export default function HomeView() {
           </SimpleGrid>
         </Container>
       </Box>
-      <Box as="section" paddingY="60px">
+      <Box as="section" paddingY="40px">
         <Container maxW="md" centerContent>
           <Text fontSize="2xl" align="center">
             We are constantly updating listings, so you will never miss out.

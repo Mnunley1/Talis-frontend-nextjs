@@ -27,7 +27,7 @@ function RefinementList({ values, currentRefinement, items, refine }) {
           as={Button}
           variant="outline"
           borderColor="gray.300"
-          color="black"
+          color="gray.500"
           rightIcon={<FaAngleDown />}
         >
           Type

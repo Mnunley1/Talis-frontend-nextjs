@@ -38,6 +38,14 @@ function RequestInfo() {
           Request Info
         </Button>
       </Box>
+      <Box>
+        <Text color="#4e4e4e" fontSize="xs">
+          By pressing Request Info, you agree that Talis may contact you via
+          phone/text about your inquiry, which may involve the use of automated
+          means. You are not required to consent as a condition of purchasing
+          any property, goods or services. Message/data rates may be applicable.
+        </Text>
+      </Box>
     </VStack>
   );
 }

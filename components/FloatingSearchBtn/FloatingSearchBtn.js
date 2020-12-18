@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import MobileSearchFilter from '../MobileSearchFilter/MobileSearchFilter';
+import { connectNumericMenu } from 'react-instantsearch-dom';
 import { connectSortBy } from 'react-instantsearch-dom';
 import {
   Box,
@@ -20,8 +23,81 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Radio,
+  RadioGroup,
+  Stack,
   useDisclosure,
 } from '@chakra-ui/react';
+
+const VirtualBedsMenu = connectNumericMenu(() => null);
+
+const Bedrooms = ({ items, refine, createURL, updateBedrooms }) => (
+  <RadioGroup>
+    <Stack direction="row">
+      {items.map((item) => (
+        <a
+          href={createURL(item.value)}
+          style={{ fontWeight: item.isRefined ? 'bold' : '' }}
+          onChange={(event) => {
+            event.preventDefault();
+            updateBedrooms(item.value);
+            refine(item.value);
+          }}
+        >
+          <Radio key={item.label} value={item.label}>
+            {item.label}
+          </Radio>
+        </a>
+      ))}
+    </Stack>
+  </RadioGroup>
+);
+const BedroomsMenu = connectNumericMenu(Bedrooms);
+
+const FilterMenu = ({ currentRefinement }) => {
+  const [bedroomsState, setBedroomsState] = useState(currentRefinement);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const updateBedrooms = (value) => {
+    setBedroomsState(value);
+  };
+
+  return (
+    <>
+      <Button onClick={onOpen}>Filter</Button>
+
+      <VirtualBedsMenu
+        attribute="bedrooms"
+        items={[
+          { label: '1', end: 1 },
+          { label: '2', end: 2 },
+          { label: '3', end: 3 },
+          { label: '4', end: 4 },
+        ]}
+      />
+
+      <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
+        <ModalOverlay />
+        <ModalContent borderRadius={0}>
+          <ModalHeader>Filter</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <BedroomsMenu
+              attribute="bedrooms"
+              defaultRefinement={bedroomsState}
+              updateBedrooms={updateBedrooms}
+              items={[
+                { label: '1', end: 1 },
+                { label: '2', end: 2 },
+                { label: '3', end: 3 },
+                { label: '4', end: 4 },
+              ]}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
 function SortBy({ items, refine, createURL }) {
   return (
@@ -53,28 +129,9 @@ function SortBy({ items, refine, createURL }) {
     </Menu>
   );
 }
-
 const CustomSortBy = connectSortBy(SortBy);
 
-const FilterMenu = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Button onClick={onOpen}>Filter</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose} size="full" isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody></ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-};
-
-const FloatingSearchBtn = ({ customClick, visible }) => {
+const FloatingSearchBtn = ({ customClick, visible, bedrooms }) => {
   return (
     <Box width={['100%', '100%', '30%']} display={['block', 'block', 'none']}>
       <ButtonGroup
@@ -92,7 +149,7 @@ const FloatingSearchBtn = ({ customClick, visible }) => {
         <Button mr="-px" onClick={customClick}>
           {!visible ? 'Map' : 'Listings'}
         </Button>
-        <FilterMenu />
+        <FilterMenu searchState={bedrooms} />
         <CustomSortBy
           defaultRefinement="Talis_Development"
           items={[
@@ -109,11 +166,11 @@ const FloatingSearchBtn = ({ customClick, visible }) => {
               label: 'Price (Low to High)',
             },
             {
-              value: 'Talis_Development_bedrooms_asc',
+              value: 'Talis_Development_bedrooms_desc',
               label: 'Bedrooms',
             },
             {
-              value: 'Talis_Development_bathrooms_asc',
+              value: 'Talis_Development_bathrooms_desc',
               label: 'Bathrooms',
             },
           ]}

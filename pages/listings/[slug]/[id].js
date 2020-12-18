@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { db } from '../../../firebase';
+import Footer from '../../../components/Footer/Footer';
 import Navbar from '../../../components/Navbar/Navbar';
 import ListingGallery from '../../../components/ListingGallery/ListingGallery';
 import RequestInfo from '../../../components/RequestInfo/RequestInfo';
@@ -11,6 +12,8 @@ import {
   Container,
   Flex,
   Heading,
+  HStack,
+  Icon,
   Image,
   Modal,
   ModalOverlay,
@@ -31,6 +34,9 @@ import {
   VStack,
   Center,
 } from '@chakra-ui/react';
+import { FaRulerCombined } from 'react-icons/fa';
+import { FaBath } from 'react-icons/fa';
+import { FaBed } from 'react-icons/fa';
 
 export default function Listing() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -68,15 +74,50 @@ export default function Listing() {
         <Box as="section" w="100%" p={5}>
           <Flex color="black">
             <Box w={['100%', '100%', '60%']}>
-              <VStack spacing={4} align="stretch">
-                <Box h="40px">
-                  <Heading size="2xl">{listing.title}</Heading>
+              <Text fontSize="4xl" fontWeight="700">
+                <HStack>
+                  <Box>{listing.title}</Box>
+                  <Spacer />
+                  <Box fontSize="3xl">
+                    {listing.price}{' '}
+                    <Box
+                      as="span"
+                      color="#4e4e4e"
+                      fontWeight="normal"
+                      letterSpacing="wide"
+                      fontSize="xs"
+                      textTransform="uppercase"
+                    >
+                      / month
+                    </Box>
+                  </Box>
+                </HStack>
+              </Text>
+              <Box fontSize="lg" fontWeight="300">
+                {listing.address} | {listing.neighborhood}
+              </Box>
+              <Box fontSize="lg" fontWeight="300" mt={5} color="#4e4e4e">
+                <Icon as={FaBed} w={4} h={4} mr={2} />
+                {listing.bedrooms} Beds
+                <Icon as={FaBath} w={4} h={4} mx={2} />
+                {listing.bathrooms} Baths
+                <Icon as={FaRulerCombined} w={4} h={4} mx={2} />
+                {listing.squareFeet} sqm
+              </Box>
+
+              <Box mt={8}>
+                <Text fontSize="xl" fontWeight="700">
+                  Description
+                </Text>
+                <Box fontSize="lg" fontWeight="300">
+                  {listing.description}
                 </Box>
-                <Box h="40px">{listing.neighborhood}</Box>
-                <Box h="40px">{listing.address}</Box>
-                <Box h="40px">{listing.price}</Box>
-                <Box h="40px">{listing.description}</Box>
-              </VStack>
+              </Box>
+              <Box mt={8}>
+                <Text fontSize="xl" fontWeight="700">
+                  Listing Details
+                </Text>
+              </Box>
             </Box>
             <Box
               w="40%"
@@ -93,6 +134,7 @@ export default function Listing() {
           </Flex>
         </Box>
       </Container>
+      <Footer />
       <Box
         h="55px"
         position="fixed"

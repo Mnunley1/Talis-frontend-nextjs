@@ -31,7 +31,7 @@ function NumericMenu({ items, refine, createURL }) {
           ml={2}
           as={Button}
           variant="outline"
-          color="black"
+          color="gray.500"
           borderColor="gray.300"
           rightIcon={<FaAngleDown />}
         >

@@ -30,7 +30,7 @@ function NumericMenu({ items, refine, createURL }) {
         <MenuButton
           ml={2}
           as={Button}
-          color="black"
+          color="gray.500"
           variant="outline"
           borderColor="gray.300"
           onChange={handleChange}

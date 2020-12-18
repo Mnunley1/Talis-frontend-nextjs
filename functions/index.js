@@ -7,7 +7,7 @@ const APP_ID = functions.config().algolia.app;
 const ADMIN_KEY = functions.config().algolia.key;
 
 const client = algoliasearch(APP_ID, ADMIN_KEY);
-const index = client.initIndex('TalisTest_test_LISTING_dev');
+const index = client.initIndex('Talis_Development');
 
 exports.addToIndex = functions.firestore
   .document('fl_content/{listingId}')
@@ -30,6 +30,7 @@ exports.addToIndex = functions.firestore
       photo_main: data.mainImage,
       title: data.title,
       slug: data.slug,
+      listing_type: data.listingType,
     };
 
     return index.saveObject(listingObject);
@@ -55,6 +56,7 @@ exports.updateIndex = functions.firestore
       photo_main: newData.mainImage,
       title: newData.title,
       slug: newData.slug,
+      listing_type: newData.listingType,
     };
 
     return index.saveObject({ ...listingObject, objectID });

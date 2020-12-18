@@ -4,6 +4,7 @@ import qs from 'qs';
 import dynamic from 'next/dynamic';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, Pagination, Stats } from 'react-instantsearch-dom';
+import { connectNumericMenu } from 'react-instantsearch-dom';
 import { CustomHits } from '../../components/CustomHits/CustomHits';
 //import ListingsFooter from '../../components/ListingsFooter/ListingsFooter';
 import AutoComplete from '../../components/AutoComplete/AutoComplete';
@@ -18,6 +19,10 @@ import { Box, Container, Flex, HStack, Spacer } from '@chakra-ui/react';
 import SearchFooter from '../../components/SearchFooter/SearchFooter';
 //import 'instantsearch.css/themes/algolia.css';
 
+const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
+const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
+const searchClient = algoliasearch(algoliaId, searchKey);
+
 const Map = dynamic(
   () =>
     import('../../components/CustomGeoSearch/CustomGeoSearch').then(
@@ -25,10 +30,6 @@ const Map = dynamic(
     ),
   { ssr: false }
 );
-
-const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
-const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
-const searchClient = algoliasearch(algoliaId, searchKey);
 
 const DEBOUNCE_TIME = 400;
 
@@ -42,15 +43,15 @@ const urlToSearchState = (router) => qs.parse(router.query);
 function ListingView({ router }) {
   const [visible, setVisible] = useState(false);
   const [searchState, setSearchState] = useState(urlToSearchState(router));
-
+  const [bedroomsState, setBedroomsState] = useState('');
   const setStateId = React.useRef();
 
   React.useEffect(() => {
     const nextSearchState = urlToSearchState(router);
-    console.log(router.query);
 
     if (JSON.stringify(searchState) !== JSON.stringify(nextSearchState)) {
       setSearchState(nextSearchState);
+      setBedroomsState(searchState.multiRange.bedrooms);
       console.log(searchState);
     }
 
@@ -109,7 +110,7 @@ function ListingView({ router }) {
                 />
                 {/* <CustomSearchBox /> */}
                 <PriceNumericMenu
-                  attribute="price_min"
+                  attribute="price"
                   items={[
                     { label: '$1000', end: 1000 },
                     { label: '$2000', end: 2000 },
@@ -119,7 +120,7 @@ function ListingView({ router }) {
                   ]}
                 />
                 <BedsNumericMenu
-                  attribute="bedrooms_max"
+                  attribute="bedrooms"
                   items={[
                     { label: '1', end: 1 },
                     { label: '2', end: 2 },
@@ -129,12 +130,11 @@ function ListingView({ router }) {
                 />
 
                 <CustomRefinementList
-                  attribute="property_type"
+                  attribute="listing_type"
                   values={[
-                    { label: 'Townhome', value: 'Townhome' },
-                    { label: 'House', value: 'House' },
-                    { label: 'Condo', value: 'Condo' },
-                    { label: 'Apartment', value: 'Apartment' },
+                    { label: 'Townhome', value: 'townhome' },
+                    { label: 'House', value: 'house' },
+                    { label: 'Condo', value: 'condo' },
                   ]}
                 />
               </Flex>
@@ -240,7 +240,11 @@ function ListingView({ router }) {
               </HStack>
             </Container>
           </Container>
-          <FloatingSearchBtn customClick={handleClick} visible={visible} />
+          <FloatingSearchBtn
+            customClick={handleClick}
+            visible={visible}
+            bedrooms={bedroomsState}
+          />
         </InstantSearch>
       </Container>
     </>
