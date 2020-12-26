@@ -56,8 +56,6 @@ export default function HomeView() {
       query: { query: data.search, page: 1 },
     });
 
-  console.log(listings);
-
   return (
     <>
       <Navbar />

@@ -18,12 +18,23 @@ import {
   IconButton,
   Image,
   Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuIcon,
+  MenuCommand,
+  MenuDivider,
   Spacer,
   Text,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { FaBars } from 'react-icons/fa';
+import { FaUserAlt } from 'react-icons/fa';
 import TalisLogo from '../../public/images/navbar-logo.svg';
 import TalisMenuLogo from '../../public/images/talis-marker.svg';
 
@@ -70,30 +81,59 @@ const Navbar = () => {
         <Image src={TalisLogo} height="25px" width="auto" />
       </Box>
       <Spacer />
-      {currentUser ? null : <><Button
-        as="a"
-        href="/account/signup"
-        colorScheme="teal"
-        size="sm"
-        mr={1}
-        display={['none', 'none', 'inherit']}
-      >
-        Sign Up
-      </Button>
-      <Button
-        as="a"
-        href="/account/login"
-        colorScheme="teal"
-        size="sm"
-        mr={1}
-        display={['none', 'none', 'inherit']}
-      >
-        Log in
-      </Button></>}
-      
+      {currentUser ? (
+        <Menu>
+          <MenuButton w="0" as={Button} variant="full">
+            <IconButton
+              variant="full"
+              color="teal.500"
+              aria-label="User Account"
+              fontSize="15px"
+              icon={<FaUserAlt />}
+            />
+          </MenuButton>
+          <MenuList>
+            <Box as="a" href="/MyTalis/profile">
+              <MenuItem>
+                <Text fontSize="lg">Profile</Text>
+              </MenuItem>
+            </Box>
+            <Box as="a" href="/MyTalis/favorite-listings">
+              <MenuItem>
+                <Text fontSize="lg">Favorite Listings</Text>
+              </MenuItem>
+            </Box>
+          </MenuList>
+        </Menu>
+      ) : (
+        <>
+          <Button
+            as="a"
+            href="/account/signup"
+            colorScheme="teal"
+            size="sm"
+            mr={1}
+            display={['none', 'none', 'inherit']}
+          >
+            Sign Up
+          </Button>
+          <Button
+            as="a"
+            href="/account/login"
+            colorScheme="teal"
+            size="sm"
+            mr={1}
+            display={['none', 'none', 'inherit']}
+          >
+            Log in
+          </Button>
+        </>
+      )}
+
       <IconButton
         ref={btnRef}
-        bgColor="transparent"
+        variant="full"
+        color="black"
         icon={<FaBars />}
         onClick={onOpen}
       />

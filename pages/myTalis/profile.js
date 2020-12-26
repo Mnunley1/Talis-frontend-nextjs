@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Navbar from '../../components/Navbar/Navbar';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../contexts/AuthContext';
@@ -10,6 +11,7 @@ import {
   Divider,
   Flex,
   FormLabel,
+  HStack,
   Image,
   Input,
   InputGroup,
@@ -20,6 +22,7 @@ import {
   Select,
   SimpleGrid,
   Spinner,
+  Spacer,
   StackDivider,
   Stack,
   VStack,
@@ -27,16 +30,57 @@ import {
 
 export default function HomeView() {
   const router = useRouter();
-  const { currentUser } = useAuth();
+  const { register, handleSubmit, watch, errors } = useForm();
+  const { currentUser, updateEmail, updatePassword } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!currentUser) {
-      router.push('/account/login'); 
+      router.push('/account/login');
     } else {
       setLoading(false);
     }
   }, [currentUser]);
+
+  async function onInfoSubmit(data) {
+    try {
+      setError('');
+      //setLoading(true);
+      await currentUser.updateProfile({ displayName: data.name });
+      alert(currentUser.displayName);
+    } catch (error) {
+      setError(error.message);
+      alert(error);
+    }
+  }
+
+  async function onEmailSubmit(data) {
+    try {
+      setError('');
+      //setLoading(true);
+      await updateEmail(data.email);
+    } catch (error) {
+      setError(error.message);
+    }
+
+    //setLoading(false);
+  }
+
+  async function onPasswordSubmit(data) {
+    if (data.newPassword === data.confirmPassword) {
+      try {
+        setError('');
+        //setLoading(true);
+        await updatePassword(data.newPassword);
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+    setError('Passwords do not match');
+    alert(error);
+    //setLoading(false);
+  }
 
   return (
     <div>
@@ -101,43 +145,95 @@ export default function HomeView() {
                   </Text>
                 </Box>
                 <Box w={['100%', '70%']} py={5} pl={[0, 5]}>
-                  <Stack spacing="24px">
+                  <VStack spacing={5} align="stretch">
                     <Box>
-                      <FormLabel htmlFor="username">Email</FormLabel>
-                      <Text>test@email.com</Text>
+                      <form onSubmit={handleSubmit(onInfoSubmit)}>
+                        <Text fontSize="xl">Edit User Info</Text>
+                        <VStack align="stretch" spacing={2}>
+                          <Box>
+                            <Input
+                              color="black"
+                              bg="white"
+                              name="name"
+                              defaultValue={currentUser.displayName}
+                              placeholder="Enter name"
+                              ref={register}
+                            />
+                          </Box>
+                          <Button
+                            w="25%"
+                            size="sm"
+                            variant="solid"
+                            colorScheme="teal"
+                            type="submit"
+                          >
+                            Save
+                          </Button>
+                        </VStack>
+                      </form>
                     </Box>
+
                     <Box>
-                      <FormLabel htmlFor="username">Password</FormLabel>
-                      <Text>********</Text>
+                      <form onSubmit={handleSubmit(onEmailSubmit)}>
+                        <Text fontSize="xl">Update Email</Text>
+                        <VStack align="stretch" spacing={2}>
+                          <Box>
+                            <Input
+                              color="black"
+                              bg="white"
+                              name="email"
+                              defaultValue={currentUser.email}
+                              placeholder="Enter email"
+                              ref={register}
+                            />
+                          </Box>
+                          <Button
+                            w="25%"
+                            size="sm"
+                            variant="solid"
+                            colorScheme="teal"
+                          >
+                            Save
+                          </Button>
+                        </VStack>
+                      </form>
                     </Box>
+
                     <Box>
-                      <FormLabel htmlFor="username">Name</FormLabel>
-                      <Input
-                        id="username"
-                        placeholder="Please enter your name"
-                        borderColor="black"
-                      />
+                      <form onSubmit={handleSubmit(onPasswordSubmit)}>
+                        <Text fontSize="xl">Change Password</Text>
+                        <VStack align="stretch" spacing={2}>
+                          <Box>
+                            <Input
+                              bg="white"
+                              name="newPassword"
+                              placeholder="Enter new password"
+                              ref={register}
+                            />
+                          </Box>
+                          <Box>
+                            <Input
+                              bg="white"
+                              name="confirmPassword"
+                              placeholder="Confirm new password"
+                              ref={register}
+                            />
+                          </Box>
+                          <Button
+                            w="25%"
+                            size="sm"
+                            variant="solid"
+                            colorScheme="teal"
+                            type="submit"
+                          >
+                            Save
+                          </Button>
+                        </VStack>
+                      </form>
                     </Box>
-                    <Box>
-                      <FormLabel htmlFor="username">Phone Number</FormLabel>
-                      <Input
-                        id="username"
-                        placeholder="Please enter your number"
-                        borderColor="black"
-                      />
-                    </Box>
-                    <Box>
-                      <FormLabel htmlFor="username">Location</FormLabel>
-                      <Input
-                        id="username"
-                        placeholder="Accra, Chana"
-                        borderColor="black"
-                      />
-                    </Box>
-                  </Stack>
+                  </VStack>
                 </Box>
               </Flex>
-              <Divider borderColor="black" />
             </Box>{' '}
           </>
         )}

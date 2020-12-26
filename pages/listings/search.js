@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'next/router';
+import { useAuth } from '../../contexts/AuthContext';
+import { db } from '../../firebase';
 import qs from 'qs';
 import dynamic from 'next/dynamic';
 import algoliasearch from 'algoliasearch/lite';
@@ -42,11 +44,35 @@ const urlToSearchState = (router) => qs.parse(router.query);
 
 function ListingView({ router }) {
   const [visible, setVisible] = useState(false);
+  const { currentUser } = useAuth();
   const [searchState, setSearchState] = useState(urlToSearchState(router));
   const [bedroomsState, setBedroomsState] = useState('');
+  const [favorites, setFavorites] = useState([]);
   const setStateId = React.useRef();
 
-  React.useEffect(() => {
+  const getUserFavorites = () => {
+    var docRef = db.collection('users').where('id', '==', currentUser.uid);
+    console.log(docRef);
+
+    docRef
+      .get()
+      .then((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          const data = doc.data().favoriteListings;
+          console.log(data);
+          data.map((item) => items.push(item));
+          //items.push(data);
+        });
+        setFavorites(items);
+      })
+      .catch(function (error) {
+        console.log('Error getting documents: ', error);
+      });
+  };
+
+  useEffect(() => {
     const nextSearchState = urlToSearchState(router);
 
     if (JSON.stringify(searchState) !== JSON.stringify(nextSearchState)) {
@@ -57,6 +83,12 @@ function ListingView({ router }) {
 
     // eslint-disable-next-line
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (currentUser) {
+      getUserFavorites();
+    }
+  }, []);
 
   function onSearchStateChange(nextSearchState) {
     clearTimeout(setStateId.current);
@@ -69,7 +101,7 @@ function ListingView({ router }) {
     }, DEBOUNCE_TIME);
 
     setSearchState(nextSearchState);
-    console.log(searchState);
+    //console.log(searchState);
   }
 
   const onSuggestionSelected = (_, { suggestion }) => {
@@ -99,7 +131,7 @@ function ListingView({ router }) {
             color="white"
             height="100%"
             paddingX="0"
-            marginTop="80px"
+            marginTop="64px"
             minW="100%"
           >
             <Container maxW="xl" padding={4}>
@@ -141,7 +173,7 @@ function ListingView({ router }) {
             </Container>
             <Container
               maxW="xl"
-              h="calc(100vh - 152px)"
+              h="calc(100vh - 136px)"
               overflow="hidden"
               paddingBottom={4}
               px="0"
@@ -200,7 +232,10 @@ function ListingView({ router }) {
                       ]}
                     />
                   </HStack>
-                  <CustomHits />
+                  <CustomHits
+                    favorites={favorites}
+                    getUserFavorites={getUserFavorites}
+                  />
                   <Pagination
                     showNext={true}
                     showPrevious={true}

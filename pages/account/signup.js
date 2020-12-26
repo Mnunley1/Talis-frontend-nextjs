@@ -69,11 +69,12 @@ function Signin() {
       setLoading(true);
       await signUp(data.email, data.password).then((cred) => {
         return db.collection('users').doc(cred.user.uid).set({
+          id: cred.user.uid,
           location: '',
           favoriteListings: [],
         });
       });
-      router.push('/');
+      router.back();
     } catch (error) {
       setError(error.message);
     }
@@ -87,11 +88,12 @@ function Signin() {
       setLoading(true);
       await signInWithFacebook().then((cred) => {
         return db.collection('users').doc(cred.user.uid).set({
+          id: cred.user.uid,
           location: '',
           favoriteListings: [],
         });
       });
-      router.push('/');
+      router.back();
     } catch {
       setError('Failed to login');
     }
@@ -105,11 +107,12 @@ function Signin() {
       setLoading(true);
       await signInWithGoogle().then((cred) => {
         return db.collection('users').doc(cred.user.uid).set({
+          id: cred.user.uid,
           location: '',
           favoriteListings: [],
         });
       });
-      router.push('/');
+      router.back();
     } catch {
       setError('Failed to login');
     }

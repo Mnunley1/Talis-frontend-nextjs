@@ -74,7 +74,13 @@ function Signin() {
     try {
       setError('');
       setLoading(true);
-      await signInWithFacebook();
+      await signInWithFacebook().then((cred) => {
+        return db.collection('users').doc(cred.user.uid).set({
+          id: cred.user.uid,
+          location: '',
+          favoriteListings: [],
+        });
+      });
       router.back();
     } catch {
       setError('Failed to login');
@@ -87,7 +93,13 @@ function Signin() {
     try {
       setError('');
       setLoading(true);
-      await signInWithGoogle();
+      await signInWithGoogle().then((cred) => {
+        return db.collection('users').doc(cred.user.uid).set({
+          id: cred.user.uid,
+          location: '',
+          favoriteListings: [],
+        });
+      });
       router.back();
     } catch {
       setError('Failed to login');

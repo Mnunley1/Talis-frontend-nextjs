@@ -25,6 +25,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
     "firebase": "^8.0.2",
+    "firebase-admin": "^9.4.2",
     "framer-motion": "^2.9.4",
     "instantsearch.css": "^7.4.2",
     "leaflet": "^1.7.1",

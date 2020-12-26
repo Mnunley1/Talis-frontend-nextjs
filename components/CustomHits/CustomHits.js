@@ -1,11 +1,12 @@
 import React, { btnRef, Transformation } from 'react';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import { connectHits } from 'react-instantsearch-dom';
 import { Badge, Box, IconButton, Icon, Image, Spacer } from '@chakra-ui/react';
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
 import Link from 'next/link';
 
-function Hits({ hits }) {
+function Hits({ hits, favorites, getUserFavorites }) {
   return (
     <ol>
       {hits.map((hit) => (
@@ -28,6 +29,7 @@ function Hits({ hits }) {
               boxShadow: '0 3px 10px 0 rgba(0,0,0,.25)',
               transition: 'border ease-in .1s',
             }}
+            zIndex="1"
           >
             <Image
               h="250px"
@@ -52,9 +54,11 @@ function Hits({ hits }) {
                   {hit.bedrooms} beds &bull; {hit.bathrooms} baths
                 </Box>
                 <Spacer />
-                <Box as="button" variant="ghost">
-                  <Icon as={FaRegHeart} color="teal.500" w={6} h={6} />
-                </Box>
+                <FavoriteButton
+                  listingID={hit.objectID}
+                  favorites={favorites}
+                  getUserFavorites={getUserFavorites}
+                />
               </Box>
 
               <Box
