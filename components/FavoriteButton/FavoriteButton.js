@@ -13,9 +13,9 @@ function FavoriteButton({ favorites, getUserFavorites, listingID }) {
   const { currentUser } = useAuth();
   const [favoriteItems, setFavoriteItems] = useState([]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     setFavoriteItems(favorites);
-  }, []);
+  }, []); */
 
   const addToFavorites = (listingID) => {
     if (!currentUser) {

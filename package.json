@@ -53,6 +53,7 @@
     "react-modal": "^3.12.1",
     "react-scripts": "3.4.1",
     "react-social-login-buttons": "^3.1.0",
+    "use-deep-compare-effect": "^1.6.1",
     "vercel": "^21.0.1"
   },
   "devDependencies": {

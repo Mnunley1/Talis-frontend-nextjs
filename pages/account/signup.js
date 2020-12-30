@@ -68,13 +68,18 @@ function Signin() {
       setError('');
       setLoading(true);
       await signUp(data.email, data.password).then((cred) => {
-        return db.collection('users').doc(cred.user.uid).set({
-          id: cred.user.uid,
-          location: '',
-          favoriteListings: [],
+        var docRef = db.collection('users').doc(cred.user.uid);
+        docRef.get().then(function (doc) {
+          if (!doc.exists) {
+            return docRef.set({
+              id: cred.user.uid,
+              location: '',
+              favoriteListings: [],
+            });
+          }
         });
       });
-      router.back();
+      router.push('/');
     } catch (error) {
       setError(error.message);
     }
@@ -87,13 +92,18 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithFacebook().then((cred) => {
-        return db.collection('users').doc(cred.user.uid).set({
-          id: cred.user.uid,
-          location: '',
-          favoriteListings: [],
+        var docRef = db.collection('users').doc(cred.user.uid);
+        docRef.get().then(function (doc) {
+          if (!doc.exists) {
+            return docRef.set({
+              id: cred.user.uid,
+              location: '',
+              favoriteListings: [],
+            });
+          }
         });
       });
-      router.back();
+      router.push('/');
     } catch {
       setError('Failed to login');
     }
@@ -106,13 +116,18 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithGoogle().then((cred) => {
-        return db.collection('users').doc(cred.user.uid).set({
-          id: cred.user.uid,
-          location: '',
-          favoriteListings: [],
+        var docRef = db.collection('users').doc(cred.user.uid);
+        docRef.get().then(function (doc) {
+          if (!doc.exists) {
+            return docRef.set({
+              id: cred.user.uid,
+              location: '',
+              favoriteListings: [],
+            });
+          }
         });
       });
-      router.back();
+      router.push('/');
     } catch {
       setError('Failed to login');
     }

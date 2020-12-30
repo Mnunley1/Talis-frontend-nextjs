@@ -51,25 +51,27 @@ function ListingView({ router }) {
   const setStateId = React.useRef();
 
   const getUserFavorites = () => {
-    var docRef = db.collection('users').where('id', '==', currentUser.uid);
-    console.log(docRef);
+    if (currentUser) {
+      var docRef = db.collection('users').where('id', '==', currentUser.uid);
+      console.log(docRef);
 
-    docRef
-      .get()
-      .then((querySnapshot) => {
-        const items = [];
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          const data = doc.data().favoriteListings;
-          console.log(data);
-          data.map((item) => items.push(item));
-          //items.push(data);
+      docRef
+        .get()
+        .then((querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            const data = doc.data().favoriteListings;
+            console.log(data);
+            data.map((item) => items.push(item));
+            //items.push(data);
+          });
+          setFavorites(items);
+        })
+        .catch(function (error) {
+          console.log('Error getting documents: ', error);
         });
-        setFavorites(items);
-      })
-      .catch(function (error) {
-        console.log('Error getting documents: ', error);
-      });
+    }
   };
 
   useEffect(() => {
@@ -263,7 +265,10 @@ function ListingView({ router }) {
                     px={4}
                     display={['block', 'block', 'none']}
                   >
-                    <CustomHits />
+                    <CustomHits
+                      favorites={favorites}
+                      getUserFavorites={getUserFavorites}
+                    />
                     <Pagination
                       showNext={true}
                       showPrevious={true}

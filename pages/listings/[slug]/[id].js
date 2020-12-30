@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { db } from '../../../firebase';
+import { db, storage } from '../../../firebase';
 import Footer from '../../../components/Footer/Footer';
 import Navbar from '../../../components/Navbar/Navbar';
 import ListingGallery from '../../../components/ListingGallery/ListingGallery';
@@ -43,7 +43,8 @@ export default function Listing() {
   const router = useRouter();
   const { id } = router.query;
   const [listing, setListing] = useState([]);
-  console.log(id);
+  const [images, setImages] = useState([]);
+  //console.log(id);
 
   useEffect(() => {
     var docRef = db.collection('fl_content').doc(id);
@@ -51,8 +52,25 @@ export default function Listing() {
     docRef
       .get()
       .then((doc) => {
+        const items = [];
         if (doc.exists) {
           setListing(doc.data());
+          //console.log(doc.data().listingImages);
+          doc.data().listingImages.forEach((item) => {
+            items.push(item.path);
+            // db.doc(`${item.path}`)
+            //   .get()
+            //   .then((doc) => {
+            //     var fileName = doc.data().file;
+            //     storage
+            //       .ref('flamelink/media/' + fileName)
+            //       .getDownloadURL()
+            //       .then((url) => {
+            //         items.push({ original: url });
+            //       });
+            //   });
+          });
+          setImages(items);
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -62,14 +80,15 @@ export default function Listing() {
         console.log('Error getting document:', error);
       });
   }, []);
-  console.log(listing);
 
+  console.log(images.length);
+  console.log(images);
   return (
     <div>
       <Navbar />
       <Container maxW="lg">
         <Box as="section" color="white" h="100%" w="100%" mt="64px">
-          <ListingGallery />
+          <ListingGallery images={images} />
         </Box>
         <Box as="section" w="100%" p={5}>
           <Flex color="black">

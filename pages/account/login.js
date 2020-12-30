@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { db } from '../../firebase';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext';
 import {
@@ -75,15 +76,20 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithFacebook().then((cred) => {
-        return db.collection('users').doc(cred.user.uid).set({
-          id: cred.user.uid,
-          location: '',
-          favoriteListings: [],
+        var docRef = db.collection('users').doc(cred.user.uid);
+        docRef.get().then(function (doc) {
+          if (!doc.exists) {
+            return docRef.set({
+              id: cred.user.uid,
+              location: '',
+              favoriteListings: [],
+            });
+          }
         });
       });
       router.back();
-    } catch {
-      setError('Failed to login');
+    } catch (error) {
+      setError(error.message);
     }
 
     setLoading(false);
@@ -94,15 +100,20 @@ function Signin() {
       setError('');
       setLoading(true);
       await signInWithGoogle().then((cred) => {
-        return db.collection('users').doc(cred.user.uid).set({
-          id: cred.user.uid,
-          location: '',
-          favoriteListings: [],
+        var docRef = db.collection('users').doc(cred.user.uid);
+        docRef.get().then(function (doc) {
+          if (!doc.exists) {
+            return docRef.set({
+              id: cred.user.uid,
+              location: '',
+              favoriteListings: [],
+            });
+          }
         });
       });
       router.back();
-    } catch {
-      setError('Failed to login');
+    } catch (error) {
+      setError(error.message);
     }
 
     setLoading(false);
