@@ -20,33 +20,19 @@ import styles from '../../styles/Home.module.scss';
 // ];
 
 function ListingGallery({ images }) {
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    const files = [];
-    images.forEach((image) => {
-      db.doc(`${image}`)
-        .get()
-        .then(function (doc) {
-          var fileName = doc.data().file;
-          storage
-            .ref('flamelink/media/' + fileName)
-            .getDownloadURL()
-            .then(function (url) {
-              files.push({ original: `${url}` });
-            });
-          setItems(files);
-        });
-    });
+  // useEffect(() => {
+  //   setImage
 
-    console.log(items);
-  }, [images]);
+  //   console.log(items);
+  // }, [images]);
 
-  console.log(items.length);
+  console.log(images);
 
   return (
     <ImageGallery
-      items={items}
+      items={images}
       showThumbnails={false}
       showFullscreenButton={true}
       showPlayButton={false}

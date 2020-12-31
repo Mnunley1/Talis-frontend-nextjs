@@ -57,20 +57,20 @@ export default function Listing() {
           setListing(doc.data());
           //console.log(doc.data().listingImages);
           doc.data().listingImages.forEach((item) => {
-            items.push(item.path);
-            // db.doc(`${item.path}`)
-            //   .get()
-            //   .then((doc) => {
-            //     var fileName = doc.data().file;
-            //     storage
-            //       .ref('flamelink/media/' + fileName)
-            //       .getDownloadURL()
-            //       .then((url) => {
-            //         items.push({ original: url });
-            //       });
-            //   });
+            //items.push(item.path);
+            db.doc(`${item.path}`)
+              .get()
+              .then((doc) => {
+                var fileName = doc.data().file;
+                storage
+                  .ref('flamelink/media/' + fileName)
+                  .getDownloadURL()
+                  .then((url) => {
+                    items.push({ original: url });
+                    setImages(items);
+                  });
+              });
           });
-          setImages(items);
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
