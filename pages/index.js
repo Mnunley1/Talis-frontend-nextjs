@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { db } from '../firebase';
-import Modal from 'react-modal';
-import axios from 'axios';
 import headerImg from '../public/images/showcaseimage.jpg';
 import cardImg1 from '../public/images/blackfam.jpg';
 import cardImg2 from '../public/images/Kitchen.jpg';
@@ -11,7 +9,6 @@ import cardImg3 from '../public/images/familymovingin.jpg';
 import ListingCards from '../components/ListingCards/ListingCards';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
-//import Button from '@material-ui/core/Button';
 import {
   Box,
   Button,
@@ -24,7 +21,6 @@ import {
   Text,
   SimpleGrid,
   VStack,
-  Wrap,
 } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 
@@ -66,21 +62,23 @@ export default function HomeView() {
         bgPosition="center center"
         bgSize="cover"
         color="white"
-        height="60vh"
+        height={['50vh', '60vh']}
+        minHeight={['50vh', '60vh']}
         mt="64px"
       >
         <Center marginY="auto" height="100%">
-          <VStack w="70%">
+          <VStack w="80%">
             <Text
               fontSize="5xl"
               fontWeight="700"
               textAlign="center"
               letterSpacing={-1}
+              lineHeight={1}
               mb={6}
             >
               Discover your new home
             </Text>
-            <Box width="70%">
+            <Box width={['100%', '70%']}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <InputGroup size="lg">
                   <Input

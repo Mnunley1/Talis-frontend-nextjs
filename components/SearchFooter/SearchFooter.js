@@ -24,7 +24,7 @@ function SearchFooter() {
       bottom="0"
       left="0"
       bg="#111111"
-      color="white"
+      color="#8C8C88"
       px={5}
       py={10}
       mt={5}

@@ -25,13 +25,14 @@ function Footer() {
       left="0"
       bg="#111111"
       color="#8C8C88"
-      p={8}
+      px={5}
+      py={10}
+      mt={5}
     >
       <Container maxW="lg">
-        <SimpleGrid columns={[1, 1, 3]} spacing={10}>
+        <SimpleGrid columns={[1, 1, 3]} spacing={5}>
           <VStack
             w={['90%', '70%', '100%']}
-            mt={10}
             align={['flex-start', 'flex-start', 'center']}
           >
             <Image w="auto" height="35px" src={TalisLogo} alt="Talis Logo" />
@@ -72,7 +73,6 @@ function Footer() {
           <VStack w="100%" align={['flex-start', 'flex-start', 'center']}>
             <Text
               textAlign={['flex-start', 'flex-start', 'center']}
-              mt={10}
               fontSize="14px"
             >
               <Text fontSize="sm">Location</Text>

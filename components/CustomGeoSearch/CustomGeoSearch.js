@@ -1,5 +1,6 @@
 import React from 'react';
 import { connectGeoSearch } from 'react-instantsearch-dom';
+import { Box } from '@chakra-ui/react';
 import L from 'leaflet';
 import talisMarker from '../../public/images/talis-marker.svg';
 import 'leaflet/dist/leaflet.css';
@@ -54,8 +55,10 @@ class GeoSearch extends React.Component {
   render() {
     return (
       <div>
-        <div
-          style={{ position: 'absolute', height: '100%', borderRadius: '15px' }}
+        <Box
+          position="absolute"
+          height="100%"
+          borderRadius={[0, 0, '15px']}
           ref={(c) => (this.el = c)}
         />
       </div>

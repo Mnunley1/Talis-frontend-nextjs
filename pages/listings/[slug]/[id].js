@@ -86,7 +86,7 @@ export default function Listing() {
   return (
     <div>
       <Navbar />
-      <Container maxW="lg">
+      <Container maxW="lg" px={[0, 5]}>
         <Box as="section" color="white" h="100%" w="100%" mt="64px">
           <ListingGallery images={images} />
         </Box>
@@ -153,7 +153,10 @@ export default function Listing() {
           </Flex>
         </Box>
       </Container>
-      <Footer />
+      <Box mb={['54px', '54px', '0']}>
+        <Footer />
+      </Box>
+
       <Box
         h="55px"
         position="fixed"

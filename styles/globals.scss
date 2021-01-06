@@ -14,6 +14,7 @@ body {
   border-radius: 15px;
   z-index: 1;
 }
+
 .mapboxgl-ctrl-attrib-inner {
   display: none;
 }
@@ -72,18 +73,28 @@ button:focus {
   outline: none;
 }
 
+//React Image Gallery
 .image-gallery-slide .image-gallery-image {
   width: 100%;
   object-fit: cover;
   object-position: center;
   border-radius: 25px;
+  @media screen and (max-width: 30em) {
+    border-radius: 0;
+  }
 }
 
 .image-gallery-index {
   border-top-right-radius: 25px;
+  @media screen and (max-width: 30em) {
+    border-top-right-radius: 0;
+  }
 }
 .image-gallery-slides {
   border-radius: 25px;
+  @media screen and (max-width: 30em) {
+    border-radius: 0;
+  }
 }
 
 .leaflet-container {
@@ -96,9 +107,16 @@ div.css-r6z5ec {
   z-index: 8000;
 }
 
+//Autocomplete Searchbar
 .react-autosuggest__container {
   position: relative;
   width: 40%;
+  @media screen and (max-width: 30em) {
+    width: 100%;
+  }
+  @media screen and (min-width: 30em) and (max-width: 48em) {
+    width: 100%;
+  }
 }
 
 // .react-autosuggest__input {

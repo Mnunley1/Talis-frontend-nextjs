@@ -29,7 +29,7 @@ export default function HomeView() {
         as="section"
         position="relative"
         color="white"
-        height="60vh"
+        height="50vh"
         mt="64px"
       >
         <video
@@ -68,10 +68,10 @@ export default function HomeView() {
           zIndex={10}
           color="white"
         >
-          <Center w="70%" h="100%" margin="auto">
+          <Center w="80%" h="100%" margin="auto">
             <VStack>
               <Text fontSize="6xl" fontWeight="700" textAlign="center" mb={-5}>
-                About Talis
+                Talis
               </Text>
               <Text fontSize="3xl" textAlign="center">
                 Committed to serving renters and property owners
@@ -84,8 +84,13 @@ export default function HomeView() {
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]} spacing={10}>
-            <Box>
-              <Image src={aboutImg1} height="auto" width="100%" />
+            <Box order={2}>
+              <Image
+                src={aboutImg1}
+                height="auto"
+                width="100%"
+                borderRadius="25px"
+              />
             </Box>
             <Box height="auto" width="100%" p={0}>
               <Heading as="h5" size="lg">
@@ -191,7 +196,7 @@ export default function HomeView() {
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]} spacing={10}>
-            <Box>
+            <Box order={[2, 2, 1]}>
               <Map />
             </Box>
             <Box height="auto" width="100%">
