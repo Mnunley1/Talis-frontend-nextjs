@@ -33,6 +33,14 @@ const Map = dynamic(
   { ssr: false }
 );
 
+const MobileMap = dynamic(
+  () =>
+    import('../../components/MobileGeoSearch/MobileGeoSearch').then(
+      (mod) => mod.CustomGeoSearch
+    ),
+  { ssr: false }
+);
+
 const DEBOUNCE_TIME = 400;
 
 const createURL = (state) => `?${qs.stringify(state)}`;
@@ -253,7 +261,7 @@ function ListingView({ router }) {
                     px={[0, 0, 4]}
                     display={['block', 'block', 'none']}
                   >
-                    <Map />
+                    <MobileMap />
                   </Box>
                 ) : (
                   <Box

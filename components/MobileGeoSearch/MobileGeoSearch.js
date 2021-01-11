@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { connectGeoSearch } from 'react-instantsearch-dom';
-import MapListingInfo from '../MapListingInfo/MapListingInfo';
+import MobileListingPopup from '../MobileListingPopup/MobileListingPopup';
 import { Box } from '@chakra-ui/react';
 import L from 'leaflet';
 import talisMarker from '../../public/images/talis-marker.svg';
 import 'leaflet/dist/leaflet.css';
+import Link from 'next/link';
 
 const accessToken = process.env.NEXT_PUBLIC_MAPBOX_KEY;
 const mapMarker = L.icon({
@@ -46,21 +47,21 @@ class GeoSearch extends React.Component {
           .addTo(this.instance)
           .bindTooltip(
             ReactDOMServer.renderToString(
-              <MapListingInfo
+              <MobileListingPopup
                 title={title}
                 bedrooms={bedrooms}
                 bathrooms={bathrooms}
                 price={price}
+                id={objectID}
+                slug={slug}
               />
             ),
             {
               direction: 'center',
               offset: [0, 6],
+              interactive: 'true',
             }
           )
-          .on('click', function (e) {
-            location.href = `/listings/${[slug]}/${[objectID]}`;
-          })
     );
 
     if (this.markers.length) {
