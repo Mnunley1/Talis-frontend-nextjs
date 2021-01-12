@@ -54,7 +54,6 @@ function ListingView({ router }) {
   const [visible, setVisible] = useState(false);
   const { currentUser } = useAuth();
   const [searchState, setSearchState] = useState(urlToSearchState(router));
-  const [bedroomsState, setBedroomsState] = useState('');
   const [favorites, setFavorites] = useState([]);
   const setStateId = React.useRef();
 
@@ -87,7 +86,6 @@ function ListingView({ router }) {
 
     if (JSON.stringify(searchState) !== JSON.stringify(nextSearchState)) {
       setSearchState(nextSearchState);
-      setBedroomsState(nextSearchState.multiRange);
     }
 
     // eslint-disable-next-line
@@ -176,6 +174,7 @@ function ListingView({ router }) {
                     { label: '3', end: 3 },
                     { label: '4', end: 4 },
                   ]}
+                  defaultBeds={searchState?.multiRange?.bedrooms || ""}
                 />
 
                 <CustomRefinementList
@@ -298,7 +297,7 @@ function ListingView({ router }) {
           <FloatingSearchBtn
             customClick={handleClick}
             visible={visible}
-            bedrooms={bedroomsState}
+            bedrooms={searchState?.multiRange?.bedrooms || ""}
           />
         </InstantSearch>
       </Container>
