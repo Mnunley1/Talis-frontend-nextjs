@@ -101,7 +101,7 @@ function ListingView({ router }) {
     clearTimeout(setStateId.current);
 
     setStateId.current = setTimeout(() => {
-      console.log('query [nextSearchState]:', nextSearchState);
+      //console.log('query [nextSearchState]:', nextSearchState);
       router.push({
         pathname: router.pathname,
         query: qs.stringify(nextSearchState),
@@ -184,6 +184,7 @@ function ListingView({ router }) {
                     { label: 'House', value: 'house' },
                     { label: 'Condo', value: 'condo' },
                   ]}
+                  defaultRefinement={searchState?.refinementList?.listing_type || []}
                 />
               </Flex>
             </Container>
