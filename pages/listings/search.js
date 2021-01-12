@@ -83,7 +83,6 @@ function ListingView({ router }) {
 
   useEffect(() => {
     const nextSearchState = urlToSearchState(router);
-
     if (JSON.stringify(searchState) !== JSON.stringify(nextSearchState)) {
       setSearchState(nextSearchState);
     }
@@ -112,20 +111,6 @@ function ListingView({ router }) {
     //console.log(searchState);
   }
 
-  const onSuggestionSelected = (_, { suggestion }) => {
-    setSearchState({
-      ...searchState,
-      query: suggestion.neighborhood
-    });
-  };
-
-  const onSuggestionCleared = () => {
-    setSearchState({
-      ...searchState,
-      query: ''
-    });
-  };
-
   const handleClick = () => {
     setVisible(!visible);
   };
@@ -150,10 +135,7 @@ function ListingView({ router }) {
           >
             <Container maxW="xl" padding={4}>
               <Flex>
-                <AutoComplete
-                  onSuggestionSelected={onSuggestionSelected}
-                  onSuggestionCleared={onSuggestionCleared}
-                />
+                <AutoComplete />
                 {/* <CustomSearchBox /> */}
                 <PriceNumericMenu
                   attribute="price"
