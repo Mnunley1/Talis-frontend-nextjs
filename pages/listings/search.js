@@ -87,12 +87,15 @@ function ListingView({ router }) {
 
     if (JSON.stringify(searchState) !== JSON.stringify(nextSearchState)) {
       setSearchState(nextSearchState);
-      setBedroomsState(searchState.multiRange.bedrooms);
-      console.log(searchState);
+      setBedroomsState(nextSearchState.multiRange);
     }
 
     // eslint-disable-next-line
   }, [router.pathname]);
+  //todo:
+  // 2. Check the way search works, correct the useEffect, timeOut and onSearchStateChange
+  // 3. Make the price parameter to work properly - DONE
+  // 4. Try to push the changes.
 
   useEffect(() => {
     if (currentUser) {
@@ -104,9 +107,10 @@ function ListingView({ router }) {
     clearTimeout(setStateId.current);
 
     setStateId.current = setTimeout(() => {
+      console.log('query [nextSearchState]:', nextSearchState);
       router.push({
         pathname: router.pathname,
-        query: nextSearchState,
+        query: qs.stringify(nextSearchState),
       });
     }, DEBOUNCE_TIME);
 
@@ -115,11 +119,17 @@ function ListingView({ router }) {
   }
 
   const onSuggestionSelected = (_, { suggestion }) => {
-    setSearchState(suggestion.neighborhood);
+    setSearchState({
+      ...searchState,
+      query: suggestion.neighborhood
+    });
   };
 
   const onSuggestionCleared = () => {
-    setSearchState('');
+    setSearchState({
+      ...searchState,
+      query: ''
+    });
   };
 
   const handleClick = () => {
@@ -160,6 +170,7 @@ function ListingView({ router }) {
                     { label: '$4000', end: 4000 },
                     { label: '$5000', end: 5000 },
                   ]}
+                  defaultPrice={searchState?.multiRange?.price || ""}
                 />
                 <BedsNumericMenu
                   attribute="bedrooms"
