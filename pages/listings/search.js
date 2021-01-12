@@ -92,10 +92,6 @@ function ListingView({ router }) {
 
     // eslint-disable-next-line
   }, [router.pathname]);
-  //todo:
-  // 2. Check the way search works, correct the useEffect, timeOut and onSearchStateChange
-  // 3. Make the price parameter to work properly - DONE
-  // 4. Try to push the changes.
 
   useEffect(() => {
     if (currentUser) {
