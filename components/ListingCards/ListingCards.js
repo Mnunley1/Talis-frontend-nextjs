@@ -28,6 +28,7 @@ export default function ListingCards(props) {
                 borderRadius="lg"
                 overflow="hidden"
                 w="100%"
+                bgColor="white"
               >
                 <Image
                   src={data.mainImage}

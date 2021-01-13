@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { withRouter } from 'next/router';
+import { db } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/router';
 import Navbar from '../../components/Navbar/Navbar';
+import ListingCards from '../../components/ListingCards/ListingCards';
 import {
   Box,
   Button,
@@ -29,14 +32,48 @@ export default function HomeView() {
   const router = useRouter();
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
+
+  const getUserFavorites = () => {
+    const id = currentUser.uid;
+
+    var docRef = db.collection('users').doc(id);
+
+    docRef
+      .get()
+      .then((doc) => {
+        const items = [];
+        if (doc.exists) {
+          console.log(doc.data().favoriteListings);
+          doc.data().favoriteListings.forEach((item) => {
+            db.collection('fl_content')
+              .doc(`${item}`)
+              .get()
+              .then((doc) => {
+                const data = doc.data();
+                items.push(data);
+                setFavorites(items);
+              });
+          });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+        }
+      })
+      .catch((error) => {
+        console.log('Error getting document:', error);
+      });
+  };
 
   useEffect(() => {
     if (!currentUser) {
       router.push('/account/login');
     } else {
+      getUserFavorites();
       setLoading(false);
+      console.log(favorites);
     }
-  }, [currentUser]);
+  }, []);
 
   return (
     <div>
@@ -94,7 +131,13 @@ export default function HomeView() {
               <Divider borderColor="black" />
               <Flex color="black">
                 <Box w="100%" pt={5}>
-                  <Text>You have not saved any properties</Text>
+                  {favorites ? (
+                    <SimpleGrid columns={[1, 1, 2, 3]} spacing={2}>
+                      <ListingCards data={favorites} />
+                    </SimpleGrid>
+                  ) : (
+                    <Text>You have not saved any properties</Text>
+                  )}
                 </Box>
               </Flex>
             </Box>
