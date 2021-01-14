@@ -18,6 +18,7 @@ export default function ListingCards(props) {
         return (
           <>
             <Link
+              key={data.id}
               href={{
                 pathname: '/listings/[slug]/[id]',
                 query: { slug: data.slug, id: data.id },

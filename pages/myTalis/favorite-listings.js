@@ -36,25 +36,21 @@ export default function HomeView() {
 
   const getUserFavorites = () => {
     const id = currentUser.uid;
-
     var docRef = db.collection('users').doc(id);
 
     docRef
       .get()
       .then((doc) => {
-        const items = [];
         if (doc.exists) {
-          console.log(doc.data().favoriteListings);
-          doc.data().favoriteListings.forEach((item) => {
-            db.collection('fl_content')
-              .doc(`${item}`)
-              .get()
-              .then((doc) => {
-                const data = doc.data();
-                items.push(data);
-                setFavorites(items);
-              });
-          });
+          Promise.all(
+            doc.data().favoriteListings.map((item) => {
+              return db
+                .collection('fl_content')
+                .doc(`${item}`)
+                .get()
+                .then((doc) => doc.data());
+            })
+          ).then((items) => setFavorites(items));
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -71,7 +67,6 @@ export default function HomeView() {
     } else {
       getUserFavorites();
       setLoading(false);
-      console.log(favorites);
     }
   }, []);
 
