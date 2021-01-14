@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Highlight, connectAutoComplete } from 'react-instantsearch-dom';
 import AutoSuggest from 'react-autosuggest';
 import { FaSearch } from 'react-icons/fa';
+import { CustomHighlight } from '../CustomHighlight/CustomHighlight';
+import _ from "lodash";
 
 const InputBar = (inputProps) => {
   return (
@@ -50,7 +52,7 @@ class AutoComplete extends Component {
 
   onSuggestionSelected = (_, { suggestion }) => {
     _.preventDefault();
-    const newValue = suggestion.neighborhood;
+    const newValue = this.getSuggestionValue(suggestion);
     this.setState({
       value: newValue
     });
@@ -65,18 +67,35 @@ class AutoComplete extends Component {
     //keep this empty, as clear logic is implemented in onChange handler
   };
 
-  getSuggestionValue(hit) {
-    return hit.name;
+  getSuggestionValue(suggestion) {
+    return suggestion.value;
   }
 
-  renderSuggestion(hit) {
-    return <Highlight attribute="neighborhood" hit={hit} tagName="mark" />;
+  renderSuggestion(suggestion) {
+    return <CustomHighlight suggestion={suggestion} />;
   }
+
+  filterHits = (hits) => {
+    const suggestions = [];
+    hits.forEach(currentHit => {
+      Object.keys(currentHit._highlightResult).forEach(currentKey => {
+        if (currentHit._highlightResult[currentKey].matchedWords.length === 0) {
+          //skip no matches
+          return;
+        }
+        suggestions.push({
+          value: currentHit[currentKey],
+          hit: currentHit,
+          key: currentKey
+        });
+      });
+    });
+    return _.uniqBy(suggestions, item => _.trim(item.value));
+  };
 
   render() {
     const { hits } = this.props;
     const { value } = this.state;
-
     const inputProps = {
       placeholder: 'Search',
       onChange: this.onChange,
@@ -85,7 +104,7 @@ class AutoComplete extends Component {
 
     return (
       <AutoSuggest
-        suggestions={hits}
+        suggestions={this.filterHits(hits)}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         onSuggestionSelected={this.onSuggestionSelected}
