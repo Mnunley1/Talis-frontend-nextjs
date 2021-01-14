@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { FaAngleDown } from 'react-icons/fa';
 
-function NumericMenu({ items, refine, createURL, defaultBeds }) {
+function NumericMenu({ items, refine, createURL, defaultBeds, currentRefinement }) {
   return (
     <Box display={['none', 'none', 'inline-block']}>
       <Menu closeOnSelect={false}>
@@ -32,7 +32,7 @@ function NumericMenu({ items, refine, createURL, defaultBeds }) {
           type="radio"
           color="teal.500"
         >
-          <MenuOptionGroup defaultValue={defaultBeds}>
+          <MenuOptionGroup defaultValue={defaultBeds} value={defaultBeds}>
             {items.map((item) => (
               <MenuItemOption
                 key={item.label}

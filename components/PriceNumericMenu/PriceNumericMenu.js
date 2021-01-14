@@ -33,7 +33,7 @@ function NumericMenu({ items, refine, createURL, defaultPrice }) {
           type="radio"
           color="teal.500"
         >
-          <MenuOptionGroup defaultValue={defaultPrice}>
+          <MenuOptionGroup defaultValue={defaultPrice} value={defaultPrice}>
             {items.map((item) => (
               <MenuItemOption
                 key={item.label}

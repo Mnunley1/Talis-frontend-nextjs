@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connectNumericMenu } from 'react-instantsearch-dom';
 import { connectSortBy } from 'react-instantsearch-dom';
 import {
@@ -31,7 +31,7 @@ import {
 const Bedrooms = ({ items, refine, createURL, defaultRefinement }) => {
   const defaultLabel = items.find(item => item.value === defaultRefinement).label;
   return (
-    <RadioGroup defaultValue={defaultLabel}>
+    <RadioGroup defaultValue={defaultLabel} value={defaultLabel}>
       <Stack direction="row">
         {items.map((item) => (
           <a
@@ -42,7 +42,10 @@ const Bedrooms = ({ items, refine, createURL, defaultRefinement }) => {
               refine(item.value);
             }}
           >
-            <Radio key={item.label} value={item.label} isChecked={item.isRefined}>
+            <Radio
+              key={item.label}
+              value={item.label}
+            >
               {item.label}
             </Radio>
           </a>
