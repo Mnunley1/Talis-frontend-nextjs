@@ -11,19 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { FaAngleDown } from 'react-icons/fa';
 
-function NumericMenu({ items, refine, createURL }) {
-  const [state, setState] = React.useState({
-    price: '',
-  });
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
-
+function NumericMenu({ items, refine, createURL, defaultPrice }) {
   return (
     <Box display={['none', 'none', 'inline-block']}>
       <Menu closeOnSelect={false}>
@@ -33,11 +21,10 @@ function NumericMenu({ items, refine, createURL }) {
           color="gray.500"
           variant="outline"
           borderColor="gray.300"
-          onChange={handleChange}
           label="Max Price"
           rightIcon={<FaAngleDown />}
         >
-          Max Price {state.price}
+          Max Price {defaultPrice.replace(":", "")}
         </MenuButton>
         <MenuList
           position="absolute"
@@ -46,11 +33,11 @@ function NumericMenu({ items, refine, createURL }) {
           type="radio"
           color="teal.500"
         >
-          <MenuOptionGroup>
+          <MenuOptionGroup defaultValue={defaultPrice} value={defaultPrice}>
             {items.map((item) => (
               <MenuItemOption
                 key={item.label}
-                value={item.label}
+                value={item.value}
                 onClick={(event) => {
                   event.preventDefault();
                   refine(item.value);

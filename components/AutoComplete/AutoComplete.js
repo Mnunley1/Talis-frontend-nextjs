@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Highlight, connectAutoComplete } from 'react-instantsearch-dom';
 import AutoSuggest from 'react-autosuggest';
 import { FaSearch } from 'react-icons/fa';
+import { CustomHighlight } from '../CustomHighlight/CustomHighlight';
+import _ from "lodash";
 
 const InputBar = (inputProps) => {
   return (
@@ -30,9 +32,7 @@ class AutoComplete extends Component {
   static propTypes = {
     hits: PropTypes.arrayOf(PropTypes.object).isRequired,
     currentRefinement: PropTypes.string.isRequired,
-    refine: PropTypes.func.isRequired,
-    onSuggestionSelected: PropTypes.func.isRequired,
-    onSuggestionCleared: PropTypes.func.isRequired,
+    refine: PropTypes.func.isRequired
   };
 
   state = {
@@ -41,12 +41,22 @@ class AutoComplete extends Component {
 
   onChange = (_, { newValue }) => {
     if (!newValue) {
-      this.props.onSuggestionCleared();
+      //clear inputs
+      this.props.refine();
     }
 
     this.setState({
-      value: newValue,
+      value: newValue || ""
     });
+  };
+
+  onSuggestionSelected = (_, { suggestion }) => {
+    _.preventDefault();
+    const newValue = this.getSuggestionValue(suggestion);
+    this.setState({
+      value: newValue
+    });
+    this.props.refine(newValue);
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
@@ -54,21 +64,38 @@ class AutoComplete extends Component {
   };
 
   onSuggestionsClearRequested = () => {
-    this.props.refine();
+    //keep this empty, as clear logic is implemented in onChange handler
   };
 
-  getSuggestionValue(hit) {
-    return hit.name;
+  getSuggestionValue(suggestion) {
+    return suggestion.value;
   }
 
-  renderSuggestion(hit) {
-    return <Highlight attribute="neighborhood" hit={hit} tagName="mark" />;
+  renderSuggestion(suggestion) {
+    return <CustomHighlight suggestion={suggestion} />;
   }
+
+  filterHits = (hits) => {
+    const suggestions = [];
+    hits.forEach(currentHit => {
+      Object.keys(currentHit._highlightResult).forEach(currentKey => {
+        if (currentHit._highlightResult[currentKey].matchedWords.length === 0) {
+          //skip no matches
+          return;
+        }
+        suggestions.push({
+          value: currentHit[currentKey],
+          hit: currentHit,
+          key: currentKey
+        });
+      });
+    });
+    return _.uniqBy(suggestions, item => _.trim(item.value));
+  };
 
   render() {
-    const { hits, onSuggestionSelected } = this.props;
+    const { hits } = this.props;
     const { value } = this.state;
-
     const inputProps = {
       placeholder: 'Search',
       onChange: this.onChange,
@@ -77,10 +104,10 @@ class AutoComplete extends Component {
 
     return (
       <AutoSuggest
-        suggestions={hits}
+        suggestions={this.filterHits(hits)}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        onSuggestionSelected={onSuggestionSelected}
+        onSuggestionSelected={this.onSuggestionSelected}
         getSuggestionValue={this.getSuggestionValue}
         renderSuggestion={this.renderSuggestion}
         renderInputComponent={InputBar}

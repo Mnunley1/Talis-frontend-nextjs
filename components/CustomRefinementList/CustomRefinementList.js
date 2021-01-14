@@ -12,13 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FaAngleDown } from 'react-icons/fa';
 
-function RefinementList({ values, currentRefinement, items, refine }) {
-  const [listingType, setListingType] = React.useState([]);
-
-  const handleChange = (event) => {
-    setListingType(event.target.value);
-  };
-
+function RefinementList({ values, refine, defaultRefinement }) {
   return (
     <Box display={['none', 'none', 'inline-block']}>
       <Menu closeOnSelect={false}>
@@ -39,11 +33,9 @@ function RefinementList({ values, currentRefinement, items, refine }) {
           minWidth="150px"
         >
           {values.map((staticItem) => {
-            const { isRefined } = items.find(
-              (item) => item.label === staticItem.label
-            ) || {
-              isRefined: false,
-            };
+            const isRefined = defaultRefinement.some(
+              (item) => item === staticItem.value
+            ) || false;
             return (
               <MenuItem
                 disableGutters
@@ -53,12 +45,12 @@ function RefinementList({ values, currentRefinement, items, refine }) {
                 <Checkbox
                   colorScheme="teal"
                   value={staticItem.value}
-                  checked={isRefined}
+                  isChecked={isRefined}
                   onChange={(event) => {
                     const value = event.currentTarget.value;
-                    const next = currentRefinement.includes(value)
-                      ? currentRefinement.filter((current) => current !== value)
-                      : currentRefinement.concat(value);
+                    const next = defaultRefinement.includes(value)
+                      ? defaultRefinement.filter((current) => current !== value)
+                      : defaultRefinement.concat(value);
                     refine(next);
                   }}
                 >
