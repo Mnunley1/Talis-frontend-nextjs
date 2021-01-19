@@ -17,8 +17,9 @@ import { PriceNumericMenu } from '../../components/PriceNumericMenu/PriceNumeric
 import { BedsNumericMenu } from '../../components/BedsNumericMenu/BedsNumericMenu';
 import { CustomRefinementList } from '../../components/CustomRefinementList/CustomRefinementList';
 import Navbar from '../../components/Navbar/Navbar';
-import { Box, Container, Flex, HStack, Spacer } from '@chakra-ui/react';
+import { Box, Container, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
 import SearchFooter from '../../components/SearchFooter/SearchFooter';
+import MobileFilters from '../../components/MobileFilters/MobileFilters';
 //import 'instantsearch.css/themes/algolia.css';
 
 const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
@@ -52,6 +53,7 @@ const urlToSearchState = (router) => qs.parse(router.query);
 
 function ListingView({ router }) {
   const [visible, setVisible] = useState(false);
+  const [filters, setFilters] = useState(false);
   const { currentUser } = useAuth();
   const [searchState, setSearchState] = useState(urlToSearchState(router));
   const [favorites, setFavorites] = useState([]);
@@ -114,6 +116,12 @@ function ListingView({ router }) {
   const handleClick = () => {
     setVisible(!visible);
   };
+  const showFilters = () => {
+    setFilters(true);
+  };
+  const hideFilters = () => {
+    setFilters(false);
+  };
 
   return (
     <>
@@ -146,7 +154,7 @@ function ListingView({ router }) {
                     { label: '$4000', end: 4000 },
                     { label: '$5000', end: 5000 },
                   ]}
-                  defaultPrice={searchState?.multiRange?.price || ""}
+                  defaultPrice={searchState?.multiRange?.price || ''}
                 />
                 <BedsNumericMenu
                   attribute="bedrooms"
@@ -156,7 +164,7 @@ function ListingView({ router }) {
                     { label: '3', end: 3 },
                     { label: '4', end: 4 },
                   ]}
-                  defaultBeds={searchState?.multiRange?.bedrooms || ""}
+                  defaultBeds={searchState?.multiRange?.bedrooms || ''}
                 />
 
                 <CustomRefinementList
@@ -166,7 +174,9 @@ function ListingView({ router }) {
                     { label: 'House', value: 'house' },
                     { label: 'Condo', value: 'condo' },
                   ]}
-                  defaultRefinement={searchState?.refinementList?.listing_type || []}
+                  defaultRefinement={
+                    searchState?.refinementList?.listing_type || []
+                  }
                 />
               </Flex>
             </Container>
@@ -279,8 +289,15 @@ function ListingView({ router }) {
           </Container>
           <FloatingSearchBtn
             customClick={handleClick}
+            onCLick={showFilters}
+            setSearchState={setSearchState}
             visible={visible}
-            bedrooms={searchState?.multiRange?.bedrooms || ""}
+            bedrooms={searchState?.multiRange?.bedrooms || ''}
+          />
+          <MobileFilters
+            onClick={hideFilters}
+            filters={filters}
+            bedrooms={searchState?.multiRange?.bedrooms || ''}
           />
         </InstantSearch>
       </Container>
