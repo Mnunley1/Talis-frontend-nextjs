@@ -297,7 +297,9 @@ function ListingView({ router }) {
           <MobileFilters
             onClick={hideFilters}
             filters={filters}
+            price={searchState?.multiRange?.price || ''}
             bedrooms={searchState?.multiRange?.bedrooms || ''}
+            listingType={searchState?.refinementList?.listing_type || []}
           />
         </InstantSearch>
       </Container>
