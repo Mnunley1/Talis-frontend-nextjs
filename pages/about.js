@@ -84,7 +84,7 @@ export default function HomeView() {
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]} spacing={10}>
-            <Box order={2}>
+            <Box order={[1, 1, 0]}>
               <Image
                 src={aboutImg1}
                 height="auto"

@@ -27,67 +27,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-// const Bedrooms = ({ items, refine, createURL, defaultRefinement }) => {
-//   const defaultLabel = items.find((item) => item.value === defaultRefinement)
-//     .label;
-//   return (
-//     <RadioGroup defaultValue={defaultLabel} value={defaultLabel}>
-//       <Stack direction="row">
-//         {items.map((item) => (
-//           <a
-//             href={createURL(item.value)}
-//             style={{ fontWeight: item.isRefined ? 'bold' : '' }}
-//             onChange={(event) => {
-//               event.preventDefault();
-//               refine(item.value);
-//             }}
-//           >
-//             <Radio key={item.label} value={item.label}>
-//               {item.label}
-//             </Radio>
-//           </a>
-//         ))}
-//       </Stack>
-//     </RadioGroup>
-//   );
-// };
-
-// const BedroomsMenu = connectNumericMenu(Bedrooms);
-
-// const FilterMenu = ({ searchState }) => {
-//   const { onOpen } = useDisclosure();
-
-//   return (
-//     <>
-//       <Popover size="xl">
-//         <PopoverTrigger>
-//           <Button onClick={onOpen}>Filter</Button>
-//         </PopoverTrigger>
-//         <Portal>
-//           <PopoverContent borderRadius={4}>
-//             <PopoverCloseButton />
-//             <PopoverHeader>Filter</PopoverHeader>
-//             <PopoverBody>
-//               <Center>
-//                 <BedroomsMenu
-//                   attribute="bedrooms"
-//                   defaultRefinement={searchState}
-//                   items={[
-//                     { label: '1', end: 1 },
-//                     { label: '2', end: 2 },
-//                     { label: '3', end: 3 },
-//                     { label: '4', end: 4 },
-//                   ]}
-//                 />
-//               </Center>
-//             </PopoverBody>
-//           </PopoverContent>
-//         </Portal>
-//       </Popover>
-//     </>
-//   );
-// };
-
 function SortBy({ items, refine, createURL }) {
   return (
     <Menu>
@@ -139,7 +78,6 @@ const FloatingSearchBtn = ({ customClick, visible, bedrooms, onCLick }) => {
           {!visible ? 'Map' : 'Listings'}
         </Button>
         <Button onClick={onCLick}>Filters</Button>
-        {/* <FilterMenu searchState={bedrooms} /> */}
         <CustomSortBy
           defaultRefinement="Talis_Development"
           items={[

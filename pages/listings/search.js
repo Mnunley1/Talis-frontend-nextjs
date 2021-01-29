@@ -231,11 +231,11 @@ function ListingView({ router }) {
                           label: 'Price (Low to High)',
                         },
                         {
-                          value: 'Talis_Development_bedrooms_asc',
+                          value: 'Talis_Development_bedrooms_desc',
                           label: 'Bedrooms',
                         },
                         {
-                          value: 'Talis_Development_bathrooms_asc',
+                          value: 'Talis_Development_bathrooms_desc',
                           label: 'Bathrooms',
                         },
                       ]}

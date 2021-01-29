@@ -87,11 +87,11 @@ function Signin() {
       align="center"
       justify="center"
       h="100vh"
-      bg="hsla(184, 100%, 35%, 1)"
-      bg="linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
-      bg="-moz-linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
-      bg="-webkit-linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
-      filter="progid: DXImageTransform.Microsoft.gradient( startColorstr='#00A3B0', endColorstr='#005479', GradientType=1 )"
+      // bg="hsla(184, 100%, 35%, 1)"
+      // bg="linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
+      // bg="-moz-linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
+      // bg="-webkit-linear-gradient(180deg, hsla(184, 100%, 35%, 1) 0%, hsla(198, 100%, 24%, 1) 100%)"
+      // filter="progid: DXImageTransform.Microsoft.gradient( startColorstr='#00A3B0', endColorstr='#005479', GradientType=1 )"
     >
       <Box
         p={5}
@@ -99,7 +99,7 @@ function Signin() {
         bg="white"
         borderWidth={1}
         borderRadius={8}
-        boxShadow="lg"
+        boxShadow="xl"
         mT="auto"
       >
         <Box textAlign="center">

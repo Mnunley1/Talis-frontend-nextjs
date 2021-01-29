@@ -1,28 +1,17 @@
 import {
   Box,
   Button,
-  ButtonGroup,
+  CloseButton,
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
   MenuItemOption,
-  MenuGroup,
   MenuOptionGroup,
   Radio,
   RadioGroup,
   Stack,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
   Center,
-  Portal,
   Text,
-  useDisclosure,
   VStack,
   Checkbox,
   CheckboxGroup,
@@ -148,9 +137,10 @@ const MobileFilters = ({ onClick, bedrooms, filters, listingType, price }) => {
       left="0"
       h="100%"
       w="100%"
-      p="25px"
+      p="15px 25px"
       display={filters ? 'block' : 'none'}
     >
+      <CloseButton ml="auto" mb={-3} size="lg" onClick={onClick} />
       <Box>
         <Center>
           <Text fontSize="3xl">Filter Listings</Text>
