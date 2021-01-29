@@ -83,6 +83,12 @@ button:focus {
     border-radius: 0;
     height: 250px;
   }
+  @media screen and (max-width: 48em) {
+    height: 45vh;
+  }
+  @media screen and (min-width: 62em) {
+    height: 65vh;
+  }
 }
 
 .image-gallery-index {
