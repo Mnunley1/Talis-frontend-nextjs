@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
                     // Please use Strings, Numbers, or Bools for value types.
                     pendo.initialize({
                         visitor: {
-                            id:              '1234'   // Required if user is logged in
+                            id:              'onboarding-vis1'   // Required if user is logged in
                             // email:        // Recommended if using Pendo Feedback, or NPS Email
                             // full_name:    // Recommended if using Pendo Feedback
                             // role:         // Optional
