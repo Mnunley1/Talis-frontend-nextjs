@@ -143,7 +143,9 @@ function ListingView({ router }) {
           >
             <Container maxW="xl" padding={4}>
               <Flex>
-                <AutoComplete />
+                <Box width={['100%', '100%', '40%', '35%']}>
+                  <AutoComplete />
+                </Box>
                 {/* <CustomSearchBox /> */}
                 <PriceNumericMenu
                   attribute="price"

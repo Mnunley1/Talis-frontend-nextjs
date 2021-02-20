@@ -5,34 +5,55 @@ import { Highlight, connectAutoComplete } from 'react-instantsearch-dom';
 import AutoSuggest from 'react-autosuggest';
 import { FaSearch } from 'react-icons/fa';
 import { CustomHighlight } from '../CustomHighlight/CustomHighlight';
-import _ from "lodash";
+import _ from 'lodash';
 
-const InputBar = (inputProps) => {
-  return (
-    <InputGroup size="md">
-      <Input
-        variant="outline"
-        color="black"
-        borderRadius="5px"
-        borderColor="gray.300"
-        backgroundColor="white"
-        fontSize="md"
-        {...inputProps}
-      />
-      <InputRightAddon
-        border="0"
-        bg="teal.500"
-        children={<FaSearch color="white" />}
-      />
-    </InputGroup>
-  );
-};
+function InputBar(inputProps) {
+  if (window.location.pathname == '/') {
+    return (
+      <InputGroup width="100%" size="lg" id="home">
+        <Input
+          variant="outline"
+          color="black"
+          borderRadius="5px"
+          borderColor="gray.300"
+          backgroundColor="white"
+          fontSize="md"
+          {...inputProps}
+        />
+        <InputRightAddon
+          border="0"
+          bg="teal.500"
+          children={<FaSearch color="white" />}
+        />
+      </InputGroup>
+    );
+  } else {
+    return (
+      <InputGroup width="100%" size="md">
+        <Input
+          variant="outline"
+          color="black"
+          borderRadius="5px"
+          borderColor="gray.300"
+          backgroundColor="white"
+          fontSize="md"
+          {...inputProps}
+        />
+        <InputRightAddon
+          border="0"
+          bg="teal.500"
+          children={<FaSearch color="white" />}
+        />
+      </InputGroup>
+    );
+  }
+}
 
 class AutoComplete extends Component {
   static propTypes = {
     hits: PropTypes.arrayOf(PropTypes.object).isRequired,
     currentRefinement: PropTypes.string.isRequired,
-    refine: PropTypes.func.isRequired
+    refine: PropTypes.func.isRequired,
   };
 
   state = {
@@ -46,7 +67,7 @@ class AutoComplete extends Component {
     }
 
     this.setState({
-      value: newValue || ""
+      value: newValue || '',
     });
   };
 
@@ -54,7 +75,7 @@ class AutoComplete extends Component {
     _.preventDefault();
     const newValue = this.getSuggestionValue(suggestion);
     this.setState({
-      value: newValue
+      value: newValue,
     });
     this.props.refine(newValue);
   };
@@ -77,8 +98,8 @@ class AutoComplete extends Component {
 
   filterHits = (hits) => {
     const suggestions = [];
-    hits.forEach(currentHit => {
-      Object.keys(currentHit._highlightResult).forEach(currentKey => {
+    hits.forEach((currentHit) => {
+      Object.keys(currentHit._highlightResult).forEach((currentKey) => {
         if (currentHit._highlightResult[currentKey].matchedWords.length === 0) {
           //skip no matches
           return;
@@ -86,11 +107,11 @@ class AutoComplete extends Component {
         suggestions.push({
           value: currentHit[currentKey],
           hit: currentHit,
-          key: currentKey
+          key: currentKey,
         });
       });
     });
-    return _.uniqBy(suggestions, item => _.trim(item.value));
+    return _.uniqBy(suggestions, (item) => _.trim(item.value));
   };
 
   render() {

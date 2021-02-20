@@ -1,7 +1,9 @@
 import React from 'react';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import {
   Box,
   Image,
+  Spacer,
   Skeleton,
   SkeletonCircle,
   SkeletonText,
@@ -11,10 +13,15 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 
-export default function ListingCards(props) {
+export default function ListingCards({
+  favorites,
+  listings,
+  getUserFavorites,
+}) {
   return (
     <>
-      {props.data.map((data) => {
+      {console.log(favorites)}
+      {listings.map((data) => {
         return (
           <>
             <Link
@@ -30,6 +37,7 @@ export default function ListingCards(props) {
                 overflow="hidden"
                 w="100%"
                 bgColor="white"
+                cursor="pointer"
               >
                 <Image
                   src={data.mainImage}
@@ -47,6 +55,12 @@ export default function ListingCards(props) {
                     isTruncated
                   >
                     {data.title}
+                    <Spacer />
+                    <FavoriteButton
+                      listingID={data.id}
+                      favorites={favorites}
+                      getUserFavorites={getUserFavorites}
+                    />
                   </Box>
                   <Box
                     mt="1"

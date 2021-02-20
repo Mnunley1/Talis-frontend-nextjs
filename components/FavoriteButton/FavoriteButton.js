@@ -1,7 +1,20 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import { useEffect, useState } from 'react';
-import { Box, Icon, IconButton } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Icon,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { db, app } from '../../firebase';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../contexts/AuthContext';
@@ -11,28 +24,17 @@ import { FaRegHeart } from 'react-icons/fa';
 function FavoriteButton({ favorites, getUserFavorites, listingID }) {
   const router = useRouter();
   const { currentUser } = useAuth();
-  const [favoriteItems, setFavoriteItems] = useState([]);
-
-  /* useEffect(() => {
-    setFavoriteItems(favorites);
-  }, []); */
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const addToFavorites = (listingID) => {
-    if (!currentUser) {
-      // If there is no user, open up the login modal (which we’ll build next)
-      router.push('/account/login');
+    const userID = currentUser.uid;
+    var docRef = db.doc(`users/${userID}`);
 
-      // if there is a user, push the listingID to their favorites ref in firebase
-    } else {
-      const userID = currentUser.uid;
-      var docRef = db.doc(`users/${userID}`);
-
-      docRef.update({
-        favoriteListings: firebase.firestore.FieldValue.arrayUnion(
-          `${listingID}`
-        ),
-      });
-    }
+    docRef.update({
+      favoriteListings: firebase.firestore.FieldValue.arrayUnion(
+        `${listingID}`
+      ),
+    });
   };
 
   // This one is more complicated at first glance!
@@ -66,17 +68,60 @@ function FavoriteButton({ favorites, getUserFavorites, listingID }) {
         <Icon as={FaHeart} color="teal.500" w={6} h={6} />
       </Box>
     ) : (
-      <Box
-        as="button"
-        variant="ghost"
-        onClick={(e) => {
-          e.stopPropagation();
-          addToFavorites(listingID);
-          getUserFavorites();
-        }}
-      >
-        <Icon as={FaRegHeart} color="teal.500" w={6} h={6} />
-      </Box>
+      <>
+        <Box
+          as="button"
+          variant="ghost"
+          onClick={(e) => {
+            if (!currentUser) {
+              e.stopPropagation();
+              onOpen();
+            } else {
+              e.stopPropagation();
+              addToFavorites(listingID);
+              getUserFavorites();
+            }
+          }}
+        >
+          <Icon as={FaRegHeart} color="teal.500" w={6} h={6} />
+        </Box>
+        <Modal
+          isCentered
+          isOpen={isOpen}
+          onClose={onClose}
+          motionPreset="slideInBottom"
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader mx="auto">Login / Signup</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody textAlign="center">
+              {' '}
+              Login or create a new account to save your favorite listings
+            </ModalBody>
+            <ModalFooter mx="auto">
+              <Button
+                as="a"
+                href="/account/login"
+                variant="ghost"
+                color="teal.500"
+                mr={3}
+                onClick={onClose}
+              >
+                Log in
+              </Button>
+              <Button
+                as="a"
+                href="/account/signup"
+                variant="ghost"
+                color="teal.500"
+              >
+                Sign up
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
     );
   } else {
     return null;
