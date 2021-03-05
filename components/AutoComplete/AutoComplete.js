@@ -118,7 +118,7 @@ class AutoComplete extends Component {
     const { hits } = this.props;
     const { value } = this.state;
     const inputProps = {
-      placeholder: 'Search',
+      placeholder: 'Search City or Neighborhood',
       onChange: this.onChange,
       value,
     };

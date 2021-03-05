@@ -137,44 +137,39 @@ export default function Listing() {
         <Box as="section" w="100%" p={5}>
           <HStack direction="row" align="start" color="black">
             <Box w={['100%', '100%', '60%']}>
-              <Text fontSize="4xl" fontWeight="700">
+              <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
                 <HStack>
                   <Box>{listing.title}</Box>
                   <Spacer />
-                  <Box fontSize="3xl">
-                    <FavoriteButton
-                      listingID={id}
-                      favorites={favorites}
-                      getUserFavorites={getUserFavorites}
-                    />
-                    {listing.price}{' '}
-                    <Box
-                      as="span"
-                      color="#4e4e4e"
-                      fontWeight="normal"
-                      letterSpacing="wide"
-                      fontSize="xs"
-                      textTransform="uppercase"
-                    >
-                      / month
-                    </Box>
-                  </Box>
                 </HStack>
               </Text>
-              <Box fontSize="lg" fontWeight="300">
-                {listing.address} | {listing.neighborhood}
-              </Box>
-              <Box fontSize="lg" fontWeight="300" mt={5} color="#4e4e4e">
-                <Icon as={FaBed} w={4} h={4} mr={2} />
-                {listing.bedrooms} Beds
-                <Icon as={FaBath} w={4} h={4} mx={2} />
-                {listing.bathrooms} Baths
-                <Icon as={FaRulerCombined} w={4} h={4} mx={2} />
-                {listing.squareFeet} sqm
+              <Box>
+                <HStack>
+                  <Box fontSize={['lg', 'lg', 'xl']}>
+                    ${listing.price}/month
+                  </Box>
+                  <Spacer />
+                </HStack>
+                <Box fontSize="lg" fontWeight="300" color="#4e4e4e">
+                  <Icon as={FaBed} w={4} h={4} mr={2} />
+                  {listing.bedrooms} Beds
+                  <Icon as={FaBath} w={4} h={4} mx={2} />
+                  {listing.bathrooms} Baths
+                  <Icon as={FaRulerCombined} w={4} h={4} mx={2} />
+                  {listing.squareFeet} sqm
+                </Box>
+                <Box fontSize="xl" mt={4}>
+                  <FavoriteButton
+                    listingID={id}
+                    favorites={favorites}
+                    getUserFavorites={getUserFavorites}
+                  />{' '}
+                  Add to favorites
+                </Box>
               </Box>
 
-              <Box mt={8}>
-                <Text fontSize="xl" fontWeight="700">
+              <Box mt={4}>
+                <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
                   Description
                 </Text>
                 <Box fontSize="lg" fontWeight="300">
@@ -182,13 +177,13 @@ export default function Listing() {
                 </Box>
               </Box>
               <Box mt={8}>
-                <Text fontSize="xl" fontWeight="700">
+                <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
                   Listing Features
                 </Text>
                 <List spacing={3}>
                   {listingFeatures.map((item) => {
                     return (
-                      <ListItem>
+                      <ListItem fontSize="lg" fontWeight="300">
                         <ListIcon as={FaRegCheckCircle} color="teal.500" />
                         {item}
                       </ListItem>
@@ -197,13 +192,13 @@ export default function Listing() {
                 </List>
               </Box>
               <Box mt={8}>
-                <Text fontSize="xl" fontWeight="700">
+                <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
                   Community Features
                 </Text>
                 <List spacing={3}>
                   {communityFeatures.map((item, i) => {
                     return (
-                      <ListItem key={i}>
+                      <ListItem key={i} fontSize="lg" fontWeight="300">
                         <ListIcon as={FaRegCheckCircle} color="teal.500" />
                         {item}
                       </ListItem>
