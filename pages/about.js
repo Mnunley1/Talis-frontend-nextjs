@@ -117,7 +117,7 @@ export default function HomeView() {
         </Container>
       </Box>
 
-      <Box as="section" paddingY="60px">
+      {/* <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
           <Heading as="h5" size="lg" mb={5}>
             Talis Leadership
@@ -191,7 +191,7 @@ export default function HomeView() {
             </Box>
           </SimpleGrid>
         </Container>
-      </Box>
+      </Box> */}
 
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>

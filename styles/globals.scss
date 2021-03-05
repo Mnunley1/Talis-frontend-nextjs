@@ -83,6 +83,12 @@ button:focus {
     border-radius: 0;
     height: 250px;
   }
+  @media screen and (max-width: 48em) {
+    height: 45vh;
+  }
+  @media screen and (min-width: 62em) {
+    height: 65vh;
+  }
 }
 
 .image-gallery-index {
@@ -111,7 +117,6 @@ div.css-r6z5ec {
 //Autocomplete Searchbar
 .react-autosuggest__container {
   position: relative;
-  width: 40%;
   @media screen and (max-width: 30em) {
     width: 100%;
   }

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { db } from '../firebase';
+import qs from 'qs';
+import algoliasearch from 'algoliasearch/lite';
+import { InstantSearch, Pagination, Stats } from 'react-instantsearch-dom';
 import headerImg from '../public/images/showcaseimage.jpg';
 import cardImg1 from '../public/images/blackfam.jpg';
 import cardImg2 from '../public/images/Kitchen.jpg';
@@ -9,6 +12,7 @@ import cardImg3 from '../public/images/familymovingin.jpg';
 import ListingCards from '../components/ListingCards/ListingCards';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
+import AutoComplete from '../components/AutoComplete/AutoComplete';
 import {
   Box,
   Button,
@@ -24,10 +28,40 @@ import {
 } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 
+const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
+const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
+const searchClient = algoliasearch(algoliaId, searchKey);
+
+const DEBOUNCE_TIME = 400;
+
+const createURL = (state) => `?${qs.stringify(state)}`;
+
+const searchStateToUrl = (router, searchState) =>
+  searchState ? `${router.pathname}${createURL(searchState)}` : '';
+
+const urlToSearchState = (router) => qs.parse(router.query);
+
 export default function HomeView() {
   const { register, handleSubmit, watch, errors } = useForm();
   const router = useRouter();
   const [listings, setListings] = useState([]);
+  const setStateId = React.useRef();
+  const [searchState, setSearchState] = useState(urlToSearchState(router));
+
+  function onSearchStateChange(nextSearchState) {
+    clearTimeout(setStateId.current);
+
+    setStateId.current = setTimeout(() => {
+      //console.log('query [nextSearchState]:', nextSearchState);
+      router.push({
+        pathname: router.pathname,
+        query: qs.stringify(nextSearchState),
+      });
+    }, DEBOUNCE_TIME);
+
+    setSearchState(nextSearchState);
+    //console.log(searchState);
+  }
 
   useEffect(() => {
     db.collection('fl_content')
@@ -46,11 +80,12 @@ export default function HomeView() {
       .catch((error) => console.log(error));
   }, []);
 
-  const onSubmit = (data) =>
+  const onSubmit = (data) => {
     router.push({
       pathname: '/listings/search',
-      query: { query: data.search, page: 1 },
+      query: { query: searchState, page: 1 },
     });
+  };
 
   return (
     <>
@@ -78,9 +113,17 @@ export default function HomeView() {
             >
               Discover your new home
             </Text>
-            <Box width={['100%', '70%']}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <InputGroup size="lg">
+            <Box width={['100%', '50%']}>
+              <InstantSearch
+                indexName="Talis_Development"
+                searchClient={searchClient}
+                searchState={searchState}
+                onSearchStateChange={onSearchStateChange}
+                createURL={createURL}
+              >
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <AutoComplete register={register} />
+                  {/* <InputGroup size="lg">
                   <Input
                     variant="outline"
                     borderRadius="5px"
@@ -101,8 +144,9 @@ export default function HomeView() {
                     transition="background-color 0.15s ease 0s"
                     children={<FaSearch color="white" />}
                   />
-                </InputGroup>
-              </form>
+                </InputGroup> */}
+                </form>
+              </InstantSearch>
             </Box>
           </VStack>
         </Center>
@@ -120,7 +164,7 @@ export default function HomeView() {
               Latest Listings
             </Text>
             <SimpleGrid columns={[1, 1, 2, 4]} spacing={3}>
-              <ListingCards data={listings} />
+              <ListingCards listings={listings} />
             </SimpleGrid>
             <Button as="a" href="/listings/search" colorScheme="teal" size="md">
               View More
@@ -147,11 +191,11 @@ export default function HomeView() {
                   as="h4"
                   lineHeight="tight"
                 >
-                  Helping You Find the Perfect Fit
+                  Renting Made Simple
                 </Text>
                 <Text fontSize="md" fontWeight="300" align="start">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Incidunt, debitis nam!
+                  Browse the highest quality listings, request a tour, apply
+                  online, and more!
                 </Text>
               </VStack>
             </Box>
@@ -182,11 +226,12 @@ export default function HomeView() {
                   as="h4"
                   lineHeight="tight"
                 >
-                  Helping You Find the Perfect Fit
+                  Find Your Next Renter
                 </Text>
                 <Text fontSize="md" fontWeight="300" align="start">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Incidunt, debitis nam!
+                  Connect with renters both local and worldwide and lease your
+                  property 100% online. Our platforms ease of use makes it the
+                  most desired way for foreigners to shop premium properties.
                 </Text>
               </VStack>
             </Box>
@@ -207,11 +252,11 @@ export default function HomeView() {
                   as="h4"
                   lineHeight="tight"
                 >
-                  Helping You Find the Perfect Fit
+                  Tips For Renters
                 </Text>
                 <Text fontSize="md" fontWeight="300" align="start">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Incidunt, debitis nam!
+                  Find answers to all of your renting questions with a guide to
+                  each of Accra’s neighborhoods and their associated perks.
                 </Text>
               </VStack>
             </Box>

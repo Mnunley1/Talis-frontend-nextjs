@@ -164,13 +164,15 @@ function Signin() {
           boxShadow={['xl', 'xl', 'none']}
         >
           <Box textAlign="center">
-            <Image
-              src={TalisLogo}
-              h={['35px', '40px', '45px']}
-              w="auto"
-              mx="auto"
-              mb={4}
-            />
+            <Box as="a" href="/">
+              <Image
+                src={TalisLogo}
+                h={['35px', '40px', '45px']}
+                w="auto"
+                mx="auto"
+                mb={4}
+              />
+            </Box>
             <Text fontSize="lg">Create your account to save listings</Text>
           </Box>
           <Box my={4} textAlign="left">

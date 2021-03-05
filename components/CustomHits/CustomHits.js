@@ -41,6 +41,7 @@ function Hits({ hits, favorites, getUserFavorites }) {
                   transition: 'border ease-in .1s',
                 }}
                 zIndex="1"
+                cursor="pointer"
               >
                 <Image
                   h="250px"
@@ -95,7 +96,7 @@ function Hits({ hits, favorites, getUserFavorites }) {
                   </Box>
 
                   <Box color="black" fontWeight="bold" fontSize="md">
-                    {hit.price}
+                    ${hit.price}
                     <Box
                       as="span"
                       color="gray.500"

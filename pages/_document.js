@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-        <script
+          <script
             dangerouslySetInnerHTML={{
               __html: `(function(apiKey){
                 (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
                     // Please use Strings, Numbers, or Bools for value types.
                     pendo.initialize({
                         visitor: {
-                            id:              '1234'   // Required if user is logged in
+                            id:              'onboarding-vis1'   // Required if user is logged in
                             // email:        // Recommended if using Pendo Feedback, or NPS Email
                             // full_name:    // Recommended if using Pendo Feedback
                             // role:         // Optional
@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
                             // as long as it's not one of the above reserved names.
                         }
                     });
-            })('1a6d2631-b859-4e6f-4466-e2eb2aa9455c');`
+            })('1a6d2631-b859-4e6f-4466-e2eb2aa9455c');`,
             }}
           />
         </Head>
