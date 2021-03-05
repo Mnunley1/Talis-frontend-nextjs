@@ -24,6 +24,7 @@ import MobileFilters from '../../components/MobileFilters/MobileFilters';
 
 const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
 const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
+const algoliaIndex = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
 const searchClient = algoliasearch(algoliaId, searchKey);
 
 const Map = dynamic(
@@ -128,7 +129,7 @@ function ListingView({ router }) {
       <Container minW="100%" height="100%" paddingX="0">
         <Navbar />
         <InstantSearch
-          indexName="Talis_Development"
+          indexName={algoliaIndex}
           searchClient={searchClient}
           searchState={searchState}
           onSearchStateChange={onSearchStateChange}
