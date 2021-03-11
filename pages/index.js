@@ -30,6 +30,7 @@ import { FaSearch } from 'react-icons/fa';
 
 const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
 const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
+const algoliaIndex = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
 const searchClient = algoliasearch(algoliaId, searchKey);
 
 const DEBOUNCE_TIME = 400;
@@ -115,7 +116,7 @@ export default function HomeView() {
             </Text>
             <Box width={['100%', '50%']}>
               <InstantSearch
-                indexName={algoliaId}
+                indexName={algoliaIndex}
                 searchClient={searchClient}
                 searchState={searchState}
                 onSearchStateChange={onSearchStateChange}
