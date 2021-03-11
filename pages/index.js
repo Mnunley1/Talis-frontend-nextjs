@@ -115,7 +115,7 @@ export default function HomeView() {
             </Text>
             <Box width={['100%', '50%']}>
               <InstantSearch
-                indexName="Talis_Development"
+                indexName={algoliaId}
                 searchClient={searchClient}
                 searchState={searchState}
                 onSearchStateChange={onSearchStateChange}

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "talis-development-d5d82"
+    "development": "talis-development-d5d82",
+    "default": "talis-africa-production",
   }
 }
