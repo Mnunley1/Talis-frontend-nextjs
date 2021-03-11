@@ -64,6 +64,7 @@ function RequestInfo() {
       email: data.email,
       phoneNumber: data.phoneNumber,
       name: data.name,
+      tour: data.requestTour,
     }).then(console.log(data));
   }
 
@@ -97,16 +98,7 @@ function RequestInfo() {
           </Text>
         </Box>
         <Box my={4} textAlign="left">
-          <form
-            onSubmit={(e) => {
-              if (!currentUser) {
-                e.preventDefault();
-                onOpen();
-              } else {
-                handleSubmit(onSubmit);
-              }
-            }}
-          >
+          <form onSubmit={handleSubmit(onSubmit)}>
             {/* {error && <ErrorMessage message={error} />} */}
             <VStack align="stretch" spacing={2}>
               <FormControl isInvalid={errors.name}>
