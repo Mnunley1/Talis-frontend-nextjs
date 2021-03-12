@@ -219,26 +219,26 @@ function ListingView({ router }) {
                     />
                     <Spacer />
                     <CustomSortBy
-                      defaultRefinement="Talis_Development"
+                      defaultRefinement={algoliaIndex}
                       items={[
                         {
-                          value: 'Talis_Development',
+                          value: `${algoliaIndex}`,
                           label: 'Featured',
                         },
                         {
-                          value: 'Talis_Development_price_desc',
+                          value: `${algoliaIndex}_price_desc`,
                           label: 'Price (High to Low)',
                         },
                         {
-                          value: 'Talis_Development_price_asc',
+                          value: `${algoliaIndex}_price_asc`,
                           label: 'Price (Low to High)',
                         },
                         {
-                          value: 'Talis_Development_bedrooms_desc',
+                          value: `${algoliaIndex}_bedrooms_desc`,
                           label: 'Bedrooms',
                         },
                         {
-                          value: 'Talis_Development_bathrooms_desc',
+                          value: `${algoliaIndex}_bathrooms_desc`,
                           label: 'Bathrooms',
                         },
                       ]}
