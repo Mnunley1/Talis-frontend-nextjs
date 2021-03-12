@@ -24,7 +24,7 @@ import MobileFilters from '../../components/MobileFilters/MobileFilters';
 
 const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
 const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
-//const algoliaIndex = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
+const algoliaIndex = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
 const searchClient = algoliasearch(algoliaId, searchKey);
 
 const Map = dynamic(
@@ -129,7 +129,7 @@ function ListingView({ router }) {
       <Container minW="100%" height="100%" paddingX="0">
         <Navbar />
         <InstantSearch
-          indexName="Talis_production" //For development use 'Talis_Development'
+          indexName={algoliaIndex}
           searchClient={searchClient}
           searchState={searchState}
           onSearchStateChange={onSearchStateChange}
@@ -219,26 +219,26 @@ function ListingView({ router }) {
                     />
                     <Spacer />
                     <CustomSortBy
-                      defaultRefinement="Talis_Development"
+                      defaultRefinement={algoliaIndex}
                       items={[
                         {
-                          value: 'Talis_Development',
+                          value: `${algoliaIndex}`,
                           label: 'Featured',
                         },
                         {
-                          value: 'Talis_Development_price_desc',
+                          value: `${algoliaIndex}_price_desc`,
                           label: 'Price (High to Low)',
                         },
                         {
-                          value: 'Talis_Development_price_asc',
+                          value: `${algoliaIndex}_price_asc`,
                           label: 'Price (Low to High)',
                         },
                         {
-                          value: 'Talis_Development_bedrooms_desc',
+                          value: `${algoliaIndex}_bedrooms_desc`,
                           label: 'Bedrooms',
                         },
                         {
-                          value: 'Talis_Development_bathrooms_desc',
+                          value: `${algoliaIndex}_bathrooms_desc`,
                           label: 'Bathrooms',
                         },
                       ]}
