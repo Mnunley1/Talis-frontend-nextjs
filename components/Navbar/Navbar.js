@@ -93,12 +93,12 @@ const Navbar = () => {
             />
           </MenuButton>
           <MenuList>
-            <Box as="a" href="/MyTalis/profile">
+            <Box as="a" href="/myTalis/profile">
               <MenuItem>
                 <Text fontSize="lg">Profile</Text>
               </MenuItem>
             </Box>
-            <Box as="a" href="/MyTalis/favorite-listings">
+            <Box as="a" href="/myTalis/favorite-listings">
               <MenuItem>
                 <Text fontSize="lg">Favorite Listings</Text>
               </MenuItem>
@@ -172,9 +172,9 @@ const Navbar = () => {
               <VStack spacing={3} align="flex-start">
                 {currentUser ? (
                   <>
-                    <Box as="a" href="/MyTalis/profile">
+                    <Box as="a" href="/myTalis/profile">
                       <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
-                        MyTalis
+                        myTalis
                       </Text>
                     </Box>
                     <Box

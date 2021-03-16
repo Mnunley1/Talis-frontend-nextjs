@@ -12,6 +12,7 @@ import {
   useRemoteData,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import noImage from '../../public/images/TALIS-IMAGES-COMING-SOON.png';
 
 export default function ListingCards({
   favorites,
@@ -39,12 +40,16 @@ export default function ListingCards({
                 bgColor="white"
                 cursor="pointer"
               >
-                <Image
-                  src={data.mainImage}
-                  alt={data.mainImage}
-                  h="200px"
-                  objectFit="cover"
-                />
+                {!data.mainImage ? (
+                  <Image h="200px" w="100%" src={noImage} alt="No Image" />
+                ) : (
+                  <Image
+                    src={data.mainImage}
+                    alt={data.mainImage}
+                    h="200px"
+                    objectFit="cover"
+                  />
+                )}
 
                 <Box p="6">
                   <Box
@@ -69,7 +74,7 @@ export default function ListingCards({
                     lineHeight="tight"
                     isTruncated
                   >
-                    {data.address}
+                    {data.community}
                   </Box>
                   <Box
                     mt="1"

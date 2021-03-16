@@ -28,7 +28,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-export default function HomeView() {
+export default function favavoritesPage() {
   const router = useRouter();
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -133,10 +133,10 @@ export default function HomeView() {
                 <Box>
                   <Text fontSize="lg">Welcome User!</Text>
                 </Box>
-                <Box as="a" href="/MyTalis/profile">
+                <Box as="a" href="/myTalis/profile">
                   <Text fontSize="lg">Profile</Text>
                 </Box>
-                <Box as="a" href="/MyTalis/favorite-listings">
+                <Box as="a" href="/myTalis/favorite-listings">
                   <Text fontSize="lg">Favorite Listings</Text>
                 </Box>
               </VStack>

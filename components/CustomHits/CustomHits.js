@@ -14,6 +14,7 @@ import {
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
 import Link from 'next/link';
+import noImage from '../../public/images/TALIS-IMAGES-COMING-SOON.png';
 
 function Hits({ hits, favorites, getUserFavorites }) {
   return (
@@ -43,12 +44,16 @@ function Hits({ hits, favorites, getUserFavorites }) {
                 zIndex="1"
                 cursor="pointer"
               >
-                <Image
-                  h="250px"
-                  w="100%"
-                  src={hit.photo_main}
-                  alt={hit.photo_main}
-                />
+                {!hit.photo_main ? (
+                  <Image h="250px" w="100%" src={noImage} alt="No Image" />
+                ) : (
+                  <Image
+                    h="250px"
+                    w="100%"
+                    src={hit.photo_main}
+                    alt={hit.photo_main}
+                  />
+                )}
 
                 <Box p="6">
                   <Box d="flex" alignItems="baseline">

@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
             sizes="32x32"
             href="/favicons/favicon-32x32.png"
           />
-          {/* <link
+          <link
             rel="icon"
             type="image/png"
             sizes="16x16"
@@ -24,7 +24,7 @@ export default class MyDocument extends Document {
             color="#00a3b0"
           />
           <meta name="msapplication-TileColor" content="#ffffff" />
-          <meta name="theme-color" content="#ffffff" /> */}
+          <meta name="theme-color" content="#ffffff" />
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(apiKey){

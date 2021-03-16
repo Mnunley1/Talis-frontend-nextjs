@@ -15,6 +15,7 @@ import {
   WrapItem,
 } from '@chakra-ui/react';
 import TalisLogo from '../../public/images/talis-white-logo.svg';
+import Link from 'next/link';
 
 function SearchFooter() {
   return (
@@ -35,30 +36,60 @@ function SearchFooter() {
           <VStack w="100%" align="flex-start">
             <Image w="auto" height="35px" src={TalisLogo} alt="Talis Logo" />
             <Text textAlign="flex-start" fontSize="sm">
-              Transparent, honest, and sincere property management services for
-              residential and commercial properties
+              We want to make finding a home in Ghana seamless, transparent and
+              enjoyable
             </Text>
           </VStack>
 
           <VStack w="100%" spacing={1} align="flex-start">
-            <Box as="a" href="#">
-              <Text fontSize="sm">Airport</Text>
-            </Box>
-            <Box as="a" href="#">
-              <Text fontSize="sm">Cantonments</Text>
-            </Box>
-            <Box as="a" href="#">
-              <Text fontSize="sm">Dzorwulu</Text>
-            </Box>
-            <Box as="a" href="#">
-              <Text fontSize="sm">East Legon</Text>
-            </Box>
-            <Box as="a" href="#">
-              <Text fontSize="sm">Labone</Text>
-            </Box>
-            <Box as="a" href="#">
-              <Text fontSize="sm">Roman Ridge</Text>
-            </Box>
+            <Link
+              href={{
+                pathname: '/listings/search',
+                query: { query: 'airport', page: 1 },
+              }}
+            >
+              Airport
+            </Link>
+            <Link
+              href={{
+                pathname: '/listings/search',
+                query: { query: 'cantonments', page: 1 },
+              }}
+            >
+              Cantonments
+            </Link>
+            <Link
+              href={{
+                pathname: '/listings/search',
+                query: { query: 'Dzorwulu', page: 1 },
+              }}
+            >
+              Dzorwulu
+            </Link>
+            <Link
+              href={{
+                pathname: '/listings/search',
+                query: { query: 'east%20lagon', page: 1 },
+              }}
+            >
+              East Legon
+            </Link>
+            <Link
+              href={{
+                pathname: '/listings/search',
+                query: { query: 'Labone', page: 1 },
+              }}
+            >
+              Labone
+            </Link>
+            <Link
+              href={{
+                pathname: '/listings/search',
+                query: { query: 'roman%20ridge', page: 1 },
+              }}
+            >
+              Roman Ridge
+            </Link>
           </VStack>
 
           <VStack w="100%" align="flex-start">
