@@ -69,7 +69,7 @@ export default function ListingCards({
                     lineHeight="tight"
                     isTruncated
                   >
-                    {data.address}
+                    {data.community}
                   </Box>
                   <Box
                     mt="1"

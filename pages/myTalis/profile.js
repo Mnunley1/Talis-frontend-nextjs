@@ -28,7 +28,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-export default function HomeView() {
+export default function profilePage() {
   const router = useRouter();
   const { register, handleSubmit, watch, errors } = useForm();
   const { currentUser, updateEmail, updatePassword } = useAuth();

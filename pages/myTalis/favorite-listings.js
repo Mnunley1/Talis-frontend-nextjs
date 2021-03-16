@@ -28,7 +28,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-export default function HomeView() {
+export default function favavoritesPage() {
   const router = useRouter();
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
