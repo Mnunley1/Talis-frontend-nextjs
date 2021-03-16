@@ -119,10 +119,10 @@ export default function profilePage() {
                 <Box>
                   <Text fontSize="lg">Welcome User!</Text>
                 </Box>
-                <Box as="a" href="/MyTalis/profile">
+                <Box as="a" href="/myTalis/profile">
                   <Text fontSize="lg">Profile</Text>
                 </Box>
-                <Box as="a" href="/MyTalis/favorite-listings">
+                <Box as="a" href="/myTalis/favorite-listings">
                   <Text fontSize="lg">Favorite Listings</Text>
                 </Box>
               </VStack>
