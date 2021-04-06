@@ -7,24 +7,13 @@ import Navbar from '../../components/Navbar/Navbar';
 import ListingCards from '../../components/ListingCards/ListingCards';
 import {
   Box,
-  Button,
   Center,
-  Container,
   Divider,
   Flex,
-  FormLabel,
-  Image,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
   Text,
-  Textarea,
-  Select,
   SimpleGrid,
   Spinner,
   StackDivider,
-  Stack,
   VStack,
 } from '@chakra-ui/react';
 

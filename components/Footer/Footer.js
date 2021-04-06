@@ -1,18 +1,12 @@
 import React from 'react';
 import {
   Box,
-  Button,
   Container,
   Divider,
-  Flex,
   Image,
   Text,
   SimpleGrid,
-  Spacer,
   VStack,
-  Center,
-  Wrap,
-  WrapItem,
 } from '@chakra-ui/react';
 import TalisLogo from '../../public/images/talis-white-logo.svg';
 import Link from 'next/link';
@@ -109,14 +103,13 @@ function Footer() {
               <Text fontSize="sm">Location</Text>
               <Text fontSize="sm">8 Sir Arku Korsah Rd</Text>
               <Text fontSize="sm">Airport, Accra, Ghana</Text>
-              <Text fontSize="sm">info@talispropertyservices.com</Text>
+              <Text fontSize="sm">info@talisafrica.com</Text>
             </Text>
           </VStack>
         </SimpleGrid>
         <Divider mt={5} />
         <Text fontSize="sm">
-          Copyright &copy; <span className="year"></span> TALIS Property
-          Services
+          Copyright &copy; <span className="year"></span> Talis Africa {new Date().getFullYear()}
         </Text>
       </Container>
     </Box>

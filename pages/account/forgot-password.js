@@ -14,7 +14,6 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Heading,
   Input,
   Image,
   Link,
