@@ -139,7 +139,7 @@ export default function HomeView() {
           <Center w="80%" h="100%" margin="auto">
             <VStack spacing={5}>
               <Text fontSize="6xl" fontWeight="700" textAlign="center" mb={-5}>
-                Find your Next Home Today
+                Find Your Next Home Today
               </Text>
               <Button as="a" href="/listings/search" colorScheme="teal" size="md">
               Search Listings
