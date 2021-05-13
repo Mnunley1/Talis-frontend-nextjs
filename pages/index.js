@@ -19,9 +19,6 @@ import {
   Center,
   Container,
   Image,
-  Input,
-  InputGroup,
-  InputRightAddon,
   Text,
   SimpleGrid,
   VStack,
@@ -93,16 +90,81 @@ export default function HomeView() {
       <Navbar />
       <Box
         as="section"
-        bgImage={`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("${headerImg}")`}
-        bgRepeat="no-repeat"
-        bgPosition="center center"
-        bgSize="cover"
+        //bgImage={`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("${headerImg}")`}
+        // bgRepeat="no-repeat"
+        // bgPosition="center center"
+        // bgSize="cover"
+        position="relative"
         color="white"
         height={['50vh', '60vh']}
         minHeight={['50vh', '60vh']}
         mt="64px"
       >
-        <Center marginY="auto" height="100%">
+        <video
+          autoPlay
+          muted
+          loop
+          playsinline
+          preload
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: '-1',
+          }}
+        >
+          <source
+            src="https://res.cloudinary.com/talis-property-management/video/upload/v1617743209/The_Edge_-_Labone_-_Talis_Africa_qfexhh.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <Box
+          as="overlay"
+          position="absolute"
+          top="0"
+          h="100%"
+          w="100%"
+          backgroundColor="black"
+          opacity=".3"
+        />
+        <Box
+          height="100%"
+          position="absolute"
+          top="0"
+          w="100%"
+          h="100%"
+          zIndex={10}
+          color="white"
+        >
+          <Center h="100%" w="100%">
+            <VStack align="center" m={1}>
+              <Text
+                fontSize="6xl"
+                fontWeight="700"
+                lineHeight={1}
+                textAlign="center"
+              >
+                Find Your Next Home
+              </Text>
+              <Text fontSize="xl" textAlign="center">
+                Let Talis help you find your next home with our user-friendly
+                marketplace
+              </Text>
+              <Button
+                as="a"
+                href="/listings/search"
+                bgColor="white"
+                color="teal.500"
+                size="lg"
+                borderRadius={2}
+              >
+                Search Listings
+              </Button>
+            </VStack>
+          </Center>
+        </Box>
+        {/* <Center marginY="auto" height="100%">
           <VStack w="80%">
             <Text
               fontSize="5xl"
@@ -124,7 +186,7 @@ export default function HomeView() {
               >
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <AutoComplete register={register} />
-                  {/* <InputGroup size="lg">
+                  <InputGroup size="lg">
                   <Input
                     variant="outline"
                     borderRadius="5px"
@@ -145,12 +207,12 @@ export default function HomeView() {
                     transition="background-color 0.15s ease 0s"
                     children={<FaSearch color="white" />}
                   />
-                </InputGroup> */}
+                </InputGroup>
                 </form>
               </InstantSearch>
             </Box>
           </VStack>
-        </Center>
+        </Center> */}
       </Box>
 
       <Box as="section" paddingY="60px">

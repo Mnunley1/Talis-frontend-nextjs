@@ -11,33 +11,20 @@ import {
   Box,
   Button,
   Container,
-  Flex,
-  Heading,
   HStack,
   Icon,
-  Image,
   List,
   ListItem,
   ListIcon,
-  OrderedList,
-  UnorderedList,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Text,
-  SimpleGrid,
   Spacer,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   useDisclosure,
-  VStack,
   Center,
 } from '@chakra-ui/react';
 import { FaRulerCombined } from 'react-icons/fa';
@@ -217,7 +204,7 @@ export default function Listing() {
               p={5}
               ml={5}
             >
-              <RequestInfo />
+              <RequestInfo listing={listing} />
             </Box>
           </HStack>
         </Box>
@@ -249,7 +236,7 @@ export default function Listing() {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody p={5}>
-            <RequestInfo onClose={onClose} />
+            <RequestInfo onClose={onClose} listing={listing} />
           </ModalBody>
         </ModalContent>
       </Modal>

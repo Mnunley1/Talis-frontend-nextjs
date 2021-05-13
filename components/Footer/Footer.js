@@ -1,18 +1,12 @@
 import React from 'react';
 import {
   Box,
-  Button,
   Container,
   Divider,
-  Flex,
   Image,
   Text,
   SimpleGrid,
-  Spacer,
   VStack,
-  Center,
-  Wrap,
-  WrapItem,
 } from '@chakra-ui/react';
 import TalisLogo from '../../public/images/talis-white-logo.svg';
 import Link from 'next/link';
@@ -54,7 +48,7 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'airport', page: 1 },
+                query: { query: 'Airport', page: 1 },
               }}
             >
               Airport
@@ -62,7 +56,7 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'cantonments', page: 1 },
+                query: { query: 'Cantonments', page: 1 },
               }}
             >
               Cantonments
@@ -78,10 +72,10 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'east%20lagon', page: 1 },
+                query: { query: 'East Lagon', page: 1 },
               }}
             >
-              East Legon
+              East Lagon
             </Link>
             <Link
               href={{
@@ -94,7 +88,7 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'roman%20ridge', page: 1 },
+                query: { query: 'Roman Ridge', page: 1 },
               }}
             >
               Roman Ridge
@@ -109,14 +103,14 @@ function Footer() {
               <Text fontSize="sm">Location</Text>
               <Text fontSize="sm">8 Sir Arku Korsah Rd</Text>
               <Text fontSize="sm">Airport, Accra, Ghana</Text>
-              <Text fontSize="sm">info@talispropertyservices.com</Text>
+              <Text fontSize="sm">info@talisafrica.com</Text>
             </Text>
           </VStack>
         </SimpleGrid>
         <Divider mt={5} />
         <Text fontSize="sm">
-          Copyright &copy; <span className="year"></span> TALIS Property
-          Services
+          Copyright &copy; <span className="year"></span> Talis Africa{' '}
+          {new Date().getFullYear()}
         </Text>
       </Container>
     </Box>

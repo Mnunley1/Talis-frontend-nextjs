@@ -97,14 +97,13 @@ function SearchFooter() {
               <Text fontSize="sm">Location</Text>
               <Text fontSize="sm">8 Sir Arku Korsah Rd</Text>
               <Text fontSize="sm">Airport, Accra, Ghana</Text>
-              <Text fontSize="sm">info@talispropertyservices.com</Text>
+              <Text fontSize="sm">info@talisafrica.com</Text>
             </Text>
           </VStack>
         </SimpleGrid>
         <Divider mt={5} />
         <Text fontSize="sm">
-          Copyright &copy; <span className="year"></span> TALIS Property
-          Services
+          Copyright &copy; <span className="year"></span> Talis Africa {new Date().getFullYear()}
         </Text>
       </Container>
     </Box>

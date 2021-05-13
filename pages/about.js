@@ -1,20 +1,14 @@
 import dynamic from 'next/dynamic';
 import aboutImg1 from '../public/images/office-image.jpg';
-import businessman1 from '../public/images/businessman1.jpg';
-import businessman2 from '../public/images/businessman2.jpg';
-import businessman3 from '../public/images/businessman3.jpg';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import {
   Box,
-  Button,
   Container,
-  Flex,
   Heading,
   Image,
   Text,
   SimpleGrid,
-  Spacer,
   VStack,
   Center,
 } from '@chakra-ui/react';
@@ -35,6 +29,7 @@ export default function HomeView() {
         <video
           autoPlay
           muted
+          playsinline
           loop
           preload
           style={{
@@ -116,82 +111,6 @@ export default function HomeView() {
           </SimpleGrid>
         </Container>
       </Box>
-
-      {/* <Box as="section" paddingY="60px">
-        <Container maxW="lg" centerContent>
-          <Heading as="h5" size="lg" mb={5}>
-            Talis Leadership
-          </Heading>
-          <SimpleGrid columns={[1, 1, 3]} spacing={5}>
-            <Box
-              maxW="100%"
-              borderWidth="1px"
-              borderColor="lightgray.100"
-              borderRadius="xl"
-              overflow="hidden"
-            >
-              <Image
-                src={businessman1}
-                height="250px"
-                width="100%"
-                objectFit="cover"
-              />
-              <Box p="6">
-                <Box fontWeight="semibold" alignItems="baseline">
-                  Micahel Smith
-                </Box>
-                <Box mt="1" as="h4" lineHeight="tight" isTruncated>
-                  Chief Executive Officer
-                </Box>
-              </Box>
-            </Box>
-            <Box
-              maxW="100%"
-              borderWidth="1px"
-              borderColor="lightgray.100"
-              borderRadius="xl"
-              overflow="hidden"
-            >
-              <Image
-                src={businessman2}
-                height="250px"
-                width="100%"
-                objectFit="cover"
-              />
-              <Box p="6">
-                <Box fontWeight="semibold" alignItems="baseline">
-                  Micahel Smith
-                </Box>
-                <Box mt="1" as="h4" lineHeight="tight" isTruncated>
-                  Chief Executive Officer
-                </Box>
-              </Box>
-            </Box>
-            <Box
-              maxW="100%"
-              borderWidth="1px"
-              borderColor="lightgray.100"
-              borderRadius="xl"
-              overflow="hidden"
-            >
-              <Image
-                src={businessman3}
-                height="250px"
-                width="100%"
-                objectFit="cover"
-              />
-              <Box p="6">
-                <Box fontWeight="semibold" alignItems="baseline">
-                  Micahel Smith
-                </Box>
-                <Box mt="1" as="h4" lineHeight="tight" isTruncated>
-                  Chief Executive Officer
-                </Box>
-              </Box>
-            </Box>
-          </SimpleGrid>
-        </Container>
-      </Box> */}
 
       <Box as="section" paddingY="60px">
         <Container maxW="lg" centerContent>
