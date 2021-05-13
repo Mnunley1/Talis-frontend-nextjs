@@ -104,6 +104,7 @@ export default function HomeView() {
           autoPlay
           muted
           loop
+          playsinline
           preload
           style={{
             position: 'relative',
@@ -136,13 +137,29 @@ export default function HomeView() {
           zIndex={10}
           color="white"
         >
-          <Center w="80%" h="100%" margin="auto">
-            <VStack spacing={5}>
-              <Text fontSize="6xl" fontWeight="700" textAlign="center" mb={-5}>
-                Find Your Next Home Today
+          <Center h="100%" w="100%">
+            <VStack align="center" m={1}>
+              <Text
+                fontSize="6xl"
+                fontWeight="700"
+                lineHeight={1}
+                textAlign="center"
+              >
+                Find Your Next Home
               </Text>
-              <Button as="a" href="/listings/search" colorScheme="teal" size="md">
-              Search Listings
+              <Text fontSize="xl" textAlign="center">
+                Let Talis help you find your next home with our user-friendly
+                marketplace
+              </Text>
+              <Button
+                as="a"
+                href="/listings/search"
+                bgColor="white"
+                color="teal.500"
+                size="lg"
+                borderRadius={2}
+              >
+                Search Listings
               </Button>
             </VStack>
           </Center>

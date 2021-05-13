@@ -28,6 +28,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Radio,
+  RadioGroup,
   Spacer,
   Stack,
   VStack,
@@ -35,9 +37,10 @@ import {
   Textarea,
   useToast,
   useDisclosure,
+  VisuallyHidden,
 } from '@chakra-ui/react';
 
-function RequestInfo() {
+function RequestInfo({ listing }) {
   const { currentUser } = useAuth();
   const methods = useForm();
   const { handleSubmit, control, errors, register, reset } = methods;
@@ -64,7 +67,12 @@ function RequestInfo() {
       email: data.email,
       phoneNumber: data.phoneNumber,
       name: data.name,
-      tour: data.requestTour,
+      tour: data.tour,
+      title: data.title,
+      price: data.price,
+      bedrooms: data.bedrooms,
+      bathrooms: data.bathrooms,
+      neighborhood: data.neighborhood,
     }).then(console.log(data));
   }
 
@@ -101,6 +109,43 @@ function RequestInfo() {
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* {error && <ErrorMessage message={error} />} */}
             <VStack align="stretch" spacing={2}>
+              <VisuallyHidden>
+                <Input
+                  type="name"
+                  name="title"
+                  defaultValue={listing.title}
+                  size="md"
+                  ref={register}
+                />
+                <Input
+                  type="name"
+                  name="price"
+                  defaultValue={listing.price}
+                  size="md"
+                  ref={register}
+                />
+                <Input
+                  type="name"
+                  name="bedrooms"
+                  defaultValue={listing.bedrooms}
+                  size="md"
+                  ref={register}
+                />
+                <Input
+                  type="name"
+                  name="bathrooms"
+                  defaultValue={listing.bathrooms}
+                  size="md"
+                  ref={register}
+                />
+                <Input
+                  type="name"
+                  name="neighborhood"
+                  defaultValue={listing.neighborhood}
+                  size="md"
+                  ref={register}
+                />
+              </VisuallyHidden>
               <FormControl isInvalid={errors.name}>
                 <Input
                   type="name"
@@ -149,21 +194,27 @@ function RequestInfo() {
                   {errors.text && errors.text.message}
                 </FormErrorMessage>
               </FormControl>
-              <Controller
-                as={(props) => (
-                  <Checkbox
-                    onChange={(e) => props.onChange(e.target.checked)}
-                    checked={props.value}
+              <Text>Would you like a tour of this property?</Text>
+              <RadioGroup name="tour">
+                <Stack spacing={5} direction="row">
+                  <Radio
+                    type="radio"
                     colorScheme="teal"
+                    value="Yes"
+                    ref={register}
                   >
-                    Request a tour
-                  </Checkbox>
-                )}
-                name="requestTour"
-                control={control}
-                defaultValue={false}
-                ref={register({ required: true })}
-              />
+                    Yes
+                  </Radio>
+                  <Radio
+                    type="radio"
+                    colorScheme="teal"
+                    value="No"
+                    ref={register}
+                  >
+                    No
+                  </Radio>
+                </Stack>
+              </RadioGroup>
               <Box>
                 <Text color="#4e4e4e" fontSize="xs">
                   By pressing Request Info, you agree that Talis may contact you

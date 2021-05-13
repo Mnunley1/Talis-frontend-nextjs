@@ -204,7 +204,7 @@ export default function Listing() {
               p={5}
               ml={5}
             >
-              <RequestInfo />
+              <RequestInfo listing={listing} />
             </Box>
           </HStack>
         </Box>
@@ -236,7 +236,7 @@ export default function Listing() {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody p={5}>
-            <RequestInfo onClose={onClose} />
+            <RequestInfo onClose={onClose} listing={listing} />
           </ModalBody>
         </ModalContent>
       </Modal>

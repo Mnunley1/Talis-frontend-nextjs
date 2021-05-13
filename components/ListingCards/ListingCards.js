@@ -83,7 +83,7 @@ export default function ListingCards({
                     lineHeight="tight"
                     isTruncated
                   >
-                    {data.bedrooms} Beds | <Box as="span">${data.price}</Box>
+                    {data.bedrooms} Beds | <Box as="span" fontWeight="semibold">${data.price}</Box>
                   </Box>
                 </Box>
               </Box>

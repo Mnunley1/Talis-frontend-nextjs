@@ -48,7 +48,7 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'airport', page: 1 },
+                query: { query: 'Airport', page: 1 },
               }}
             >
               Airport
@@ -56,7 +56,7 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'cantonments', page: 1 },
+                query: { query: 'Cantonments', page: 1 },
               }}
             >
               Cantonments
@@ -72,10 +72,10 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'east%20lagon', page: 1 },
+                query: { query: 'East Lagon', page: 1 },
               }}
             >
-              East Legon
+              East Lagon
             </Link>
             <Link
               href={{
@@ -88,7 +88,7 @@ function Footer() {
             <Link
               href={{
                 pathname: '/listings/search',
-                query: { query: 'roman%20ridge', page: 1 },
+                query: { query: 'Roman Ridge', page: 1 },
               }}
             >
               Roman Ridge
@@ -109,7 +109,8 @@ function Footer() {
         </SimpleGrid>
         <Divider mt={5} />
         <Text fontSize="sm">
-          Copyright &copy; <span className="year"></span> Talis Africa {new Date().getFullYear()}
+          Copyright &copy; <span className="year"></span> Talis Africa{' '}
+          {new Date().getFullYear()}
         </Text>
       </Container>
     </Box>

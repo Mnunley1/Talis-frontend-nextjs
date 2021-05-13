@@ -29,6 +29,7 @@ export default function HomeView() {
         <video
           autoPlay
           muted
+          playsinline
           loop
           preload
           style={{
