@@ -96,7 +96,7 @@ function Footer() {
           </VStack>
 
           <VStack w="100%" align={['flex-start', 'flex-start', 'center']}>
-            <Text
+            <Box
               textAlign={['flex-start', 'flex-start', 'center']}
               fontSize="14px"
             >
@@ -104,7 +104,7 @@ function Footer() {
               <Text fontSize="sm">8 Sir Arku Korsah Rd</Text>
               <Text fontSize="sm">Airport, Accra, Ghana</Text>
               <Text fontSize="sm">info@talisafrica.com</Text>
-            </Text>
+            </Box>
           </VStack>
         </SimpleGrid>
         <Divider mt={5} />

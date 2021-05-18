@@ -79,6 +79,7 @@ function RequestInfo({ listing }) {
   async function onSubmit(data) {
     if (!currentUser) {
       console.log('Log In!');
+      onOpen();
       return setError('You must log in!');
     }
 
@@ -256,7 +257,7 @@ function RequestInfo({ listing }) {
           <ModalCloseButton />
           <ModalBody textAlign="center">
             {' '}
-            Login or create a new account to save your favorite listings
+            Login or create a new account to send your message
           </ModalBody>
           <ModalFooter mx="auto">
             <Button

@@ -17,29 +17,30 @@ import noImage from '../../public/images/TALIS-IMAGES-COMING-SOON.png';
 export default function ListingCards({
   favorites,
   listings,
+  loading,
   getUserFavorites,
 }) {
   return (
     <>
       {console.log(favorites)}
-      {listings.map((data) => {
+      {listings.map((data, id) => {
         return (
-          <>
-            <Link
-              key={data.id}
-              href={{
-                pathname: '/listings/[slug]/[id]',
-                query: { slug: data.slug, id: data.id },
-              }}
+          <Link
+            key={id}
+            href={{
+              pathname: '/listings/[slug]/[id]',
+              query: { slug: data.slug, id: data.id },
+            }}
+          >
+            <Box
+              borderWidth="1px"
+              borderRadius="lg"
+              overflow="hidden"
+              w="100%"
+              bgColor="white"
+              cursor="pointer"
             >
-              <Box
-                borderWidth="1px"
-                borderRadius="lg"
-                overflow="hidden"
-                w="100%"
-                bgColor="white"
-                cursor="pointer"
-              >
+              <Skeleton isLoaded={!loading}>
                 {!data.mainImage ? (
                   <Image h="200px" w="100%" src={noImage} alt="No Image" />
                 ) : (
@@ -48,6 +49,8 @@ export default function ListingCards({
                     alt={data.mainImage}
                     h="200px"
                     objectFit="cover"
+                    layout="responsive"
+                    loading="priority"
                   />
                 )}
 
@@ -83,12 +86,15 @@ export default function ListingCards({
                     lineHeight="tight"
                     isTruncated
                   >
-                    {data.bedrooms} Beds | <Box as="span" fontWeight="semibold">${data.price}</Box>
+                    {data.bedrooms} Beds |{' '}
+                    <Box as="span" fontWeight="semibold">
+                      ${data.price}
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            </Link>
-          </>
+              </Skeleton>
+            </Box>
+          </Link>
         );
       })}
     </>

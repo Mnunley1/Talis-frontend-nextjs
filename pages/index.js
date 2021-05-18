@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { db } from '../firebase';
@@ -42,6 +42,7 @@ const urlToSearchState = (router) => qs.parse(router.query);
 export default function HomeView() {
   const { register, handleSubmit, watch, errors } = useForm();
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const setStateId = React.useRef();
   const [searchState, setSearchState] = useState(urlToSearchState(router));
@@ -62,6 +63,7 @@ export default function HomeView() {
   }
 
   useEffect(() => {
+    console.log(loading);
     db.collection('fl_content')
       .where('_fl_meta_.schema', '==', 'listings')
       .limit(4)
@@ -74,6 +76,7 @@ export default function HomeView() {
           items.push(data);
         });
         setListings(items);
+        setTimeout(() => setLoading(false), 4000);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -104,8 +107,8 @@ export default function HomeView() {
           autoPlay
           muted
           loop
-          playsinline
-          preload
+          playsInline
+          preload="auto"
           style={{
             position: 'relative',
             width: '100%',
@@ -120,7 +123,6 @@ export default function HomeView() {
           />
         </video>
         <Box
-          as="overlay"
           position="absolute"
           top="0"
           h="100%"
@@ -227,7 +229,7 @@ export default function HomeView() {
               Latest Listings
             </Text>
             <SimpleGrid columns={[1, 1, 2, 4]} spacing={3}>
-              <ListingCards listings={listings} />
+              <ListingCards listings={listings} loading={loading} />
             </SimpleGrid>
             <Button as="a" href="/listings/search" colorScheme="teal" size="md">
               View More

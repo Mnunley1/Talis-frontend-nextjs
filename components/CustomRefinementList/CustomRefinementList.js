@@ -33,12 +33,12 @@ function RefinementList({ values, refine, defaultRefinement }) {
           minWidth="150px"
         >
           {values.map((staticItem) => {
-            const isRefined = defaultRefinement.some(
-              (item) => item === staticItem.value
-            ) || false;
+            const isRefined =
+              defaultRefinement.some((item) => item === staticItem.value) ||
+              false;
             return (
               <MenuItem
-                disableGutters
+                disablegutters="true"
                 key={staticItem.value}
                 value={staticItem.value}
               >
