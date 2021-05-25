@@ -53,6 +53,7 @@ const searchStateToUrl = (router, searchState) =>
 const urlToSearchState = (router) => qs.parse(router.query);
 
 function ListingView({ router }) {
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [filters, setFilters] = useState(false);
   const { currentUser } = useAuth();
@@ -97,6 +98,9 @@ function ListingView({ router }) {
     if (currentUser) {
       getUserFavorites();
     }
+  }, []);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
   }, []);
 
   function onSearchStateChange(nextSearchState) {
@@ -247,6 +251,7 @@ function ListingView({ router }) {
                   <CustomHits
                     favorites={favorites}
                     getUserFavorites={getUserFavorites}
+                    loading={loading}
                   />
                   <Pagination
                     showNext={true}

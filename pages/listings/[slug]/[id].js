@@ -23,6 +23,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
+  Skeleton,
   Spacer,
   useDisclosure,
   Center,
@@ -37,6 +38,7 @@ export default function Listing() {
   const router = useRouter();
   const { currentUser } = useAuth();
   const { id } = router.query;
+  const [loading, setLoading] = useState(true);
   const [listing, setListing] = useState([]);
   const [communityFeatures, setCommunityFeatures] = useState([]);
   const [listingFeatures, setListingFeatures] = useState([]);
@@ -93,6 +95,7 @@ export default function Listing() {
                   .then((url) => {
                     items.push({ original: url });
                     setImages(items);
+                    setTimeout(() => setLoading(false), 4000);
                   });
               });
           });
@@ -119,7 +122,9 @@ export default function Listing() {
       <Navbar />
       <Container maxW="lg" px={[0, 5]}>
         <Box as="section" color="white" h="100%" w="100%" mt="64px">
-          <ListingGallery images={images} />
+          <Skeleton isLoaded={!loading} borderRadius={[0, 25]}>
+            <ListingGallery images={images} />
+          </Skeleton>
         </Box>
         <Box as="section" w="100%" p={5}>
           <HStack direction="row" align="start" color="black">

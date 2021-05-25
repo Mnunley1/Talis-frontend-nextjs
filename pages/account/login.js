@@ -181,6 +181,7 @@ function Signin() {
                   placeholder="example@email.com"
                   size="md"
                   ref={register({ required: 'Please enter your email' })}
+                  autocomplete="on"
                 />
                 <FormErrorMessage>
                   {errors.email && errors.email.message}
@@ -194,6 +195,7 @@ function Signin() {
                   placeholder="*******"
                   size="md"
                   ref={register({ required: 'Please enter your password' })}
+                  autocomplete="on"
                 />
                 <FormErrorMessage>
                   {errors.password && errors.password.message}
