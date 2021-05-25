@@ -99,8 +99,8 @@ export default function HomeView() {
         // bgSize="cover"
         position="relative"
         color="white"
-        height={['50vh', '60vh']}
-        minHeight={['50vh', '60vh']}
+        height={['60vh', '60vh']}
+        minHeight={['60vh', '60vh']}
         mt="64px"
       >
         <video
@@ -142,7 +142,7 @@ export default function HomeView() {
           <Center h="100%" w="100%">
             <VStack align="center" m={1}>
               <Text
-                fontSize="6xl"
+                fontSize={['4xl', '6xl']}
                 fontWeight="700"
                 lineHeight={1}
                 textAlign="center"
@@ -156,10 +156,10 @@ export default function HomeView() {
               <Button
                 as="a"
                 href="/listings/search"
-                bgColor="white"
-                color="teal.500"
+                colorScheme="teal"
+                color="white"
                 size="lg"
-                borderRadius={2}
+                variant="solid"
               >
                 Search Listings
               </Button>
