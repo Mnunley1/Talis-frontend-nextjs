@@ -24,6 +24,7 @@ export default function ListingCards({
     <>
       {console.log(favorites)}
       {listings.map((data, id) => {
+        const listingImage = data.mainImage;
         return (
           <Link
             key={id}
@@ -42,19 +43,27 @@ export default function ListingCards({
             >
               <Skeleton isLoaded={!loading}>
                 {!data.mainImage ? (
-                  <Image boxSize="100%" src={noImage} alt="No Image" />
+                  <Image
+                    boxSize="100%"
+                    src={noImage}
+                    alt="No Image"
+                    objectFit="cover"
+                    layout="responsive"
+                    loading="priority"
+                  />
                 ) : (
                   <Image
                     src={data.mainImage}
                     alt={data.mainImage}
                     boxSize="100%"
+                    h={['225px', '300px', '225px']}
                     objectFit="cover"
                     layout="responsive"
                     loading="priority"
                   />
                 )}
 
-                <Box p="6">
+                <Box p="5">
                   <Box
                     mt="1"
                     fontWeight="semibold"
