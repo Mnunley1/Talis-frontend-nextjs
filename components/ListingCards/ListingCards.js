@@ -42,12 +42,12 @@ export default function ListingCards({
             >
               <Skeleton isLoaded={!loading}>
                 {!data.mainImage ? (
-                  <Image h="200px" w="100%" src={noImage} alt="No Image" />
+                  <Image boxSize="100%" src={noImage} alt="No Image" />
                 ) : (
                   <Image
                     src={data.mainImage}
                     alt={data.mainImage}
-                    h="200px"
+                    boxSize="100%"
                     objectFit="cover"
                     layout="responsive"
                     loading="priority"

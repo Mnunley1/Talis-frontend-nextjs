@@ -5,10 +5,11 @@ import { db } from '../firebase';
 import qs from 'qs';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, Pagination, Stats } from 'react-instantsearch-dom';
-import headerImg from '../public/images/showcaseimage.jpg';
+//import headerImg from '../public/images/showcaseimage.jpg';
 import cardImg1 from '../public/images/blackfam.jpg';
 import cardImg2 from '../public/images/Kitchen.jpg';
 import cardImg3 from '../public/images/familymovingin.jpg';
+import headerImg from '../public/images/DJI_0458.png';
 import ListingCards from '../components/ListingCards/ListingCards';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -105,10 +106,13 @@ export default function HomeView() {
       >
         <video
           autoPlay
+          src="https://res.cloudinary.com/talis-property-management/video/upload/v1617743209/The_Edge_-_Labone_-_Talis_Africa_qfexhh.mp4"
+          type="video/mp4"
           muted
           loop
           playsInline
           preload="auto"
+          poster={headerImg}
           style={{
             position: 'relative',
             width: '100%',
@@ -116,12 +120,7 @@ export default function HomeView() {
             objectFit: 'cover',
             zIndex: '-1',
           }}
-        >
-          <source
-            src="https://res.cloudinary.com/talis-property-management/video/upload/v1617743209/The_Edge_-_Labone_-_Talis_Africa_qfexhh.mp4"
-            type="video/mp4"
-          />
-        </video>
+        />
         <Box
           position="absolute"
           top="0"
