@@ -45,6 +45,7 @@ export default function ListingCards({
                 {!data.mainImage ? (
                   <Image
                     boxSize="100%"
+                    h={['225px', '300px', '225px']}
                     src={noImage}
                     alt="No Image"
                     objectFit="cover"
