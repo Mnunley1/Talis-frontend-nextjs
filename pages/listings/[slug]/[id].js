@@ -120,7 +120,7 @@ export default function Listing() {
   return (
     <div>
       <Navbar />
-      <Container maxW="lg" px={[0, 5]}>
+      <Container maxW="container.lg" px={[0, 5]}>
         <Box as="section" color="white" h="100%" w="100%" mt="64px">
           <Skeleton isLoaded={!loading} borderRadius={[0, 25]}>
             <ListingGallery images={images} />

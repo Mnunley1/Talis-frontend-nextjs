@@ -13,6 +13,7 @@ import headerImg from '../public/images/DJI_0458.png';
 import ListingCards from '../components/ListingCards/ListingCards';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
+//import Image from 'next/image';
 import AutoComplete from '../components/AutoComplete/AutoComplete';
 import {
   Box,
@@ -217,7 +218,7 @@ export default function HomeView() {
       </Box>
 
       <Box as="section" paddingY="60px">
-        <Container maxW="lg" centerContent>
+        <Container maxW="container.lg" centerContent>
           <VStack spacing={8}>
             <Text
               fontSize="3xl"
@@ -238,7 +239,7 @@ export default function HomeView() {
       </Box>
 
       <Box as="section" paddingBottom="20px">
-        <Container maxW="lg" centerContent>
+        <Container maxW="container.lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]}>
             <Box
               bgColor="gray.100"
@@ -263,23 +264,16 @@ export default function HomeView() {
                 </Text>
               </VStack>
             </Box>
-            <Box order={[-1, -1, 'inherit']}>
+            <Box order={[-1, -1, 'inherit']} height="auto" width="100%">
               <Image
-                src={cardImg1}
+                src="/images/blackfam.jpg"
                 alt="Segun Adebayo"
-                height="auto"
-                width="100%"
                 borderTopRightRadius="20px"
                 borderTopLeftRadius={['20px', '20px', '0']}
               />
             </Box>
-            <Box bgColor="gray.100">
-              <Image
-                src={cardImg2}
-                alt="Segun Adebayo"
-                height="auto"
-                width="100%"
-              />
+            <Box bgColor="gray.100" height="auto" width="100%">
+              <Image src="/images/Kitchen.jpg" alt="Segun Adebayo" />
             </Box>
             <Box bgColor="gray.100" height="auto" width="100%" padding={10}>
               <VStack>
@@ -324,12 +318,10 @@ export default function HomeView() {
                 </Text>
               </VStack>
             </Box>
-            <Box>
+            <Box height="auto" width="100%">
               <Image
-                src={cardImg3}
+                src="/images/familymovingin.jpg"
                 alt="Segun Adebayo"
-                height="auto"
-                width="100%"
                 borderBottomRightRadius={['0', '0', '20px']}
               />
             </Box>
@@ -337,7 +329,7 @@ export default function HomeView() {
         </Container>
       </Box>
       <Box as="section" paddingY="40px">
-        <Container maxW="md" centerContent>
+        <Container maxW="container.md" centerContent>
           <Text fontSize="2xl" align="center">
             We are constantly updating listings, so you will never miss out.
           </Text>

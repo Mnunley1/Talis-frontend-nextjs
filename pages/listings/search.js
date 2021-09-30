@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'next/router';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
+import { Box, Container, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
 import qs from 'qs';
 import dynamic from 'next/dynamic';
 import algoliasearch from 'algoliasearch/lite';
@@ -17,7 +18,6 @@ import { PriceNumericMenu } from '../../components/PriceNumericMenu/PriceNumeric
 import { BedsNumericMenu } from '../../components/BedsNumericMenu/BedsNumericMenu';
 import { CustomRefinementList } from '../../components/CustomRefinementList/CustomRefinementList';
 import Navbar from '../../components/Navbar/Navbar';
-import { Box, Container, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
 import SearchFooter from '../../components/SearchFooter/SearchFooter';
 import MobileFilters from '../../components/MobileFilters/MobileFilters';
 //import 'instantsearch.css/themes/algolia.css';
@@ -130,7 +130,7 @@ function ListingView({ router }) {
 
   return (
     <>
-      <Container minW="100%" height="100%" paddingX="0">
+      <Container minWidth="100%" height="100%" paddingX="20px">
         <Navbar />
         <InstantSearch
           indexName={algoliaIndex}
@@ -140,13 +140,13 @@ function ListingView({ router }) {
           createURL={createURL}
         >
           <Container
+            minWidth="100%"
             color="white"
             height="100%"
             paddingX="0"
             marginTop="64px"
-            minW="100%"
           >
-            <Container maxW="xl" padding={4}>
+            <Container minWidth="100%" padding={4}>
               <Flex>
                 <Box width={['100%', '100%', '40%', '35%']}>
                   <AutoComplete />
@@ -188,7 +188,7 @@ function ListingView({ router }) {
               </Flex>
             </Container>
             <Container
-              maxW="xl"
+              minWidth="100%"
               h="calc(100vh - 136px)"
               overflow="hidden"
               paddingBottom={4}

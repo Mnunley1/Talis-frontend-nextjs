@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { db } from '../../firebase';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext';
 import {
@@ -21,7 +22,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Image,
   //Link,
   //Modal,
   Stack,
@@ -160,14 +160,8 @@ function Signin() {
           boxShadow={['xl', 'xl', 'none']}
         >
           <Box textAlign="center">
-            <Box as="a" href="/">
-              <Image
-                src={TalisLogo}
-                h={['35px', '40px', '45px']}
-                w="auto"
-                mx="auto"
-                mb={4}
-              />
+            <Box as="a" href="/" mx="auto" mb={4}>
+              <Image src={TalisLogo} h={['35px', '40px', '45px']} w="auto" />
             </Box>
             <Text fontSize="lg">Create your account to save listings</Text>
           </Box>
@@ -264,7 +258,7 @@ function Signin() {
         w="60%"
         h="100vh"
         bg="rgba(0,255,0,0.2)"
-        bgImage={`linear-gradient(180deg, hsla(184, 100%, 35%, .9) 0%, hsla(198, 100%, 24%, .9) 100%),url("${signupImage}")`}
+        bgImage={`linear-gradient(180deg, hsla(184, 100%, 35%, .9) 0%, hsla(198, 100%, 24%, .9) 100%),url("/images/signupImage.jpeg")`}
         bgRepeat="no-repeat"
         bgPosition="center center"
         bgSize="cover"

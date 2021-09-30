@@ -1,11 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 import {
   Box,
   Button,
   Container,
   Divider,
   Flex,
-  Image,
   Text,
   SimpleGrid,
   Spacer,
@@ -34,7 +34,7 @@ function SearchFooter() {
       <Container maxW="lg">
         <SimpleGrid columns={1} spacing={5}>
           <VStack w="100%" align="flex-start">
-            <Image w="auto" height="35px" src={TalisLogo} alt="Talis Logo" />
+            <Image width={100} height={35} src={TalisLogo} alt="Talis Logo" />
             <Text textAlign="flex-start" fontSize="sm">
               We want to make finding a home in Ghana seamless, transparent and
               enjoyable
