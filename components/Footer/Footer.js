@@ -3,13 +3,13 @@ import {
   Box,
   Container,
   Divider,
-  Image,
   Text,
   SimpleGrid,
   VStack,
 } from '@chakra-ui/react';
 import TalisLogo from '../../public/images/talis-white-logo.svg';
 import Link from 'next/link';
+import Image from 'next/image';
 
 function Footer() {
   return (
@@ -24,13 +24,13 @@ function Footer() {
       py={10}
       mt={5}
     >
-      <Container maxW="lg">
+      <Container maxW="container.lg">
         <SimpleGrid columns={[1, 1, 3]} spacing={5}>
           <VStack
             w={['90%', '70%', '100%']}
             align={['flex-start', 'flex-start', 'center']}
           >
-            <Image w="auto" height="35px" src={TalisLogo} alt="Talis Logo" />
+            <Image height={35} src={TalisLogo} alt="Talis Logo" />
             <Text
               textAlign={['flex-start', 'flex-start', 'center']}
               fontSize="sm"

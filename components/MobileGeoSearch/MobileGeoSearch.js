@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const accessToken = process.env.NEXT_PUBLIC_MAPBOX_KEY;
 const mapMarker = L.icon({
-  iconUrl: talisMarker,
+  iconUrl: '/images/talis-marker.svg',
   iconSize: [38, 95], // size of the icon
   shadowSize: [50, 64], // size of the shadow
   iconAnchor: [22, 94], // point of the icon which will correspond to marker's location

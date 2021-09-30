@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { db } from '../../firebase';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext';
@@ -21,7 +22,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Image,
   //Link,
   //Modal,
   Spacer,
@@ -133,7 +133,7 @@ function Signin() {
         w="60%"
         h="100vh"
         bg="rgba(0,255,0,0.2)"
-        bgImage={`linear-gradient(180deg, hsla(184, 100%, 35%, .9) 0%, hsla(198, 100%, 24%, .9) 100%),url("${loginImage}")`}
+        bgImage={`linear-gradient(180deg, hsla(184, 100%, 35%, .9) 0%, hsla(198, 100%, 24%, .9) 100%),url("/images/loginImage.jpeg")`}
         bgRepeat="no-repeat"
         bgSize="cover"
         color="white"
@@ -165,8 +165,8 @@ function Signin() {
           boxShadow={['xl', 'xl', 'none']}
         >
           <Box textAlign="center">
-            <Box as="a" href="/">
-              <Image src={TalisLogo} h="45px" w="auto" mx="auto" mb={4} />
+            <Box as="a" href="/" mx="auto" mb={4}>
+              <Image src={TalisLogo} h="45px" w="auto" />
             </Box>
             <Text fontSize="lg">Sign into your account</Text>
           </Box>

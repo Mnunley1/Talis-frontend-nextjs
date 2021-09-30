@@ -28,6 +28,8 @@ export default function HomeView() {
       >
         <video
           autoPlay
+          src="https://res.cloudinary.com/talis-property-management/video/upload/v1606326919/heroVideo_timrcm.mp4"
+          type="video/mp4"
           muted
           playsinline
           loop
@@ -39,12 +41,7 @@ export default function HomeView() {
             objectFit: 'cover',
             zIndex: '-1',
           }}
-        >
-          <source
-            src="https://res.cloudinary.com/talis-property-management/video/upload/v1606326919/heroVideo_timrcm.mp4"
-            type="video/mp4"
-          />
-        </video>
+        />
         <Box
           as="overlay"
           position="absolute"
@@ -112,7 +109,7 @@ export default function HomeView() {
         </Container>
       </Box>
 
-      <Box as="section" paddingY="60px">
+      <Box as="section" paddingBottom="60px">
         <Container maxW="lg" centerContent>
           <SimpleGrid columns={[1, 1, 2]} spacing={10}>
             <Box order={[2, 2, 1]}>

@@ -4,12 +4,11 @@ import { connectGeoSearch } from 'react-instantsearch-dom';
 import MapListingInfo from '../MapListingInfo/MapListingInfo';
 import { Box } from '@chakra-ui/react';
 import L from 'leaflet';
-import talisMarker from '../../public/images/talis-marker.svg';
 import 'leaflet/dist/leaflet.css';
 
 const accessToken = process.env.NEXT_PUBLIC_MAPBOX_KEY;
 const mapMarker = L.icon({
-  iconUrl: talisMarker,
+  iconUrl: '/images/talis-marker.svg',
   iconSize: [38, 95], // size of the icon
   shadowSize: [50, 64], // size of the shadow
   iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
