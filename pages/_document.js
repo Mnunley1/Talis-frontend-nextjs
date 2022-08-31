@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-        <script
+          <script
             dangerouslySetInnerHTML={{
               __html: `(function(apiKey){
                 (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
@@ -26,7 +26,7 @@ export default class MyDocument extends Document {
                             // as long as it's not one of the above reserved names.
                         },
                         account: {
-                            id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
+                            id:           'Test-Account' // Highly recommended
                             // name:         // Optional
                             // is_paying:    // Recommended if using Pendo Feedback
                             // monthly_value:// Recommended if using Pendo Feedback
@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
                             // as long as it's not one of the above reserved names.
                         }
                     });
-            })('1a6d2631-b859-4e6f-4466-e2eb2aa9455c');`
+            })('1a6d2631-b859-4e6f-4466-e2eb2aa9455c');`,
             }}
           />
         </Head>
