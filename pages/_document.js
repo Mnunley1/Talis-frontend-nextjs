@@ -6,25 +6,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicons/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="http://localhost:3000/public/favicons/favicon-16x16.png"
-          />
-          <link
-            rel="mask-icon"
-            href="http://localhost:3000/public/favicons/safari-pinned-tab.svg"
-            color="#00a3b0"
-          />
-          <meta name="msapplication-TileColor" content="#ffffff" />
-          <meta name="theme-color" content="#ffffff" />
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(apiKey){
@@ -45,7 +26,7 @@ export default class MyDocument extends Document {
                             // as long as it's not one of the above reserved names.
                         },
                         account: {
-                            id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
+                            id:           'Test-Account' // Highly recommended
                             // name:         // Optional
                             // is_paying:    // Recommended if using Pendo Feedback
                             // monthly_value:// Recommended if using Pendo Feedback
