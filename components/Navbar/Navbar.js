@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import Modal from 'react-modal';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   Box,
@@ -16,7 +17,6 @@ import {
   Flex,
   Heading,
   IconButton,
-  Image,
   Link,
   Menu,
   MenuButton,
@@ -78,7 +78,7 @@ const Navbar = () => {
       zIndex="500"
     >
       <Box as="a" href="/">
-        <Image src={TalisLogo} height="25px" width="auto" />
+        <Image src={TalisLogo} height={25} width={125} />
       </Box>
       <Spacer />
       {currentUser ? (
@@ -93,12 +93,12 @@ const Navbar = () => {
             />
           </MenuButton>
           <MenuList>
-            <Box as="a" href="/MyTalis/profile">
+            <Box as="a" href="/myTalis/profile">
               <MenuItem>
                 <Text fontSize="lg">Profile</Text>
               </MenuItem>
             </Box>
-            <Box as="a" href="/MyTalis/favorite-listings">
+            <Box as="a" href="/myTalis/favorite-listings">
               <MenuItem>
                 <Text fontSize="lg">Favorite Listings</Text>
               </MenuItem>
@@ -147,7 +147,7 @@ const Navbar = () => {
           <DrawerContent bg="black" opacity="90%" color="white">
             <DrawerCloseButton />
             <DrawerHeader>
-              <Image src={TalisMenuLogo} height="35px" width="auto" />
+              <Image src={TalisMenuLogo} height={35} width={30} />
             </DrawerHeader>
 
             <DrawerBody>
@@ -172,9 +172,9 @@ const Navbar = () => {
               <VStack spacing={3} align="flex-start">
                 {currentUser ? (
                   <>
-                    <Box as="a" href="/MyTalis/profile">
+                    <Box as="a" href="/myTalis/profile">
                       <Text fontSize="lg" _hover={{ color: '#00A3B0' }}>
-                        MyTalis
+                        myTalis
                       </Text>
                     </Box>
                     <Box

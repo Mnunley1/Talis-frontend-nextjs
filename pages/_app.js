@@ -11,7 +11,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <React.Fragment>
       <Head>
-        <title>Talis</title>
+        <title>Talis | Luxury Properties For Rent In Accra, Ghana</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

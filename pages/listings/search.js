@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'next/router';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
+import { Box, Container, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
 import qs from 'qs';
 import dynamic from 'next/dynamic';
 import algoliasearch from 'algoliasearch/lite';
@@ -17,13 +18,13 @@ import { PriceNumericMenu } from '../../components/PriceNumericMenu/PriceNumeric
 import { BedsNumericMenu } from '../../components/BedsNumericMenu/BedsNumericMenu';
 import { CustomRefinementList } from '../../components/CustomRefinementList/CustomRefinementList';
 import Navbar from '../../components/Navbar/Navbar';
-import { Box, Container, Flex, HStack, Spacer, Text } from '@chakra-ui/react';
 import SearchFooter from '../../components/SearchFooter/SearchFooter';
 import MobileFilters from '../../components/MobileFilters/MobileFilters';
 //import 'instantsearch.css/themes/algolia.css';
 
 const algoliaId = process.env.NEXT_PUBLIC_ALGOLIA_ID;
 const searchKey = process.env.NEXT_PUBLIC_SEARCH_KEY;
+const algoliaIndex = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
 const searchClient = algoliasearch(algoliaId, searchKey);
 
 const Map = dynamic(
@@ -52,6 +53,7 @@ const searchStateToUrl = (router, searchState) =>
 const urlToSearchState = (router) => qs.parse(router.query);
 
 function ListingView({ router }) {
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [filters, setFilters] = useState(false);
   const { currentUser } = useAuth();
@@ -97,6 +99,9 @@ function ListingView({ router }) {
       getUserFavorites();
     }
   }, []);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
 
   function onSearchStateChange(nextSearchState) {
     clearTimeout(setStateId.current);
@@ -125,25 +130,27 @@ function ListingView({ router }) {
 
   return (
     <>
-      <Container minW="100%" height="100%" paddingX="0">
+      <Container minWidth="100%" height="100%" paddingX="20px">
         <Navbar />
         <InstantSearch
-          indexName="Talis_Development"
+          indexName={algoliaIndex}
           searchClient={searchClient}
           searchState={searchState}
           onSearchStateChange={onSearchStateChange}
           createURL={createURL}
         >
           <Container
+            minWidth="100%"
             color="white"
             height="100%"
             paddingX="0"
             marginTop="64px"
-            minW="100%"
           >
-            <Container maxW="xl" padding={4}>
+            <Container minWidth="100%" padding={4}>
               <Flex>
-                <AutoComplete />
+                <Box width={['100%', '100%', '40%', '35%']}>
+                  <AutoComplete />
+                </Box>
                 {/* <CustomSearchBox /> */}
                 <PriceNumericMenu
                   attribute="price"
@@ -181,7 +188,7 @@ function ListingView({ router }) {
               </Flex>
             </Container>
             <Container
-              maxW="xl"
+              minWidth="100%"
               h="calc(100vh - 136px)"
               overflow="hidden"
               paddingBottom={4}
@@ -216,26 +223,26 @@ function ListingView({ router }) {
                     />
                     <Spacer />
                     <CustomSortBy
-                      defaultRefinement="Talis_Development"
+                      defaultRefinement={algoliaIndex}
                       items={[
                         {
-                          value: 'Talis_Development',
+                          value: `${algoliaIndex}`,
                           label: 'Featured',
                         },
                         {
-                          value: 'Talis_Development_price_desc',
+                          value: `${algoliaIndex}_price_desc`,
                           label: 'Price (High to Low)',
                         },
                         {
-                          value: 'Talis_Development_price_asc',
+                          value: `${algoliaIndex}_price_asc`,
                           label: 'Price (Low to High)',
                         },
                         {
-                          value: 'Talis_Development_bedrooms_desc',
+                          value: `${algoliaIndex}_bedrooms_desc`,
                           label: 'Bedrooms',
                         },
                         {
-                          value: 'Talis_Development_bathrooms_desc',
+                          value: `${algoliaIndex}_bathrooms_desc`,
                           label: 'Bathrooms',
                         },
                       ]}
@@ -244,6 +251,7 @@ function ListingView({ router }) {
                   <CustomHits
                     favorites={favorites}
                     getUserFavorites={getUserFavorites}
+                    loading={loading}
                   />
                   <Pagination
                     showNext={true}

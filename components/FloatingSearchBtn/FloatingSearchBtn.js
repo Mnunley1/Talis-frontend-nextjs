@@ -27,6 +27,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
+const algoliaIndex = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
+
 function SortBy({ items, refine, createURL }) {
   return (
     <Menu>
@@ -79,26 +81,26 @@ const FloatingSearchBtn = ({ customClick, visible, bedrooms, onCLick }) => {
         </Button>
         <Button onClick={onCLick}>Filters</Button>
         <CustomSortBy
-          defaultRefinement="Talis_Development"
+          defaultRefinement={algoliaIndex}
           items={[
             {
-              value: 'Talis_Development',
+              value: `${algoliaIndex}`,
               label: 'Featured',
             },
             {
-              value: 'Talis_Development_price_desc',
+              value: `${algoliaIndex}_price_desc`,
               label: 'Price (High to Low)',
             },
             {
-              value: 'Talis_Development_price_asc',
+              value: `${algoliaIndex}_price_asc`,
               label: 'Price (Low to High)',
             },
             {
-              value: 'Talis_Development_bedrooms_desc',
+              value: `${algoliaIndex}_bedrooms_desc`,
               label: 'Bedrooms',
             },
             {
-              value: 'Talis_Development_bathrooms_desc',
+              value: `${algoliaIndex}_bathrooms_desc`,
               label: 'Bathrooms',
             },
           ]}

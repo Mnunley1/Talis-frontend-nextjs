@@ -8,46 +8,54 @@ import {
   IconButton,
   Icon,
   Image,
+  Skeleton,
   Spacer,
   Text,
 } from '@chakra-ui/react';
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
 import Link from 'next/link';
+import noImage from '../../public/images/TALIS-IMAGES-COMING-SOON.png';
 
-function Hits({ hits, favorites, getUserFavorites }) {
+function Hits({ hits, favorites, getUserFavorites, loading }) {
   return (
     <>
-      {hits.length > 0 ? (
-        <ol>
-          {hits.map((hit) => (
-            <Link
-              href={{
-                pathname: '[slug]/[id]',
-                query: { slug: hit.slug, id: hit.objectID },
+      <ol>
+        {hits.map((hit, id) => (
+          <Link
+            key={id}
+            href={{
+              pathname: '[slug]/[id]',
+              query: { slug: hit.slug, id: hit.objectID },
+            }}
+            //as={`listings/${hit.title}`}
+          >
+            <Box
+              w="100%"
+              borderWidth="2px"
+              borderRadius="lg"
+              overflow="hidden"
+              boxShadow="base"
+              marginBottom={5}
+              _hover={{
+                border: '2px solid #00A3B0',
+                boxShadow: '0 3px 10px 0 rgba(0,0,0,.25)',
+                transition: 'border ease-in .1s',
               }}
-              //as={`listings/${hit.title}`}
+              zIndex="1"
+              cursor="pointer"
             >
-              <Box
-                w="100%"
-                borderWidth="2px"
-                borderRadius="lg"
-                overflow="hidden"
-                boxShadow="base"
-                marginBottom={5}
-                _hover={{
-                  border: '2px solid #00A3B0',
-                  boxShadow: '0 3px 10px 0 rgba(0,0,0,.25)',
-                  transition: 'border ease-in .1s',
-                }}
-                zIndex="1"
-              >
-                <Image
-                  h="250px"
-                  w="100%"
-                  src={hit.photo_main}
-                  alt={hit.photo_main}
-                />
+              <Skeleton isLoaded={!loading}>
+                {!hit.photo_main ? (
+                  <Image h="250px" w="100%" src={noImage} alt="No Image" />
+                ) : (
+                  <Image
+                    h="250px"
+                    w="100%"
+                    src={hit.photo_main}
+                    alt={hit.photo_main}
+                  />
+                )}
 
                 <Box p="6">
                   <Box d="flex" alignItems="baseline">
@@ -95,7 +103,7 @@ function Hits({ hits, favorites, getUserFavorites }) {
                   </Box>
 
                   <Box color="black" fontWeight="bold" fontSize="md">
-                    {hit.price}
+                    ${hit.price}
                     <Box
                       as="span"
                       color="gray.500"
@@ -110,17 +118,11 @@ function Hits({ hits, favorites, getUserFavorites }) {
 
                   <Box d="flex" mt="2" alignItems="center"></Box>
                 </Box>
-              </Box>
-            </Link>
-          ))}
-        </ol>
-      ) : (
-        <Center>
-          <Text color="black" fontSize="xl" mb={3}>
-            No results matching your search
-          </Text>
-        </Center>
-      )}
+              </Skeleton>
+            </Box>
+          </Link>
+        ))}
+      </ol>
     </>
   );
 }

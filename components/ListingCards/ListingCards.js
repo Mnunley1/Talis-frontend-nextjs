@@ -1,7 +1,9 @@
 import React from 'react';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import {
   Box,
   Image,
+  Spacer,
   Skeleton,
   SkeletonCircle,
   SkeletonText,
@@ -10,35 +12,59 @@ import {
   useRemoteData,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import noImage from '../../public/images/TALIS-IMAGES-COMING-SOON.png';
 
-export default function ListingCards(props) {
+export default function ListingCards({
+  favorites,
+  listings,
+  loading,
+  getUserFavorites,
+}) {
   return (
     <>
-      {props.data.map((data) => {
+      {console.log(favorites)}
+      {listings.map((data, id) => {
+        const listingImage = data.mainImage;
         return (
-          <>
-            <Link
-              key={data.id}
-              href={{
-                pathname: '/listings/[slug]/[id]',
-                query: { slug: data.slug, id: data.id },
-              }}
+          <Link
+            key={id}
+            href={{
+              pathname: '/listings/[slug]/[id]',
+              query: { slug: data.slug, id: data.id },
+            }}
+          >
+            <Box
+              borderWidth="1px"
+              borderRadius="lg"
+              overflow="hidden"
+              w="100%"
+              bgColor="white"
+              cursor="pointer"
             >
-              <Box
-                borderWidth="1px"
-                borderRadius="lg"
-                overflow="hidden"
-                w="100%"
-                bgColor="white"
-              >
-                <Image
-                  src={data.mainImage}
-                  alt={data.mainImage}
-                  h="200px"
-                  objectFit="cover"
-                />
+              <Skeleton isLoaded={!loading}>
+                {!data.mainImage ? (
+                  <Image
+                    boxSize="100%"
+                    h={['225px', '300px', '225px']}
+                    src={noImage}
+                    alt="No Image"
+                    objectFit="cover"
+                    layout="responsive"
+                    loading="priority"
+                  />
+                ) : (
+                  <Image
+                    src={data.mainImage}
+                    alt={data.mainImage}
+                    boxSize="100%"
+                    h={['225px', '300px', '225px']}
+                    objectFit="cover"
+                    layout="responsive"
+                    loading="priority"
+                  />
+                )}
 
-                <Box p="6">
+                <Box p="5">
                   <Box
                     mt="1"
                     fontWeight="semibold"
@@ -47,6 +73,12 @@ export default function ListingCards(props) {
                     isTruncated
                   >
                     {data.title}
+                    <Spacer />
+                    <FavoriteButton
+                      listingID={data.id}
+                      favorites={favorites}
+                      getUserFavorites={getUserFavorites}
+                    />
                   </Box>
                   <Box
                     mt="1"
@@ -55,7 +87,7 @@ export default function ListingCards(props) {
                     lineHeight="tight"
                     isTruncated
                   >
-                    {data.address}
+                    {data.community}
                   </Box>
                   <Box
                     mt="1"
@@ -66,13 +98,13 @@ export default function ListingCards(props) {
                   >
                     {data.bedrooms} Beds |{' '}
                     <Box as="span" fontWeight="semibold">
-                      {data.price}
+                      ${data.price}
                     </Box>
                   </Box>
                 </Box>
-              </Box>
-            </Link>
-          </>
+              </Skeleton>
+            </Box>
+          </Link>
         );
       })}
     </>

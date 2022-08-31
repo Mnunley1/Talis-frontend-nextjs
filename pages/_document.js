@@ -26,7 +26,7 @@ export default class MyDocument extends Document {
                             // as long as it's not one of the above reserved names.
                         },
                         account: {
-                            id:           'Test-Account' // Highly recommended
+                            id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
                             // name:         // Optional
                             // is_paying:    // Recommended if using Pendo Feedback
                             // monthly_value:// Recommended if using Pendo Feedback

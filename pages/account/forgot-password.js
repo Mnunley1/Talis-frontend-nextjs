@@ -14,7 +14,6 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Heading,
   Input,
   Image,
   Link,
@@ -103,7 +102,9 @@ function Signin() {
         mT="auto"
       >
         <Box textAlign="center">
-          <Image src={TalisLogo} h="45px" w="auto" mx="auto" mb={4} />
+          <Box as="a" href="/">
+            <Image src={TalisLogo} h="45px" w="auto" mx="auto" mb={4} />
+          </Box>
           <Text fontSize="lg">Enter your email to reset password</Text>
         </Box>
         <Box my={4} textAlign="left">

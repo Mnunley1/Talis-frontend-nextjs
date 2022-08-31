@@ -72,8 +72,9 @@ const Bedrooms = ({ items, refine, createURL, defaultRefinement }) => {
   return (
     <RadioGroup defaultValue={defaultLabel} value={defaultLabel}>
       <Stack direction="row">
-        {items.map((item) => (
+        {items.map((item, id) => (
           <a
+            key={id}
             href={createURL(item.value)}
             style={{ fontWeight: item.isRefined ? 'bold' : '' }}
             onChange={(event) => {
@@ -96,12 +97,12 @@ const BedroomsMenu = connectNumericMenu(Bedrooms);
 function RefinementList({ values, refine, defaultRefinement }) {
   return (
     <VStack align="start">
-      {values.map((staticItem) => {
+      {values.map((staticItem, id) => {
         const isRefined =
           defaultRefinement.some((item) => item === staticItem.value) || false;
         return (
-          <CheckboxGroup disableGutters>
-            <div key={staticItem.value} value={staticItem.value}>
+          <CheckboxGroup key={id} disablegutters="true">
+            <Box value={staticItem.value}>
               <Checkbox
                 colorScheme="teal"
                 value={staticItem.value}
@@ -116,7 +117,7 @@ function RefinementList({ values, refine, defaultRefinement }) {
               >
                 <Text color="black">{staticItem.label}</Text>
               </Checkbox>
-            </div>
+            </Box>
           </CheckboxGroup>
         );
       })}

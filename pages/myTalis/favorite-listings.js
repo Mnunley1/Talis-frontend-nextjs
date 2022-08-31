@@ -7,34 +7,48 @@ import Navbar from '../../components/Navbar/Navbar';
 import ListingCards from '../../components/ListingCards/ListingCards';
 import {
   Box,
-  Button,
   Center,
-  Container,
   Divider,
   Flex,
-  FormLabel,
-  Image,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
   Text,
-  Textarea,
-  Select,
   SimpleGrid,
   Spinner,
   StackDivider,
-  Stack,
   VStack,
 } from '@chakra-ui/react';
 
-export default function HomeView() {
+export default function favavoritesPage() {
   const router = useRouter();
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   const getUserFavorites = () => {
+    if (currentUser) {
+      var docRef = db.collection('users').where('id', '==', currentUser.uid);
+      console.log(docRef);
+
+      docRef
+        .get()
+        .then((querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            const data = doc.data().favoriteListings;
+            console.log(data);
+            data.map((item) => items.push(item));
+            //items.push(data);
+          });
+          setFavorites(items);
+        })
+        .catch(function (error) {
+          console.log('Error getting documents: ', error);
+        });
+    }
+  };
+
+  const setFavoriteListings = () => {
     const id = currentUser.uid;
     var docRef = db.collection('users').doc(id);
 
@@ -50,7 +64,7 @@ export default function HomeView() {
                 .get()
                 .then((doc) => doc.data());
             })
-          ).then((items) => setFavorites(items));
+          ).then((items) => setListings(items));
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -65,11 +79,12 @@ export default function HomeView() {
     if (!currentUser) {
       router.push('/account/login');
     } else {
+      setFavoriteListings();
       getUserFavorites();
       setLoading(false);
     }
   }, []);
-
+  console.log(favorites);
   return (
     <div>
       <Navbar />
@@ -107,10 +122,10 @@ export default function HomeView() {
                 <Box>
                   <Text fontSize="lg">Welcome User!</Text>
                 </Box>
-                <Box as="a" href="/MyTalis/profile">
+                <Box as="a" href="/myTalis/profile">
                   <Text fontSize="lg">Profile</Text>
                 </Box>
-                <Box as="a" href="/MyTalis/favorite-listings">
+                <Box as="a" href="/myTalis/favorite-listings">
                   <Text fontSize="lg">Favorite Listings</Text>
                 </Box>
               </VStack>
@@ -127,8 +142,12 @@ export default function HomeView() {
               <Flex color="black">
                 <Box w="100%" pt={5}>
                   {favorites ? (
-                    <SimpleGrid columns={[1, 1, 2, 3]} spacing={2}>
-                      <ListingCards data={favorites} />
+                    <SimpleGrid columns={[1, 1, 2, 4]} spacing={2}>
+                      <ListingCards
+                        getUserFavorites={getUserFavorites}
+                        favorites={favorites}
+                        listings={listings}
+                      />
                     </SimpleGrid>
                   ) : (
                     <Text>You have not saved any properties</Text>

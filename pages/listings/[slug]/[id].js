@@ -1,50 +1,73 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useAuth } from '../../../contexts/AuthContext';
 import { db, storage } from '../../../firebase';
 import Footer from '../../../components/Footer/Footer';
 import Navbar from '../../../components/Navbar/Navbar';
 import ListingGallery from '../../../components/ListingGallery/ListingGallery';
 import RequestInfo from '../../../components/RequestInfo/RequestInfo';
-import ScheduleTour from '../../../components/ScheduleTour/ScheduleTour';
+import FavoriteButton from '../../../components/FavoriteButton/FavoriteButton';
 import {
   Box,
   Button,
   Container,
-  Flex,
-  Heading,
   HStack,
   Icon,
-  Image,
+  List,
+  ListItem,
+  ListIcon,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Text,
-  SimpleGrid,
+  Skeleton,
   Spacer,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   useDisclosure,
-  VStack,
   Center,
 } from '@chakra-ui/react';
 import { FaRulerCombined } from 'react-icons/fa';
 import { FaBath } from 'react-icons/fa';
 import { FaBed } from 'react-icons/fa';
+import { FaRegCheckCircle } from 'react-icons/fa';
 
 export default function Listing() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const { currentUser } = useAuth();
   const { id } = router.query;
+  const [loading, setLoading] = useState(true);
   const [listing, setListing] = useState([]);
+  const [communityFeatures, setCommunityFeatures] = useState([]);
+  const [listingFeatures, setListingFeatures] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [images, setImages] = useState([]);
-  //console.log(id);
+
+  const getUserFavorites = () => {
+    if (currentUser) {
+      var docRef = db.collection('users').where('id', '==', currentUser.uid);
+      console.log(docRef);
+
+      docRef
+        .get()
+        .then((querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            const data = doc.data().favoriteListings;
+            console.log(data);
+            data.map((item) => items.push(item));
+            //items.push(data);
+          });
+          setFavorites(items);
+        })
+        .catch(function (error) {
+          console.log('Error getting documents: ', error);
+        });
+    }
+  };
 
   useEffect(() => {
     var docRef = db.collection('fl_content').doc(id);
@@ -54,7 +77,11 @@ export default function Listing() {
       .then((doc) => {
         const items = [];
         if (doc.exists) {
-          setListing(doc.data());
+          const data = doc.data();
+          console.log(data);
+          setListing(data);
+          setListingFeatures(data.listingFeatures);
+          setCommunityFeatures(data.communityFeatures);
           //console.log(doc.data().listingImages);
           doc.data().listingImages.forEach((item) => {
             //items.push(item.path);
@@ -68,6 +95,7 @@ export default function Listing() {
                   .then((url) => {
                     items.push({ original: url });
                     setImages(items);
+                    setTimeout(() => setLoading(false), 4000);
                   });
               });
           });
@@ -81,51 +109,59 @@ export default function Listing() {
       });
   }, []);
 
-  console.log(images.length);
-  console.log(images);
+  useEffect(() => {
+    if (currentUser) {
+      getUserFavorites();
+    }
+  }, []);
+
+  console.log(listingFeatures);
+  console.log(listing);
   return (
     <div>
       <Navbar />
-      <Container maxW="lg" px={[0, 5]}>
+      <Container maxW="container.lg" px={[0, 5]}>
         <Box as="section" color="white" h="100%" w="100%" mt="64px">
-          <ListingGallery images={images} />
+          <Skeleton isLoaded={!loading} borderRadius={[0, 25]}>
+            <ListingGallery images={images} />
+          </Skeleton>
         </Box>
         <Box as="section" w="100%" p={5}>
-          <Flex color="black">
+          <HStack direction="row" align="start" color="black">
             <Box w={['100%', '100%', '60%']}>
-              <Text fontSize="4xl" fontWeight="700">
+              <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
                 <HStack>
                   <Box>{listing.title}</Box>
                   <Spacer />
-                  <Box fontSize="3xl">
-                    {listing.price}{' '}
-                    <Box
-                      as="span"
-                      color="#4e4e4e"
-                      fontWeight="normal"
-                      letterSpacing="wide"
-                      fontSize="xs"
-                      textTransform="uppercase"
-                    >
-                      / month
-                    </Box>
-                  </Box>
                 </HStack>
               </Text>
-              <Box fontSize="lg" fontWeight="300">
-                {listing.address} | {listing.neighborhood}
-              </Box>
-              <Box fontSize="lg" fontWeight="300" mt={5} color="#4e4e4e">
-                <Icon as={FaBed} w={4} h={4} mr={2} />
-                {listing.bedrooms} Beds
-                <Icon as={FaBath} w={4} h={4} mx={2} />
-                {listing.bathrooms} Baths
-                <Icon as={FaRulerCombined} w={4} h={4} mx={2} />
-                {listing.squareFeet} sqm
+              <Box>
+                <HStack>
+                  <Box fontSize={['lg', 'lg', 'xl']}>
+                    ${listing.price}/month
+                  </Box>
+                  <Spacer />
+                </HStack>
+                <Box fontSize="lg" fontWeight="300" color="#4e4e4e">
+                  <Icon as={FaBed} w={4} h={4} mr={2} />
+                  {listing.bedrooms} Beds
+                  <Icon as={FaBath} w={4} h={4} mx={2} />
+                  {listing.bathrooms} Baths
+                  <Icon as={FaRulerCombined} w={4} h={4} mx={2} />
+                  {listing.squareFeet} sqm
+                </Box>
+                <Box fontSize="xl" mt={4}>
+                  <FavoriteButton
+                    listingID={id}
+                    favorites={favorites}
+                    getUserFavorites={getUserFavorites}
+                  />{' '}
+                  Add to favorites
+                </Box>
               </Box>
 
-              <Box mt={8}>
-                <Text fontSize="xl" fontWeight="700">
+              <Box mt={4}>
+                <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
                   Description
                 </Text>
                 <Box fontSize="lg" fontWeight="300">
@@ -133,14 +169,39 @@ export default function Listing() {
                 </Box>
               </Box>
               <Box mt={8}>
-                <Text fontSize="xl" fontWeight="700">
-                  Listing Details
+                <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
+                  Listing Features
                 </Text>
+                <List spacing={3}>
+                  {listingFeatures.map((item) => {
+                    return (
+                      <ListItem fontSize="lg" fontWeight="300">
+                        <ListIcon as={FaRegCheckCircle} color="teal.500" />
+                        {item}
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              </Box>
+              <Box mt={8}>
+                <Text fontSize={['lg', 'lg', 'xl']} fontWeight="700">
+                  Community Features
+                </Text>
+                <List spacing={3}>
+                  {communityFeatures.map((item, i) => {
+                    return (
+                      <ListItem key={i} fontSize="lg" fontWeight="300">
+                        <ListIcon as={FaRegCheckCircle} color="teal.500" />
+                        {item}
+                      </ListItem>
+                    );
+                  })}
+                </List>
               </Box>
             </Box>
             <Box
               w="40%"
-              display={['none', 'none', 'block']}
+              display={['none', 'none', 'inline-block']}
               boxShadow="lg"
               rounded="lg"
               border="1px"
@@ -148,9 +209,9 @@ export default function Listing() {
               p={5}
               ml={5}
             >
-              <RequestInfo />
+              <RequestInfo listing={listing} />
             </Box>
-          </Flex>
+          </HStack>
         </Box>
       </Container>
       <Box mb={['54px', '54px', '0']}>
@@ -180,7 +241,7 @@ export default function Listing() {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody p={5}>
-            <RequestInfo />
+            <RequestInfo onClose={onClose} listing={listing} />
           </ModalBody>
         </ModalContent>
       </Modal>
